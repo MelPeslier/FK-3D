@@ -6,13 +6,11 @@ extends CharacterBody3D
 @export_subgroup("Movements")
 @export var gravity: float
 @export var jump_strength: float
-@export var accel_coef: float
 @export var run_speed: float
 @export var walk_speed: float
-@export var decel_coef: float
-@export_range(0.1, 10.0, 0.1) var ground_stop_coef: float
-@export_range(0.1, 10.0, 0.1) var air_stop_coef: float
-@export_range(0.1, 25.0, 0.1) var change_direction_speed: float
+@export var accel: float
+@export var ground_decel: float
+@export var air_decel: float
 
 @export_group("JUICE")
 @export_subgroup("Head movements")
@@ -32,8 +30,7 @@ extends CharacterBody3D
 ### PHYSICS
 # Movements PHYSICS
 var speed: float = 0
-var max_speed: float = 0
-var old_direction := Vector3.ZERO
+var direction := Vector3.ZERO
 
 
 ### JUICE
@@ -68,27 +65,27 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_strength
 	
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var next_direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if Input.is_action_pressed("run"):
-		max_speed = run_speed
-	else:
-		max_speed = walk_speed
 	
 	if is_on_floor():
-		if direction:
-			_change_speed(delta, max_speed, accel_coef)
-			
-			old_direction = old_direction.lerp(direction, delta * change_direction_speed)
-			
-			velocity.x = old_direction.x * speed
-			velocity.z = old_direction.z * speed
+		# Speed
+		if Input.is_action_pressed("run"):
+			speed = run_speed
+		else:
+			speed = walk_speed
+		
+		# Direction
+		if next_direction:
+			direction = _update_direction(delta, next_direction, accel)
 			
 		else:
-			_change_speed(delta, 0, decel_coef)
-			_decelerate(delta, ground_stop_coef)
+			direction = _update_direction(delta, Vector3.ZERO, ground_decel)
+		
 	else:
-		_decelerate(delta, air_stop_coef)
+		direction = _update_direction(delta, Vector3.ZERO, air_decel)
+	
+	_update_velocity()
 	
 	move_and_slide()
 
@@ -110,15 +107,14 @@ func _process(delta: float) -> void:
 #****************************
 # PHYSICS functions
 #****************************
+func _update_direction(delta: float, target_direction: Vector3, coef: float) -> Vector3:
+	var new_direction = direction.lerp(target_direction, delta * coef)
+	return new_direction
 
 
-func _decelerate(delta: float, coef: float) -> void:
-	velocity.x = lerp(velocity.x, old_direction.x * speed, delta * coef)
-	velocity.z = lerp(velocity.z, old_direction.z * speed, delta * coef)
-
-
-func _change_speed(delta: float, target_speed: float, coef: float) -> void:
-	speed = lerpf(speed, target_speed, delta * coef)
+func _update_velocity() -> void:
+	velocity.x = direction.x * speed
+	velocity.z = direction.z * speed
 
 
 
