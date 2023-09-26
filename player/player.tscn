@@ -12,6 +12,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 size = Vector3(0.2, 0.1, 0.5)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head")]
+transform = Transform3D(0.279494, 0, -0.960147, 0, 1, 0, 0.960147, 0, 0.279494, 0, 0, 0)
 script = ExtResource("1_7mmfg")
 gravity = 10.0
 jump_strength = 4.5
@@ -21,6 +22,7 @@ walk_speed = 5.0
 decel_coef = 10.0
 ground_stop_coef = 7.0
 air_stop_coef = 3.0
+change_direction_speed = 5.8
 camera = NodePath("Head/Camera3D")
 sensitivity = 0.005
 head = NodePath("Head")
@@ -32,7 +34,7 @@ fov_min = 0.5
 fov_max = 16.0
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+transform = Transform3D(0.393717, 0, 0.919232, 0, 1, 0, -0.919232, 0, 0.393717, 0, 2.2, 0)
 script = ExtResource("3_fi87n")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
