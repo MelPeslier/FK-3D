@@ -12,7 +12,7 @@ extends CharacterBody3D
 @export var decel_coef: float
 @export_range(0.1, 10.0, 0.1) var ground_stop_coef: float
 @export_range(0.1, 10.0, 0.1) var air_stop_coef: float
-@export_range(0.1, 100.0, 0.1) var change_direction_speed: float
+@export_range(0.1, 25.0, 0.1) var change_direction_speed: float
 
 @export_group("JUICE")
 @export_subgroup("Head movements")
@@ -80,8 +80,6 @@ func _physics_process(delta: float) -> void:
 			_change_speed(delta, max_speed, accel_coef)
 			
 			old_direction = old_direction.lerp(direction, delta * change_direction_speed)
-			print("from %s to %s" % [str(old_direction), str(direction)])
-			print(old_direction.lerp(direction, delta * change_direction_speed))
 			
 			velocity.x = old_direction.x * speed
 			velocity.z = old_direction.z * speed
@@ -108,7 +106,11 @@ func _process(delta: float) -> void:
 	# Body / Hands
 
 
-### PHYSICS functions
+
+#****************************
+# PHYSICS functions
+#****************************
+
 
 func _decelerate(delta: float, coef: float) -> void:
 	velocity.x = lerp(velocity.x, old_direction.x * speed, delta * coef)
@@ -119,7 +121,11 @@ func _change_speed(delta: float, target_speed: float, coef: float) -> void:
 	speed = lerpf(speed, target_speed, delta * coef)
 
 
-### JUICE functions
+
+#****************************
+# JUICE functions
+#****************************
+
 
 func _head_juice(time: float) -> Vector3:
 	var pos = Vector3.ZERO
