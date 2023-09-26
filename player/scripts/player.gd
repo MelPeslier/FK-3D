@@ -12,11 +12,10 @@ extends CharacterBody3D
 @export_subgroup("Movements")
 @export var gravity: float
 @export var jump_strength: float
-@export var accel: float
-@export var max_speed: float
-@export var sprint_speed: float
+@export var accel_coef: float
+@export var run_speed: float
 @export var walk_speed: float
-@export var decel: float
+@export var decel_coef: float
 @export_range(0.1, 10.0, 0.1) var ground_stop_coef: float
 @export_range(0.1, 10.0, 0.1) var air_stop_coef: float
 
@@ -35,11 +34,10 @@ extends CharacterBody3D
 @export var fov_max: float
 
 
-
-
 ### PHYSICS
 # Movements PHYSICS
 var speed: float = 0
+var max_speed: float = 0
 var old_direction := Vector3.ZERO
 
 
@@ -78,23 +76,21 @@ func _physics_process(delta: float) -> void:
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if Input.is_action_pressed("run"):
-		max_speed = sprint_speed
+		max_speed = run_speed
 	else:
 		max_speed = walk_speed
 	
 	if is_on_floor():
 		if direction:
-			speed = min(speed + accel * delta, max_speed)
+			speed = lerpf(speed, max_speed, delta * accel_coef)
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
-			
 			old_direction = direction
 			
 		else:
-			speed = max(0, speed - decel * delta)
+			speed = lerpf(speed, 0, delta * decel_coef)
 			velocity.x = lerp(velocity.x, old_direction.x * speed, delta * ground_stop_coef)
 			velocity.z = lerp(velocity.z, old_direction.z * speed, delta * ground_stop_coef)
-		#print("\n speed: %.2f  |  accel : %.2f  |  decel : %.2f" % [speed, accel, decel])
 	else:
 		velocity.x = lerp(velocity.x, old_direction.x * speed, delta * air_stop_coef)
 		velocity.z = lerp(velocity.z, old_direction.z * speed, delta * air_stop_coef)
@@ -118,12 +114,8 @@ func _process(delta: float) -> void:
 
 ### JUICE functions
 
-
 func head_juice(time: float) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * head_frequency) * head_amplitude
 	pos.x = cos(time * head_frequency/2) * head_amplitude
-	print("x: %.2f  |  y: %.2f" % [pos.x, pos.y])
-	
-	
 	return pos

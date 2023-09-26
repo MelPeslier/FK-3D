@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcus48kvvlp8m"]
+[gd_scene load_steps=6 format=3 uid="uid://buis32vf4org1"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_bko2k"]
-[ext_resource type="Script" path="res://components/movements/direction_component.gd" id="2_4bjui"]
-[ext_resource type="Script" path="res://components/movements/velocity_component.gd" id="3_p6s7l"]
-[ext_resource type="Script" path="res://player/head.gd" id="4_5im1r"]
+[ext_resource type="Script" path="res://player/scripts/player.gd" id="1_7mmfg"]
+[ext_resource type="Script" path="res://player/scripts/head.gd" id="3_fi87n"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sdeby"]
 
@@ -14,14 +12,13 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 size = Vector3(0.2, 0.1, 0.5)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head")]
-script = ExtResource("1_bko2k")
+script = ExtResource("1_7mmfg")
 gravity = 10.0
 jump_strength = 4.5
-accel = 15.0
-max_speed = 5.0
-sprint_speed = 8.0
+accel_coef = 10.0
+run_speed = 8.0
 walk_speed = 5.0
-decel = 30.0
+decel_coef = 10.0
 ground_stop_coef = 7.0
 air_stop_coef = 3.0
 camera = NodePath("Head/Camera3D")
@@ -32,7 +29,14 @@ head_amplitude = 0.08
 fov_change_coef = 1.5
 fov_change_speed = 8.0
 fov_min = 0.5
-fov_max = 2.0
+fov_max = 16.0
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+script = ExtResource("3_fi87n")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 0.987688, 0.156434, 0, -0.156434, 0.987688, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -46,16 +50,3 @@ shape = SubResource("ConvexPolygonShape3D_bqefd")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40716, 1.37939, -0.483118)
 mesh = SubResource("BoxMesh_oo4m1")
-
-[node name="DirectionComponent" type="Node" parent="."]
-script = ExtResource("2_4bjui")
-
-[node name="VelocityComponent" type="Node" parent="."]
-script = ExtResource("3_p6s7l")
-
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
-script = ExtResource("4_5im1r")
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 0.987688, 0.156434, 0, -0.156434, 0.987688, 0, 0, 0)
