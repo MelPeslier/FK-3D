@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=7 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
@@ -12,19 +12,28 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_i7052")
 
+[sub_resource type="QuadMesh" id="QuadMesh_knue4"]
+resource_local_to_scene = true
+
 [node name="Sunflower" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_4ramh")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_woqa4")
 
-[node name="InGameUI" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_nw61n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+[node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "body") instance=ExtResource("1_nw61n")]
 parent = NodePath("..")
 display_content_path = "res://scenes/display/display_content.tscn"
+body = NodePath("../BodyMesh")
+coef_distance = 0.5
+coef_height = 2.77556e-17
+
+[node name="DisplayMesh" parent="InGameUI" index="0"]
+mesh = SubResource("QuadMesh_knue4")
 
 [editable path="InGameUI"]

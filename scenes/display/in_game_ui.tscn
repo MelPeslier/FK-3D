@@ -7,7 +7,8 @@ resource_local_to_scene = true
 
 [node name="InGameUI" type="Node3D"]
 script = ExtResource("1_sbwxo")
-pixel_per_meter = 400.0
+coef_distance = 1.0
+coef_height = 0.5
 
 [node name="DisplayMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_e66bv")
