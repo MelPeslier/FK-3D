@@ -19,19 +19,18 @@ resource_local_to_scene = true
 script = ExtResource("1_4ramh")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_woqa4")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "body") instance=ExtResource("1_nw61n")]
 parent = NodePath("..")
 display_content_path = "res://scenes/display/display_content.tscn"
 body = NodePath("../BodyMesh")
-coef_distance = 0.5
-coef_height = 2.77556e-17
+anchor_x = -1
+anchor_y = 1
+anchor_z = 1
 
 [node name="DisplayMesh" parent="InGameUI" index="0"]
 mesh = SubResource("QuadMesh_knue4")
