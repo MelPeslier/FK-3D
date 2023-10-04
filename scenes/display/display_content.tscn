@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/display/display_content.gd" id="1_tvjag"]
 
 [node name="DisplayContent" type="Control"]
-custom_minimum_size = Vector2(400, 900)
+custom_minimum_size = Vector2(400, 1233)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

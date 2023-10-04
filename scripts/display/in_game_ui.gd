@@ -56,9 +56,11 @@ func _on_frame_post_draw() -> void:
 	# Update the scale of the rendering mesh
 	match conversion:
 		Conversion.SIZE:
-			display_mesh.mesh.size = sub_viewport.size / pixel_per_meter
-			print("\n\n" + str (parent.name))
-			print(pixel_per_meter)
+			print(sub_viewport.size.y)
+			display_mesh.mesh.size = sub_viewport.size / float(pixel_per_meter)
+#			print("\n\n" + str (parent.name))
+#			print("%f / %f = %f and needs to be : %f" % [sub_viewport.size.y, pixel_per_meter, display_mesh.mesh.size.y, sub_viewport.size.y / float(pixel_per_meter)])
+			Vector2(2, 6.165)
 		
 		Conversion.SCALE:
 			var _scale: float = sub_viewport.size.x * 1.0 / sub_viewport.size.y
@@ -93,7 +95,7 @@ func _update_position(width: float, height: float, depth: float, _scale: Vector3
 	
 	if display_mesh_y > height_y:
 		print("oui")
-		target_y = display_mesh_y * coef_height
+		target_y = display_mesh_y - height_y
 		
 	
 	print("body mesh : %.f  |  display mesh : %.f" % [height, display_mesh.mesh.size.y])
