@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/display/in_game_ui.gd" id="1_sbwxo"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_07iom"]
+[sub_resource type="QuadMesh" id="QuadMesh_e66bv"]
+resource_local_to_scene = true
 
 [node name="InGameUI" type="Node3D"]
 script = ExtResource("1_sbwxo")
+pixel_per_meter = 400.0
 
 [node name="DisplayMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("QuadMesh_07iom")
+mesh = SubResource("QuadMesh_e66bv")
 
 [node name="SubViewport" type="SubViewport" parent="."]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgm0eqxnl8a8r"]
+[gd_scene load_steps=26 format=3 uid="uid://dgm0eqxnl8a8r"]
 
 [ext_resource type="PackedScene" uid="uid://buis32vf4org1" path="res://scenes/player/player.tscn" id="1_oipkr"]
 [ext_resource type="PackedScene" uid="uid://e67oiqciir2o" path="res://scenes/flowers/sunflower.tscn" id="2_g1q22"]
+[ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="3_0gtu7"]
+[ext_resource type="Script" path="res://scripts/display/in_game_ui.gd" id="4_4qukv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7644"]
 sky_top_color = Color(0.00392157, 0.262745, 0.443137, 1)
@@ -35,6 +37,52 @@ albedo_color = Color(0.615686, 0.317647, 0.317647, 1)
 material = SubResource("StandardMaterial3D_5rq6s")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gc4bs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mti7"]
+resource_local_to_scene = true
+albedo_color = Color(0.415686, 0.976471, 0.32549, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qepvh"]
+material = SubResource("StandardMaterial3D_3mti7")
+radius = 0.381
+height = 3.272
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifr7h"]
+resource_local_to_scene = true
+albedo_color = Color(0.32549, 0.329412, 0.898039, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o3gkr"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ifr7h")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6e3a5"]
+resource_local_to_scene = true
+albedo_color = Color(0.141176, 0.482353, 0.501961, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tjybp"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_6e3a5")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27adm"]
+resource_local_to_scene = true
+albedo_color = Color(0.537255, 0.309804, 0.113725, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_drrwi"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_27adm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_e66bv"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qopl"]
+resource_local_to_scene = true
+albedo_color = Color(0.862745, 0.533333, 0.721569, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8bt0k"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_5qopl")
 
 [node name="Main" type="Node"]
 
@@ -115,3 +163,72 @@ shape = SubResource("BoxShape3D_gc4bs")
 
 [node name="Sunflower" parent="." instance=ExtResource("2_g1q22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -3)
+
+[node name="Sunflower2" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+
+[node name="BodyMesh" parent="Sunflower2" index="1"]
+mesh = SubResource("CapsuleMesh_qepvh")
+
+[node name="InGameUI" parent="Sunflower2" index="2"]
+pixel_per_meter = 1000.0
+
+[node name="Sunflower3" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -9)
+
+[node name="BodyMesh" parent="Sunflower3" index="1"]
+mesh = SubResource("CapsuleMesh_o3gkr")
+
+[node name="InGameUI" parent="Sunflower3" index="2"]
+pixel_per_meter = 100.0
+
+[node name="Sunflower4" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+script = null
+
+[node name="BodyMesh" parent="Sunflower4" index="1"]
+mesh = SubResource("CapsuleMesh_tjybp")
+
+[node name="InGameUI" parent="Sunflower4" index="2"]
+script = null
+
+[node name="Sunflower5" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23862, 9.41542, -24.1118)
+script = ExtResource("3_0gtu7")
+
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="Sunflower5"]
+shape = SubResource("CapsuleShape3D_fl531")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Sunflower5"]
+mesh = SubResource("CapsuleMesh_drrwi")
+
+[node name="InGameUI" type="Node3D" parent="Sunflower5" node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("4_4qukv")
+parent = NodePath("..")
+display_content_path = "res://scenes/display/display_content.tscn"
+pixel_per_meter = 5.0
+
+[node name="DisplayMesh" type="MeshInstance3D" parent="Sunflower5/InGameUI"]
+mesh = SubResource("QuadMesh_e66bv")
+
+[node name="SubViewport" type="SubViewport" parent="Sunflower5/InGameUI"]
+
+[node name="Sunflower6" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(0.997611, 0.0690774, 0, -0.0690774, 0.997611, 0, 0, 0, 1, 9.75091, 1.57057, -3.23896)
+
+[node name="BodyMesh" parent="Sunflower6" index="1"]
+mesh = SubResource("CapsuleMesh_8bt0k")
+
+[node name="InGameUI" parent="Sunflower6" index="2"]
+conversion = 1
+pixel_per_meter = 1000.0
+
+[editable path="Sunflower2"]
+[editable path="Sunflower2/InGameUI"]
+[editable path="Sunflower3"]
+[editable path="Sunflower3/InGameUI"]
+[editable path="Sunflower4"]
+[editable path="Sunflower4/InGameUI"]
+[editable path="Sunflower6"]
+[editable path="Sunflower6/InGameUI"]

@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
-[ext_resource type="PackedScene" uid="uid://dq0q2eyaf55j3" path="res://scenes/display/display_content.tscn" id="3_kc0u6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_31go7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7052"]
+resource_local_to_scene = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_woqa4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_i7052")
 
 [node name="Sunflower" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -16,15 +20,11 @@ script = ExtResource("1_4ramh")
 shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_31go7")
+mesh = SubResource("CapsuleMesh_woqa4")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_nw61n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 parent = NodePath("..")
-
-[node name="SubViewport" parent="InGameUI" index="1"]
-size = Vector2i(512, 100)
-
-[node name="DisplayContent" parent="InGameUI/SubViewport" index="0" instance=ExtResource("3_kc0u6")]
+display_content_path = "res://scenes/display/display_content.tscn"
 
 [editable path="InGameUI"]
