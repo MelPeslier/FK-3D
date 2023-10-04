@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://boc3yvvasr211"]
+
+[ext_resource type="Script" path="res://scripts/display/in_game_ui.gd" id="1_sbwxo"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_07iom"]
+
+[node name="InGameUI" type="Node3D"]
+script = ExtResource("1_sbwxo")
+
+[node name="DisplayMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_07iom")
+
+[node name="SubViewport" type="SubViewport" parent="."]
