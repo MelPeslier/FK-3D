@@ -1,3 +1,4 @@
+class_name InGameUi
 extends Node3D
 
 # Types of conversion from 2d control to 3d mesh ui
@@ -23,10 +24,16 @@ enum Anchor {
 @export var anchor_y: Anchor
 @export var anchor_z: Anchor
 
+var player: Player
 
+@onready var display_mesh: MeshInstance3D = $DisplayMesh
 
 func _ready() -> void:
 	RenderingServer.frame_post_draw.connect(_on_frame_post_draw)
+	
+	visible = false
+	set_process(false)
+
 
 # Need to set the mesh resource to local
 func _on_frame_post_draw() -> void:
@@ -35,7 +42,6 @@ func _on_frame_post_draw() -> void:
 		return
 	
 	var sub_viewport := $SubViewport
-	var display_mesh := $DisplayMesh
 	
 	# Make SubViewport size proportional to the Control node in it
 	var display_content_scene = load(display_content_path).instantiate()
@@ -69,7 +75,7 @@ func _on_frame_post_draw() -> void:
 	
 	# Update the display screen position depending on the body mesh size and scale
 	if body != null:
-		position = _update_position(body.mesh.radius * 2, body.mesh.height, body.mesh.radius * 2, body.scale)
+		display_mesh.position = _update_position(body.mesh.radius * 2, body.mesh.height, body.mesh.radius * 2, body.scale)
 	
 	RenderingServer.frame_post_draw.disconnect(_on_frame_post_draw)
 
@@ -77,7 +83,6 @@ func _on_frame_post_draw() -> void:
 func _update_position(_x: float, _y: float, _z: float, _scale: Vector3) -> Vector3:
 	var target_position := Vector3.ZERO
 	
-	var display_mesh = $DisplayMesh
 	var _body := Vector3(_x, _y, _z) * _scale
 	var ui := Vector2(display_mesh.mesh.size.x * display_mesh.scale.x, display_mesh.mesh.size.y * display_mesh.scale.y)
 	
@@ -99,6 +104,19 @@ func _calculate_position(_ui: float, _body_2: float, _anchor: Anchor, _margin: f
 	result = _anchor * (_body_2 + _ui + _margin) / 2.0
 	return result
 
+
+func show_ui(_player: Player) -> void:
+	if not visible:
+		visible = true
+		set_process(true)
+		if player == null:
+			player = _player
+
+
+
+func hide_ui() -> void:
+	visible = false
+	set_process(false)
 
 
 
