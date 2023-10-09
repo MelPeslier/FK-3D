@@ -1,3 +1,4 @@
+class_name RotationComponent
 extends Node
 
 enum Mode {

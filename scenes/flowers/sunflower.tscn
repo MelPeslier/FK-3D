@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=9 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
+[ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
+[ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 
@@ -15,11 +17,13 @@ material = SubResource("StandardMaterial3D_i7052")
 [sub_resource type="QuadMesh" id="QuadMesh_knue4"]
 resource_local_to_scene = true
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("in_game_ui")]
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("in_game_ui", "water_component", "happiness_component")]
 collision_layer = 28
 collision_mask = 0
 script = ExtResource("1_4ramh")
 in_game_ui = NodePath("InGameUI")
+water_component = NodePath("WaterComponent")
+happiness_component = NodePath("HappinessComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fl531")
@@ -37,5 +41,24 @@ anchor_z = 1
 
 [node name="DisplayMesh" parent="InGameUI" index="0"]
 mesh = SubResource("QuadMesh_knue4")
+
+[node name="WaterComponent" type="Node" parent="."]
+script = ExtResource("3_jngka")
+water = 45.0
+min_pefrect = 50.0
+max_perfect = 85.0
+decrease_coef = 0.9
+decrease_value = 3.0
+increase_coef = 1.0
+
+[node name="HappinessComponent" type="Node" parent="."]
+script = ExtResource("4_yssym")
+value = 45.0
+min_min = 15.0
+min = 25.0
+min_max = 35.0
+max_min = 75.0
+max = 87.0
+max_max = 100.0
 
 [editable path="InGameUI"]
