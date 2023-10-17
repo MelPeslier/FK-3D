@@ -10,7 +10,7 @@ extends CharacterBody3D
 
 var watering := false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 

@@ -5,7 +5,7 @@ extends RayCast3D
 var last_collider: Object
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var collider = get_collider()
 	
 	if collider == null:

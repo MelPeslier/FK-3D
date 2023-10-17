@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=10 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
 [ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
 [ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
+[ext_resource type="Script" path="res://scripts/components/physics/rotation_component.gd" id="5_hfgi1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 
@@ -31,13 +32,11 @@ shape = SubResource("CapsuleShape3D_fl531")
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_woqa4")
 
-[node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "body") instance=ExtResource("1_nw61n")]
+[node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "body", "rotation_component") instance=ExtResource("1_nw61n")]
 parent = NodePath("..")
 display_content_path = "res://scenes/display/display_content.tscn"
 body = NodePath("../BodyMesh")
-anchor_x = -1
-anchor_y = 1
-anchor_z = 1
+rotation_component = NodePath("../RotationComponent")
 
 [node name="DisplayMesh" parent="InGameUI" index="0"]
 mesh = SubResource("QuadMesh_knue4")
@@ -53,12 +52,14 @@ increase_coef = 1.0
 
 [node name="HappinessComponent" type="Node" parent="."]
 script = ExtResource("4_yssym")
-value = 45.0
 min_min = 15.0
-min = 25.0
 min_max = 35.0
 max_min = 75.0
-max = 87.0
 max_max = 100.0
+
+[node name="RotationComponent" type="Node" parent="."]
+script = ExtResource("5_hfgi1")
+mode = 1
+speed = 180.0
 
 [editable path="InGameUI"]

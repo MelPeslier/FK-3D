@@ -24,6 +24,8 @@ enum Anchor {
 @export var anchor_y: Anchor
 @export var anchor_z: Anchor
 
+@export var rotation_component: RotationComponent
+
 var player: Player
 
 @onready var display_mesh: MeshInstance3D = $DisplayMesh
@@ -33,6 +35,12 @@ func _ready() -> void:
 	
 	visible = false
 	set_process(false)
+
+
+func _process(delta: float) -> void:
+	if player == null: return
+	
+	rotation_component.rotate_around(delta, self, player)
 
 
 # Need to set the mesh resource to local

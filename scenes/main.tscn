@@ -116,6 +116,3 @@ shape = SubResource("BoxShape3D_gc4bs")
 
 [node name="Sunflower" parent="." instance=ExtResource("2_g1q22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1, 1)
-
-[node name="Sunflower2" parent="." instance=ExtResource("2_g1q22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 3, 0)
