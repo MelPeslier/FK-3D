@@ -15,7 +15,8 @@ enum Anchor {
 }
 
 @export var parent: Flower
-@export var display_content_path: String 
+@export var sub_viewport: SubViewport
+@export var display_content: Control 
 @export var conversion: Conversion
 @export var pixel_per_meter := 200
 @export var body: MeshInstance3D
@@ -40,30 +41,20 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if player == null: return
 	
-	rotation_component.rotate_around(delta, self, player)
+	rotation_component.rotate_towards(delta, player)
 
 
 # Need to set the mesh resource to local
 func _on_frame_post_draw() -> void:
-	if display_content_path.is_empty(): 
-		RenderingServer.frame_post_draw.disconnect(_on_frame_post_draw)
-		return
+	if display_content == null: return
 	
-	var sub_viewport := $SubViewport
-	
-	# Make SubViewport size proportional to the Control node in it
-	var display_content_scene = load(display_content_path).instantiate()
-	sub_viewport.size = display_content_scene.size
-	sub_viewport.add_child(display_content_scene)
+#	# Make SubViewport size proportional to the Control node in it
+	sub_viewport.size = display_content.size
 	
 	# Get the viewport texture and asign it to a mateial
 	var viewport_texture = sub_viewport.get_texture()
-	var mat = StandardMaterial3D.new()
-	mat.resource_local_to_scene = true
+	var mat = display_mesh.material_override
 	mat.albedo_texture = viewport_texture
-	
-	# Then asign this material to the surface texture
-	display_mesh.set_surface_override_material(0, mat)
 	
 	# Update the scale of the rendering mesh
 	match conversion:
@@ -97,12 +88,12 @@ func _update_position(_x: float, _y: float, _z: float, _scale: Vector3) -> Vecto
 	target_position.x = _calculate_position(ui.x, _body.x, anchor_x, margin.x)
 	target_position.z = _calculate_position(0, _body.z, anchor_z, margin.z)
 	
+	target_position.y = _calculate_position(ui.y, _body.y, anchor_y, margin.y)
+	
 	# If the UI is bigger than the mesh itself
-	if ui.y > _body.y:
+	if target_position.y + ui.y / 2.0 < body.position.y + _body.y / 2.0:
 		print("default position")
 		target_position.y = (ui.y - _body.y) / 2.0 + margin.y
-	else:
-		target_position.y = _calculate_position(ui.y, _body.y, anchor_y, margin.y)
 	
 	return target_position
 

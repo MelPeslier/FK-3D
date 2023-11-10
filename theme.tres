@@ -1,0 +1,11 @@
+[gd_resource type="Theme" format=3 uid="uid://bjadu821k1r70"]
+
+[resource]
+VBoxInfo/base_type = &"VBoxContainer"
+VBoxInfo/constants/separation = 8
+gui_data/base_type = &"Label"
+gui_data/font_sizes/font_size = 16
+gui_subtitle/base_type = &"Label"
+gui_subtitle/font_sizes/font_size = 24
+gui_title/base_type = &"Label"
+gui_title/font_sizes/font_size = 32

@@ -1,31 +1,65 @@
 class_name HappinessComponent
 extends Node
 
+signal happ_changed(val: float)
+signal happ_decr_coef_changed(val: float)
+signal happ_decr_value_changed(val: float)
+signal happ_incr_coef_changed(val: float)
+signal happ_incr_value_changed(val: float)
 
-@export var happiness: float
-
-@export_category("M I N")
-@export var min_min: float
-@export var min_happ: float
-@export var min_max: float
-
-@export_category("M A X")
-@export var max_min: float
-@export var max_happ: float
-@export var max_max: float
+const MIN: float = 0
+const MAX: float = 100
 
 
-func alter_min(incr: float) -> void:
-	min_happ = clamp(min_happ + incr, min_min, min_max)
+@export_range(MIN, MAX) var happiness: float:
+	set(new_value):
+		happiness = clamp(new_value, MIN, MAX)
+		happ_changed.emit(happiness)
 
 
-func alter_value(incr: float) -> void:
-	happiness = clamp(happiness + incr, min_happ, max_happ)
+@export_category("Decrease")
+@export_range(0.1, 7.0, 0.1) var decrease_coef: float:
+	set(new_value):
+		decrease_coef = new_value
+		happ_decr_coef_changed.emit(decrease_coef)
+
+@export var decrease_value: float:
+	set(new_value):
+		decrease_value = new_value
+		happ_decr_value_changed.emit(decrease_value)
 
 
-func alter_max(incr: float) -> void:
-	max_happ = clamp(max_happ + incr, max_min, max_max)
+@export_category("Increase")
+@export_range(0.1, 7.0, 0.1) var increase_coef: float:
+	set(new_value):
+		increase_coef = new_value
+		happ_incr_coef_changed.emit(increase_coef)
+
+@export var increase_value: float:
+	set(new_value):
+		increase_value = new_value
+		happ_incr_value_changed.emit(increase_value)
 
 
+func _ready() -> void:
+	_init_values()
 
 
+func _process(delta: float) -> void:
+	sub_happ(delta, decrease_value)
+
+
+func sub_happ(delta: float, decr: float) -> void:
+	happiness -= decr * decrease_coef * delta
+
+
+func add_happ(delta: float, incr: float) -> void:
+	happiness += incr * increase_coef * delta
+
+
+func _init_values() -> void:
+	happiness = happiness
+	decrease_coef = decrease_coef
+	decrease_value = decrease_value
+	increase_coef = increase_coef
+	increase_value = increase_value

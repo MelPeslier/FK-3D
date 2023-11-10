@@ -1,39 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq0q2eyaf55j3"]
+[gd_scene load_steps=5 format=3 uid="uid://dq0q2eyaf55j3"]
 
 [ext_resource type="Script" path="res://scripts/display/display_content.gd" id="1_tvjag"]
+[ext_resource type="PackedScene" uid="uid://c0aw2oyfwshmv" path="res://scenes/display/infos/happiness_info.tscn" id="2_4clum"]
+[ext_resource type="PackedScene" uid="uid://clw3l40io8ro8" path="res://scenes/display/infos/name_info.tscn" id="2_32g0i"]
+[ext_resource type="PackedScene" uid="uid://br1x46tmnig4j" path="res://scenes/display/infos/water_info.tscn" id="3_xxp6n"]
 
-[node name="DisplayContent" type="Control"]
-custom_minimum_size = Vector2(400, 200)
-layout_mode = 3
+[node name="DisplayContent" type="PanelContainer" node_paths=PackedStringArray("name_info", "happiness_info", "water_info")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+offset_left = -123.0
+offset_top = -92.0
+offset_right = 123.0
+offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 script = ExtResource("1_tvjag")
+name_info = NodePath("UIMargin/ContentVBoxContainer/NameInfo")
+happiness_info = NodePath("UIMargin/ContentVBoxContainer/HappinessInfo")
+water_info = NodePath("UIMargin/ContentVBoxContainer/WaterInfo")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UIMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 70
-text = "Debug label"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ContentVBoxContainer" type="VBoxContainer" parent="UIMargin"]
+custom_minimum_size = Vector2(212.525, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="NameInfo" parent="UIMargin/ContentVBoxContainer" instance=ExtResource("2_32g0i")]
+layout_mode = 2
+
+[node name="HappinessInfo" parent="UIMargin/ContentVBoxContainer" instance=ExtResource("2_4clum")]
+layout_mode = 2
+
+[node name="WaterInfo" parent="UIMargin/ContentVBoxContainer" instance=ExtResource("3_xxp6n")]
+layout_mode = 2

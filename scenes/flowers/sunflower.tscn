@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=11 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
 [ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
 [ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
-[ext_resource type="Script" path="res://scripts/components/physics/rotation_component.gd" id="5_hfgi1"]
+[ext_resource type="PackedScene" uid="uid://dq0q2eyaf55j3" path="res://scenes/display/display_content.tscn" id="6_aelxj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 
@@ -15,7 +15,10 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_i7052")
 
-[sub_resource type="QuadMesh" id="QuadMesh_knue4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nuwot"]
+resource_local_to_scene = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_qblyq"]
 resource_local_to_scene = true
 
 [node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("in_game_ui", "water_component", "happiness_component")]
@@ -32,19 +35,26 @@ shape = SubResource("CapsuleShape3D_fl531")
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_woqa4")
 
-[node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "body", "rotation_component") instance=ExtResource("1_nw61n")]
+[node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content", "body") instance=ExtResource("1_nw61n")]
 parent = NodePath("..")
-display_content_path = "res://scenes/display/display_content.tscn"
+display_content = NodePath("SubViewport/DisplayContent")
 body = NodePath("../BodyMesh")
-rotation_component = NodePath("../RotationComponent")
 
-[node name="DisplayMesh" parent="InGameUI" index="0"]
-mesh = SubResource("QuadMesh_knue4")
+[node name="RotationComponent" parent="InGameUI" index="0"]
+mode = 1
+
+[node name="DisplayMesh" parent="InGameUI" index="1"]
+material_override = SubResource("StandardMaterial3D_nuwot")
+mesh = SubResource("QuadMesh_qblyq")
+
+[node name="DisplayContent" parent="InGameUI/SubViewport" index="0" node_paths=PackedStringArray("happiness_component", "water_component") instance=ExtResource("6_aelxj")]
+happiness_component = NodePath("../../../HappinessComponent")
+water_component = NodePath("../../../WaterComponent")
 
 [node name="WaterComponent" type="Node" parent="."]
 script = ExtResource("3_jngka")
 water = 45.0
-min_pefrect = 50.0
+min_perfect = 15.0
 max_perfect = 85.0
 decrease_coef = 0.9
 decrease_value = 3.0
@@ -52,14 +62,10 @@ increase_coef = 1.0
 
 [node name="HappinessComponent" type="Node" parent="."]
 script = ExtResource("4_yssym")
-min_min = 15.0
-min_max = 35.0
-max_min = 75.0
-max_max = 100.0
-
-[node name="RotationComponent" type="Node" parent="."]
-script = ExtResource("5_hfgi1")
-mode = 1
-speed = 180.0
+happiness = 50.0
+decrease_coef = 1.0
+decrease_value = 1.0
+increase_coef = 1.0
+increase_value = 1.0
 
 [editable path="InGameUI"]

@@ -1,18 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://boc3yvvasr211"]
+[gd_scene load_steps=5 format=3 uid="uid://boc3yvvasr211"]
 
 [ext_resource type="Script" path="res://scripts/display/in_game_ui.gd" id="1_sbwxo"]
+[ext_resource type="Script" path="res://scripts/components/physics/rotation_component.gd" id="2_ox1mn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p61sv"]
+resource_local_to_scene = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_e66bv"]
 resource_local_to_scene = true
 
-[node name="InGameUI" type="Node3D"]
+[node name="InGameUI" type="Node3D" node_paths=PackedStringArray("sub_viewport", "rotation_component")]
 script = ExtResource("1_sbwxo")
+sub_viewport = NodePath("SubViewport")
 margin = Vector3(0.1, 0.1, 0.3)
 anchor_x = 1
+anchor_y = 1
 anchor_z = -1
+rotation_component = NodePath("RotationComponent")
+
+[node name="RotationComponent" type="Node" parent="."]
+script = ExtResource("2_ox1mn")
 
 [node name="DisplayMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_p61sv")
 mesh = SubResource("QuadMesh_e66bv")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true

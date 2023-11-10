@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0aw2oyfwshmv"]
+
+[ext_resource type="Script" path="res://scripts/display/infos/happiness_info.gd" id="1_sod50"]
+
+[node name="HappinessInfo" type="VBoxContainer" node_paths=PackedStringArray("happ_label", "happ_decr_coef_label", "happ_decr_value_label", "happ_incr_coef_label", "happ_incr_value_label")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -86.0
+offset_right = 64.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"VBoxInfo"
+script = ExtResource("1_sod50")
+happ_label = NodePath("InfosDatas/Datas/HappData")
+happ_decr_coef_label = NodePath("InfosDatas/Datas/DataDecrCoef")
+happ_decr_value_label = NodePath("InfosDatas/Datas/DataDecrValue")
+happ_incr_coef_label = NodePath("InfosDatas/Datas/DataIncrCoef")
+happ_incr_value_label = NodePath("InfosDatas/Datas/DataIncrValue")
+
+[node name="Happiness" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 2
+theme_type_variation = &"gui_subtitle"
+text = "Happiness
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfosDatas" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Infos" type="VBoxContainer" parent="InfosDatas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InfoHapp" type="Label" parent="InfosDatas/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Happ : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InfoDecrCoef" type="Label" parent="InfosDatas/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Decr Coef : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InfoDecrValue" type="Label" parent="InfosDatas/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Decr Value : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InfoIncrCoef" type="Label" parent="InfosDatas/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Incr Coef : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InfoIncValue" type="Label" parent="InfosDatas/Infos"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Incr Value : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Datas" type="VBoxContainer" parent="InfosDatas"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HappData" type="Label" parent="InfosDatas/Datas"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"gui_data"
+text = "0.000"
+vertical_alignment = 1
+
+[node name="DataDecrCoef" type="Label" parent="InfosDatas/Datas"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"gui_data"
+text = "0.000"
+vertical_alignment = 1
+
+[node name="DataDecrValue" type="Label" parent="InfosDatas/Datas"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"gui_data"
+text = "0.000"
+vertical_alignment = 1
+
+[node name="DataIncrCoef" type="Label" parent="InfosDatas/Datas"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"gui_data"
+text = "0.000"
+vertical_alignment = 1
+
+[node name="DataIncrValue" type="Label" parent="InfosDatas/Datas"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"gui_data"
+text = "0.000"
+vertical_alignment = 1
