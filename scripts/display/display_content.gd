@@ -3,6 +3,7 @@ extends PanelContainer
 
 @export var happiness_component: HappinessComponent
 @export var water_component: WaterComponent
+@export var flower_data: FlowerData
 
 @export var name_info: NameInfo
 @export var happiness_info: HappinessInfo
@@ -11,7 +12,7 @@ extends PanelContainer
 
 func _ready() -> void:
 	# Name
-	
+	flower_data.flower_name_changed.connect(_on_flower_name_changed)
 	
 	# Happiness
 	happiness_component.happ_changed.connect(_on_happ_changed)
@@ -31,6 +32,10 @@ func _ready() -> void:
 	
 	# Animation state
 
+
+# Name
+func _on_flower_name_changed(val: String) -> void:
+	name_info.set_obj_name(val)
 
 
 # Happiness

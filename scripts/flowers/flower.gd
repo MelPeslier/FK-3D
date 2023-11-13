@@ -6,9 +6,8 @@ extends CharacterBody3D
 @export var in_game_ui: InGameUi
 @export var water_component: WaterComponent
 @export var happiness_component: HappinessComponent
+@export var flower_data: FlowerData
 
-
-var watering := false
 
 func _process(_delta: float) -> void:
 	pass

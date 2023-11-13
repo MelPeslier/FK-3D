@@ -29,10 +29,25 @@ enum Anchor {
 
 var player: Player
 
+var show_ui_state := false
+
 @onready var display_mesh: MeshInstance3D = $DisplayMesh
+
+var mat_alpha: float:
+	set(val):
+		mat_alpha = clamp(val, 0.0, 1.0)
+		display_mesh.set_instance_shader_parameter("alpha", mat_alpha)
+		var x = display_mesh.get_instance_shader_parameter("alpha")
+		print(x)
+
+var ui_tween: Tween
+
 
 func _ready() -> void:
 	RenderingServer.frame_post_draw.connect(_on_frame_post_draw)
+	
+	mat_alpha = 0
+	display_mesh.scale = Vector3.ZERO
 	
 	visible = false
 	set_process(false)
@@ -40,7 +55,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if player == null: return
-	
 	rotation_component.rotate_towards(delta, player)
 
 
@@ -53,8 +67,8 @@ func _on_frame_post_draw() -> void:
 	
 	# Get the viewport texture and asign it to a mateial
 	var viewport_texture = sub_viewport.get_texture()
-	var mat = display_mesh.material_override
-	mat.albedo_texture = viewport_texture
+	var mat = display_mesh.material_override as ShaderMaterial
+	mat.set_shader_parameter("texture_albedo", viewport_texture)
 	
 	# Update the scale of the rendering mesh
 	match conversion:
@@ -103,19 +117,52 @@ func _calculate_position(_ui: float, _body_2: float, _anchor: Anchor, _margin: f
 	result = _anchor * (_body_2 + _ui + _margin) / 2.0
 	return result
 
-
+# Show UI
 func show_ui(_player: Player) -> void:
-	if not visible:
-		visible = true
-		set_process(true)
-		if player == null:
-			player = _player
+	if show_ui_state: return
+	show_ui_state = true
+	
+	# Tween parameters
+	var tween_time = (1.0 - mat_alpha)
+	
+	if ui_tween and ui_tween.is_running():
+		ui_tween.kill()
+	ui_tween = create_tween()
+	ui_tween.tween_callback(_enable_ui.bind(_player))
+	ui_tween.tween_property(self, "mat_alpha" , 1.0, tween_time * 0.25 )  \
+			.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	ui_tween.parallel().tween_property(display_mesh, "scale", Vector3.ONE, tween_time) \
+			.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
 
 
+func _enable_ui(_player: Player) -> void:
+	print("enabled")
+	visible = true
+	set_process(true)
+	player = _player
+
+
+# Hide UI
 func hide_ui() -> void:
+	if not show_ui_state : return
+	show_ui_state = false
+	
+	# Tween parameters
+	var tween_time = mat_alpha * 2.0
+	
+	if ui_tween and ui_tween.is_running():
+		ui_tween.kill()
+	ui_tween = create_tween()
+	ui_tween.tween_property(self, "mat_alpha", 0.0, tween_time) \
+			.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	ui_tween.parallel().tween_property(display_mesh, "scale", Vector3.ZERO, tween_time) \
+			.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	ui_tween.tween_callback(_disable_ui)
+
+
+func _disable_ui() -> void:
+	print("disable")
 	visible = false
 	set_process(false)
-
-
-
+	player = null

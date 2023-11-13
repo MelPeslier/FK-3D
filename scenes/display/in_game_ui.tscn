@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/display/in_game_ui.gd" id="1_sbwxo"]
 [ext_resource type="Script" path="res://scripts/components/physics/rotation_component.gd" id="2_ox1mn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p61sv"]
-resource_local_to_scene = true
+[ext_resource type="Material" uid="uid://cu3npc1q7cvln" path="res://mat_shad/materials/display/in_game_ui.tres" id="3_rww77"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_e66bv"]
 resource_local_to_scene = true
@@ -23,7 +21,8 @@ script = ExtResource("2_ox1mn")
 
 [node name="DisplayMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_p61sv")
+material_override = ExtResource("3_rww77")
+instance_shader_parameters/alpha = 1.0
 mesh = SubResource("QuadMesh_e66bv")
 
 [node name="SubViewport" type="SubViewport" parent="."]
