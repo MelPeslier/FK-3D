@@ -71,7 +71,7 @@ run={
 
 [rendering]
 
-anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/msaa_3d=2
 lights_and_shadows/quality/msaa_3d=0
 lights_and_shadows/size/mode=0
 lights_and_shadows/size/viewport_height=648

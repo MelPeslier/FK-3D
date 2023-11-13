@@ -62,7 +62,7 @@ transform = Transform3D(1, 0, 0, 0, 0.987688, 0.156434, 0, -0.156434, 0.987688, 
 [node name="InteractionRayCast" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 target_position = Vector3(0, 0, -10)
-collision_mask = 16
+collision_mask = 24
 debug_shape_custom_color = Color(0, 0.635294, 0.419608, 1)
 debug_shape_thickness = 5
 script = ExtResource("5_mx7g4")

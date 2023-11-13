@@ -37,8 +37,6 @@ var mat_alpha: float:
 	set(val):
 		mat_alpha = clamp(val, 0.0, 1.0)
 		display_mesh.set_instance_shader_parameter("alpha", mat_alpha)
-		var x = display_mesh.get_instance_shader_parameter("alpha")
-		print(x)
 
 var ui_tween: Tween
 
@@ -137,7 +135,6 @@ func show_ui(_player: Player) -> void:
 
 
 func _enable_ui(_player: Player) -> void:
-	print("enabled")
 	visible = true
 	set_process(true)
 	player = _player
@@ -162,7 +159,6 @@ func hide_ui() -> void:
 
 
 func _disable_ui() -> void:
-	print("disable")
 	visible = false
 	set_process(false)
 	player = null

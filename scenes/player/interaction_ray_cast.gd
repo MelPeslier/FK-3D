@@ -16,4 +16,5 @@ func _physics_process(_delta: float) -> void:
 	
 	if collider.has_method("show_ui"):
 		collider.show_ui(player)
-		last_collider = collider
+	
+	last_collider = collider
