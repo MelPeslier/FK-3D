@@ -16,5 +16,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if collider.has_method("show_ui"):
 		collider.show_ui(player)
+	else :
+		print("THA FUCK U DONT HAVE THIS ???   interaction_ray_cast of player")
 	
 	last_collider = collider

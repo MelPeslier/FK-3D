@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2apj4504hbw6"]
+
+[ext_resource type="Script" path="res://scripts/watering_can/watering_can.gd" id="1_od86m"]
+[ext_resource type="PackedScene" uid="uid://cqc880bbkxx5f" path="res://assets/watering_can/watering_can.blend" id="2_2i3ys"]
+
+[node name="WateringCan" type="Node3D"]
+script = ExtResource("1_od86m")
+
+[node name="watering_can" parent="." instance=ExtResource("2_2i3ys")]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
