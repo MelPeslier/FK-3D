@@ -1,14 +1,39 @@
 class_name FiniteStateMachine
 extends Node
 
-@export var state: State
-
-func _ready() -> void:
-	change_state(state)
+@export var starting_state: FiniteState
+var current_state: FiniteState
 
 
-func change_state(new_state: State) -> void:
-	if state is State:
-		state._exit_state()
-	new_state._enter_state()
-	state = new_state
+func init(parent) -> void:
+	for child in get_children():
+		child.parent = parent
+	
+	change_state(starting_state)
+
+
+func change_state(new_state: FiniteState) -> void:
+	if current_state:
+		current_state.exit()
+	
+	current_state = new_state
+	current_state.enter()
+
+
+func process_physics(delta: float) -> void:
+	var new_state = current_state.process_physics(delta)
+	if new_state:
+		change_state(new_state)
+
+
+func process_input(event: InputEvent) -> void:
+	var new_state = current_state.process_input(event)
+	if new_state:
+		change_state(new_state)
+
+
+func process_frame(delta: float) -> void:
+	var new_state = current_state.process_physics(delta)
+	if new_state:
+		change_state(new_state)
+
