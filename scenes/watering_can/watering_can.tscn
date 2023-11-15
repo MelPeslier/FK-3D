@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cqc880bbkxx5f" path="res://assets/watering_can/watering_can.blend" id="2_2i3ys"]
 [ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="3_em4j0"]
 [ext_resource type="Script" path="res://scripts/components/interact/interactable_finite_state_machine.gd" id="4_5qtab"]
-[ext_resource type="Script" path="res://scripts/watering_can/states/idle.gd" id="5_8571r"]
-[ext_resource type="Script" path="res://scripts/watering_can/states/fall.gd" id="6_nemcn"]
-[ext_resource type="Script" path="res://scripts/watering_can/states/hold.gd" id="7_48qrr"]
-[ext_resource type="Script" path="res://scripts/watering_can/states/water.gd" id="8_621f0"]
+[ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_idle.gd" id="5_dggat"]
+[ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_fall.gd" id="6_hafw8"]
+[ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_hold.gd" id="7_ayave"]
+[ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_water.gd" id="8_x15u8"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_648dp"]
 points = PackedVector3Array(-5.96046e-08, 1, 1, -0.195184, 1, 0.980619, -5.96046e-08, -1, 1, 0.194988, 1, 0.980619, -0.382733, 1, 0.923845, -0.195184, -1, 0.980619, 0.194988, -1, 0.980619, 0.382537, 1, 0.923845, -0.555599, 1, 0.831441, -0.382733, -1, 0.923845, 0.382537, -1, 0.923845, 0.555403, 1, 0.831441, -0.707126, 1, 0.70693, -0.555599, -1, 0.831441, 0.555403, -1, 0.831441, 0.70693, 1, 0.70693, -0.831637, 1, 0.555403, -0.707126, -1, 0.70693, 0.70693, -1, 0.70693, 0.831441, 1, 0.555403, -0.924041, 1, 0.382537, -0.831637, -1, 0.555403, 0.831441, -1, 0.555403, 0.923845, 1, 0.382537, -0.980814, 1, 0.194988, -0.924041, -1, 0.382537, 0.923845, -1, 0.382537, 0.980618, 1, 0.194988, -1, 1, 0, -0.980814, -1, 0.194988, 0.980618, -1, 0.194988, 1, 1, 0, -0.980814, 1, -0.195184, -1, -1, 0, 1, -1, 0, 0.980618, 1, -0.195184, -0.924041, 1, -0.382733, -0.980814, -1, -0.195184, 0.980618, -1, -0.195184, 0.923845, 1, -0.382733, -0.831637, 1, -0.555599, -0.924041, -1, -0.382733, 0.923845, -1, -0.382733, 0.831441, 1, -0.555599, -0.707126, 1, -0.707126, -0.831637, -1, -0.555599, 0.831441, -1, -0.555599, 0.70693, 1, -0.707126, -0.555599, 1, -0.831637, -0.707126, -1, -0.707126, 0.70693, -1, -0.707126, 0.555403, 1, -0.831637, -0.382733, 1, -0.924041, -0.555599, -1, -0.831637, 0.555403, -1, -0.831637, 0.382537, 1, -0.924041, -0.195184, 1, -0.980814, -0.382733, -1, -0.924041, 0.382537, -1, -0.924041, 0.194988, 1, -0.980814, -5.96046e-08, 1, -1, -0.195184, -1, -0.980814, 0.194988, -1, -0.980814, -5.96046e-08, -1, -1)
@@ -37,26 +37,26 @@ shape = SubResource("BoxShape3D_hly1n")
 
 [node name="InteractableFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("4_5qtab")
-starting_state = NodePath("idle")
+starting_state = NodePath("Idle")
 
-[node name="idle" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("fall_state", "hold_state")]
-script = ExtResource("5_8571r")
-fall_state = NodePath("../fall")
-hold_state = NodePath("../hold")
+[node name="Idle" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("fall_state", "hold_state")]
+script = ExtResource("5_dggat")
+fall_state = NodePath("../Fall")
+hold_state = NodePath("../Hold")
 
-[node name="fall" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "hold_state")]
-script = ExtResource("6_nemcn")
-idle_state = NodePath("../idle")
-hold_state = NodePath("../hold")
+[node name="Fall" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "hold_state")]
+script = ExtResource("6_hafw8")
+idle_state = NodePath("../Idle")
+hold_state = NodePath("../Hold")
 
-[node name="hold" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "water_state")]
-script = ExtResource("7_48qrr")
-idle_state = NodePath("../idle")
-water_state = NodePath("../water")
+[node name="Hold" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "water_state")]
+script = ExtResource("7_ayave")
+idle_state = NodePath("../Idle")
+water_state = NodePath("../Water")
 
-[node name="water" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("hold_state")]
-script = ExtResource("8_621f0")
-hold_state = NodePath("../hold")
+[node name="Water" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("hold_state")]
+script = ExtResource("8_x15u8")
+hold_state = NodePath("../Hold")
 
 [connection signal="focused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_focused"]
 [connection signal="interacted" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_interacted"]

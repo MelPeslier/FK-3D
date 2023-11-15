@@ -13,7 +13,7 @@ func exit() -> void:
 	print("exit hold")
 
 
-func process_input(event: InputEvent) -> FiniteState:
+func process_unhandled_input(event: InputEvent) -> FiniteState:
 	if event.is_action_pressed("interact"):
 		return water_state
 	if event.is_action_pressed("disjoin"):

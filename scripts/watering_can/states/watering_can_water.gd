@@ -11,7 +11,7 @@ func exit() -> void:
 
 
 
-func process_input(event: InputEvent) -> FiniteState:
+func process_unhandled_input(event: InputEvent) -> FiniteState:
 	if event.is_action_released("interact"):
 		return hold_state
 	return null

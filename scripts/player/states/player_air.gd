@@ -1,7 +1,4 @@
-class_name FiniteState
-extends Node
-
-# Add 'parent' var to your extended script
+extends PlayerState
 
 
 func enter() -> void:
@@ -22,5 +19,3 @@ func process_unhandled_input(_event: InputEvent) -> FiniteState:
 
 func process_frame(_delta: float) -> FiniteState:
 	return null
-
-
