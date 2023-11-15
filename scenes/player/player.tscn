@@ -4,15 +4,15 @@
 [ext_resource type="Script" path="res://scripts/player/head.gd" id="2_a2d5s"]
 [ext_resource type="Script" path="res://scripts/player/body.gd" id="3_6pwpn"]
 [ext_resource type="Script" path="res://scripts/player/interaction_ray_cast.gd" id="3_gd8e8"]
+[ext_resource type="Script" path="res://scripts/components/interact/player_interactor_component.gd" id="4_nqxj5"]
 [ext_resource type="PackedScene" uid="uid://bv66dap88ainm" path="res://assets/player/gloves/right_glove.blend" id="4_vbyoy"]
-[ext_resource type="Script" path="res://scripts/components/interact/player_interactor.gd" id="4_vlfai"]
 [ext_resource type="Script" path="res://scripts/player/hand.gd" id="5_jqs30"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bqefd"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t501h"]
-size = Vector3(3.34635, 2.91071, 4.29033)
+size = Vector3(2.34388, 2.91071, 4.29033)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ucgye"]
 albedo_color = Color(0, 0, 1, 1)
@@ -28,7 +28,7 @@ albedo_color = Color(1, 0.109804, 0, 1)
 material = SubResource("StandardMaterial3D_uu5o1")
 height = 0.14
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand")]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_m0k24")
@@ -52,6 +52,10 @@ fov_max = 16.0
 body = NodePath("Body")
 body_rotation_speed = 720.0
 body_angle_limit = 25.0
+left_marker = NodePath("Body/LeftMarker")
+left_hand = NodePath("Body/LeftMarker/LeftHand")
+right_marker = NodePath("Body/RightMarker")
+right_hand = NodePath("Body/RightMarker/RightHand")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -73,30 +77,36 @@ debug_shape_thickness = 5
 script = ExtResource("3_gd8e8")
 player = NodePath("../../..")
 
-[node name="PlayerInteractor" type="Area3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
+[node name="PlayerInteractorComponent" type="Area3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
 collision_layer = 0
 collision_mask = 64
 input_ray_pickable = false
-script = ExtResource("4_vlfai")
+script = ExtResource("4_nqxj5")
 player = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/PlayerInteractor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/PlayerInteractorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76837e-07, -2.42423)
 shape = SubResource("BoxShape3D_t501h")
 
 [node name="Body" type="Node3D" parent="."]
 script = ExtResource("3_6pwpn")
 
-[node name="Left" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 4.47035e-08, 0, 1, 0, -4.47035e-08, 0, 1, -1, 0.75, -1)
+[node name="LeftMarker" type="Marker3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.75, -1)
+
+[node name="LeftHand" type="MeshInstance3D" parent="Body/LeftMarker"]
+transform = Transform3D(1, 0, 4.47035e-08, 0, 1, 0, -4.47035e-08, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_xxgfq")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 script = ExtResource("5_jqs30")
 
-[node name="Right" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 4.47035e-08, 0, 1, 0, -4.47035e-08, 0, 1, 1, 0.75, -1)
+[node name="RightMarker" type="Marker3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.75, -1)
+
+[node name="RightHand" type="MeshInstance3D" parent="Body/RightMarker"]
+transform = Transform3D(1, 0, 4.47035e-08, 0, 1, 0, -4.47035e-08, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_kdml4")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 script = ExtResource("5_jqs30")
 
 [node name="right_glove" parent="Body" instance=ExtResource("4_vbyoy")]

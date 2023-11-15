@@ -4,10 +4,9 @@ extends CharacterBody3D
 
 @export var gravity: float = 10
 
-var parent: Player
 var layers_collision: Array[int]
 
-@onready var state_machine = $InteractableFiniteStateMachine
+@onready var state_machine: FiniteStateMachine = $InteractableFiniteStateMachine
 @onready var interactable: Area3D = $Interactable
 
 
@@ -22,7 +21,7 @@ func _ready() -> void:
 	disable_collision_layers()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func process_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
 
 
@@ -32,20 +31,6 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-
-
-
-# Interactions
-func _on_interactable_focused(interactor: Interactor) -> void:
-	state_machine.on_interactable_focused(interactor)
-
-
-func _on_interactable_interacted(interactor: Interactor) -> void:
-	state_machine.on_interactable_interacted(interactor)
-
-
-func _on_interactable_unfocused(interactor: Interactor) -> void:
-	state_machine.on_interactable_unfocused(interactor)
 
 
 # Collision layers visibility

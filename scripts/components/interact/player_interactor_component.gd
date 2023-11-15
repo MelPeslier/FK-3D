@@ -1,9 +1,10 @@
-class_name PlayerInteractor
-extends Interactor
+class_name PlayerInteractorComponent
+extends InteractorComponent
 
-@export var player: CharacterBody3D
+@export var player: Player
 
-var cached_closest: Interactable
+var cached_closest: InteractableComponent
+
 
 func _ready() -> void:
 	area_exited.connect(_on_area_exited)
@@ -11,10 +12,9 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var new_closest: Interactable = get_closest_interactable()
+	var new_closest: InteractableComponent = get_closest_interactable()
 	if new_closest != cached_closest:
 		if is_instance_valid(cached_closest):
-			print("physics unfocus")
 			unfocus(cached_closest)
 		if new_closest:
 			focus(new_closest)
@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 			interact(cached_closest)
 
 
-func _on_area_exited(area: Interactable) -> void:
+func _on_area_exited(area: InteractableComponent) -> void:
 	pass
 #	if cached_closest == area:
 #		print("area exited unfocus")

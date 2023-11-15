@@ -20,16 +20,14 @@ func process_physics(_delta: float) -> FiniteState:
 	return null
 
 
-func on_interactable_focused(_interactor: Interactor) -> FiniteState:
-	print("focused")
+func on_interactable_focused(_interactor: InteractorComponent) -> FiniteState:
 	return null
 
 
-func on_interactable_interacted(_interactor: Interactor) -> FiniteState:
-	print("interacted")
+func on_interactable_interacted(_interactor: InteractorComponent) -> FiniteState:
+#	_interactor.item_received.emit(parent)
 	return hold_state
 
 
-func on_interactable_unfocused(_interactor: Interactor) -> FiniteState:
-	print("unfocused")
+func on_interactable_unfocused(_interactor: InteractorComponent) -> FiniteState:
 	return null

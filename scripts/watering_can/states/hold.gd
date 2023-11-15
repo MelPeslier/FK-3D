@@ -17,5 +17,6 @@ func process_input(event: InputEvent) -> FiniteState:
 	if event.is_action_pressed("interact"):
 		return water_state
 	if event.is_action_pressed("disjoin"):
+		parent.holder.drop_item.emit()
 		return idle_state
 	return null

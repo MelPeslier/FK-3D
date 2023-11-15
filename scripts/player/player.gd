@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
+
 enum MoveStates {
 	IDLE,
 	WALK,
@@ -42,6 +43,12 @@ enum MoveStates {
 @export var body_rotation_speed: float
 @export var body_angle_limit: float
 
+@export_subgroup("Hands")
+@export var left_marker: Marker3D
+@export var left_hand: Hand
+@export var right_marker: Marker3D
+@export var right_hand: Hand
+
 
 ### PHYSICS
 # Movements PHYSICS
@@ -58,6 +65,10 @@ var fov_base: float
 
 # Body rotation
 var swap := false
+
+
+### Object to be holding
+var item: Node3D
 
 
 func _ready() -> void:
@@ -173,7 +184,7 @@ func _process(delta: float) -> void:
 
 
 #****************************
-# PHYSICS functions
+# PHYSICS
 #****************************
 func _update_direction(delta: float, target_direction: Vector3, coef: float) -> Vector3:
 	var new_direction = direction.lerp(target_direction, delta * coef)
@@ -187,7 +198,7 @@ func _update_velocity() -> void:
 
 
 #****************************
-# JUICE functions
+# JUICE
 #****************************
 func _update_camera_position(time: float) -> Vector3:
 	var pos = Vector3.ZERO
@@ -219,8 +230,4 @@ func _follow_camera_rotation(delta: float, B: float, H: float, L: float, weight:
 	B = lerp_angle(B, target, delta * weight)
 	#print("target : %.1f  |  Body : %.1f  |  Head : %.1f" % [rad_to_deg(target), rad_to_deg(B), rad_to_deg(H)])
 	return B
-
-
-
-
 

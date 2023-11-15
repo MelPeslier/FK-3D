@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/watering_can/watering_can.gd" id="1_od86m"]
 [ext_resource type="PackedScene" uid="uid://cqc880bbkxx5f" path="res://assets/watering_can/watering_can.blend" id="2_2i3ys"]
+[ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="3_em4j0"]
 [ext_resource type="Script" path="res://scripts/components/interact/interactable_finite_state_machine.gd" id="4_5qtab"]
-[ext_resource type="Script" path="res://scripts/components/interact/interactable.gd" id="4_yhj5l"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/idle.gd" id="5_8571r"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/fall.gd" id="6_nemcn"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/hold.gd" id="7_48qrr"]
@@ -29,7 +29,7 @@ shape = SubResource("ConvexPolygonShape3D_648dp")
 [node name="Interactable" type="Area3D" parent="."]
 collision_layer = 64
 collision_mask = 0
-script = ExtResource("4_yhj5l")
+script = ExtResource("3_em4j0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.154673, 0)
@@ -58,8 +58,8 @@ water_state = NodePath("../water")
 script = ExtResource("8_621f0")
 hold_state = NodePath("../hold")
 
-[connection signal="focused" from="Interactable" to="." method="_on_interactable_focused"]
-[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
-[connection signal="unfocused" from="Interactable" to="." method="_on_interactable_unfocused"]
+[connection signal="focused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_focused"]
+[connection signal="interacted" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_interacted"]
+[connection signal="unfocused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_unfocused"]
 
 [editable path="watering_can"]
