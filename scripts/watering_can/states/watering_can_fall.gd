@@ -28,6 +28,7 @@ func on_interactable_focused(_interactor: InteractorComponent) -> FiniteState:
 
 
 func on_interactable_interacted(_interactor: InteractorComponent) -> FiniteState:
+	parent.holder = _interactor.controller
 	_interactor.item_received.emit(parent)
 	return hold_state
 

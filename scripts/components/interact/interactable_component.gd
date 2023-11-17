@@ -2,10 +2,10 @@ class_name InteractableComponent
 extends Area3D
 
 
-signal focused(interactor: InteractorComponent)
+signal focused(_interactor: InteractorComponent)
 
-signal unfocused(interactor: InteractorComponent)
+signal unfocused(_interactor: InteractorComponent)
 
-signal interacted(interactor: InteractorComponent)
+signal interacted(_interactor: InteractorComponent)
 
 

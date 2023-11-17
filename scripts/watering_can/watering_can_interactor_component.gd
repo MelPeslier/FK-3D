@@ -1,19 +1,20 @@
-class_name PlayerInteractorComponent
+class_name WateringCanInteractorComponent
 extends InteractorComponent
 
-@export var player: Player
+@export var watering_can: WateringCan
 
 var cached_closest: InteractableComponent
 
 
 func _ready() -> void:
 	area_exited.connect(_on_area_exited)
-	controller = player
+	controller = watering_can
 
 
-func _physics_process(_delta: float) -> void:
+func process_physics(_delta: float) -> void:
 	var new_closest: InteractableComponent = get_closest_interactable()
 	if new_closest != cached_closest:
+		item_unfocus.emit()
 		if is_instance_valid(cached_closest):
 			unfocus(cached_closest)
 		if new_closest:
@@ -21,14 +22,8 @@ func _physics_process(_delta: float) -> void:
 	cached_closest = new_closest
 
 
-func process_unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact"):
-		if is_instance_valid(cached_closest):
-			interact(cached_closest)
-
-
 func _on_area_exited(_area: InteractableComponent) -> void:
 	pass
-#	if cached_closest == _area:
+#	if cached_closest == area:
 #		print("area exited unfocus")
 #		unfocus(area)

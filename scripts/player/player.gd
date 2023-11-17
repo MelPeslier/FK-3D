@@ -1,24 +1,12 @@
 class_name Player
 extends CharacterBody3D
 
+signal drop_item
 
-enum MoveStates {
-	IDLE,
-	WALK,
-	RUN,
-	AIR
-}
-
-@export_group("States")
-@export_subgroup("Movements")
-@export var move_state: MoveStates
 
 @export_group("PHYSICS")
 @export_subgroup("Movements")
 @export var gravity: float
-@export var jump_strength: float
-@export var run_speed: float
-@export var walk_speed: float
 @export var accel: float
 @export var ground_decel: float
 @export var air_decel: float
@@ -49,11 +37,18 @@ enum MoveStates {
 @export var right_marker: Marker3D
 @export var right_hand: Hand
 
+@export_group("State Machine")
+@export var state_machine: FiniteStateMachine
+
+@export_group("Item")
+@export var front_marker: Marker3D
+
 
 ### PHYSICS
 # Movements PHYSICS
 var speed: float = 0
 var direction := Vector3.ZERO
+var next_direction := Vector3.ZERO
 
 
 ### JUICE
@@ -66,8 +61,7 @@ var fov_base: float
 # Body rotation
 var swap := false
 
-
-### Object to be holding
+### Object to hold
 var item: Node3D
 
 
@@ -79,6 +73,8 @@ func _ready() -> void:
 	fov_base = camera.get_fov()
 	body_rotation_speed = deg_to_rad(body_rotation_speed)
 	body_angle_limit = deg_to_rad(body_angle_limit)
+	
+	state_machine.init(self)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -89,86 +85,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		var rotation_speed_x = clampf(-event.relative.y * sensitivity, -rotation_speed_max/2.0, rotation_speed_max/2.0)
 		camera.rotate_x(rotation_speed_x)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+	
+	state_machine.process_unhandled_input(event)
 
 
 func _physics_process(delta: float) -> void:
-	# For all states
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	var next_direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	next_direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-
+	state_machine.process_physics(delta)
 	
-	# State Machine
-	if move_state == null:
-		print("MOVE STATE NUUULLLL")
-		move_state = MoveStates.IDLE
-	
-	match move_state:
-		MoveStates.IDLE:
-			direction = _update_direction(delta, Vector3.ZERO, ground_decel)
-			
-			if not is_on_floor():
-				move_state = MoveStates.AIR
-				
-			if next_direction:
-				move_state = MoveStates.WALK
-		
-		MoveStates.WALK:
-			# Enter
-			speed = walk_speed
-			
-			# Process
-			if next_direction:
-				direction = _update_direction(delta, next_direction, accel)
-				
-			else:
-				move_state = MoveStates.IDLE
-			
-			if Input.is_action_pressed("run"):
-				move_state = MoveStates.RUN
-			
-			
-			if not is_on_floor():
-				move_state = MoveStates.AIR
-			
-			if Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = jump_strength
-			# Exit
-		
-		MoveStates.RUN:
-			# Enter
-			speed = run_speed
-			
-			# Process
-			if next_direction:
-				direction = _update_direction(delta, next_direction, accel)
-			else:
-				move_state = MoveStates.IDLE
-				
-			
-			if not Input.is_action_pressed("run"):
-				move_state = MoveStates.WALK
-			
-			if not is_on_floor():
-				move_state = MoveStates.AIR
-			
-			if Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = jump_strength
-			
-			# Exit
-		
-		MoveStates.AIR:
-			velocity.y -= gravity * delta
-			
-			direction = _update_direction(delta, Vector3.ZERO, air_decel)
-			
-			if is_on_floor():
-				move_state = MoveStates.IDLE
 	
 	_update_velocity()
-	
 	move_and_slide()
+	
+	hold_item(delta)
 
  
 func _process(delta: float) -> void:
@@ -183,7 +115,10 @@ func _process(delta: float) -> void:
 	
 	# Body
 	body.rotation.y = _follow_camera_rotation(delta, body.rotation.y, head.rotation.y, body_angle_limit, body_rotation_speed)
+	
 	# Hands
+	
+	state_machine.process_frame(delta)
 
 
 
@@ -235,3 +170,22 @@ func _follow_camera_rotation(delta: float, B: float, H: float, L: float, weight:
 	#print("target : %.1f  |  Body : %.1f  |  Head : %.1f" % [rad_to_deg(target), rad_to_deg(B), rad_to_deg(H)])
 	return B
 
+
+
+func _on_player_interactor_component_item_received(obj) -> void:
+	item = obj
+
+
+func _on_drop_item() -> void:
+	item = null
+
+
+func hold_item(_delta: float) -> void:
+	if not item: return
+	var dir = right_hand.global_position - item.global_position
+	
+	item.velocity = dir * 10.0
+	item.move_and_slide()
+	
+	if item.global_position != front_marker.global_position:
+		item.look_at(front_marker.global_position)

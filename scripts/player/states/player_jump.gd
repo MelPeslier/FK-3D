@@ -1,26 +1,24 @@
 extends PlayerState
+
 @export_category("States")
-@export var idle_state: PlayerState
+@export var air_state: PlayerState
 
 @export_category("Variables")
-
+@export var jump_strength: float
 
 
 func enter() -> void:
-	pass
+	parent.velocity.y = jump_strength 
 
 
 func exit() -> void:
 	pass
 
 
-func process_physics(delta: float) -> FiniteState:
-	parent.velocity.y -= parent.gravity * delta
+func process_physics(_delta: float) -> FiniteState:
+	if not parent.is_on_floor():
+		return air_state
 	
-	parent.direction = parent._update_direction(delta, Vector3.ZERO, parent.air_decel)
-	
-	if parent.is_on_floor():
-		return idle_state
 	return null
 
 

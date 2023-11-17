@@ -1,8 +1,13 @@
 extends PlayerState
 
 
+@export_category("States")
 @export var air_state: PlayerState
 @export var walk_state: PlayerState
+@export var jump_state: PlayerState
+
+@export_category("Variables")
+@export var player_interactor_component: PlayerInteractorComponent
 
 
 func enter() -> void:
@@ -15,15 +20,26 @@ func exit() -> void:
 
 func process_physics(delta: float) -> FiniteState:
 	parent.direction = parent._update_direction(delta, Vector3.ZERO, parent.ground_decel)
+	
 	if not parent.is_on_floor():
 		return air_state
 	
 	if parent.next_direction:
 		return walk_state
+	
 	return null
 
 
-func process_unhandled_input(_event: InputEvent) -> FiniteState:
+func process_unhandled_input(event: InputEvent) -> FiniteState:
+	if event.is_action_pressed("jump") and parent.is_on_floor():
+		return jump_state
+	
+	if parent.item:
+		parent.item.process_unhandled_input(event)
+		
+	else:
+		player_interactor_component.process_unhandled_input(event)
+	
 	return null
 
 

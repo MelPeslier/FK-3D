@@ -5,18 +5,19 @@ extends WateringCanFiniteState
 
 
 func enter() -> void:
-	parent.enable_collision_layers()
 	print("enter idle")
+	parent.enable_collision_layers()
 
 
 func exit() -> void:
-	parent.disable_collision_layers()
 	print("exit idle")
+	parent.disable_collision_layers()
 
 
 func process_physics(_delta: float) -> FiniteState:
 	if not parent.is_on_floor():
 		return fall_state
+	
 	return null
 
 
@@ -25,7 +26,8 @@ func on_interactable_focused(_interactor: InteractorComponent) -> FiniteState:
 
 
 func on_interactable_interacted(_interactor: InteractorComponent) -> FiniteState:
-#	_interactor.item_received.emit(parent)
+	parent.holder = _interactor.controller
+	_interactor.item_received.emit(parent)
 	return hold_state
 
 

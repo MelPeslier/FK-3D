@@ -2,10 +2,9 @@ class_name Flower
 extends CharacterBody3D
 
 
-
+@export_group("Components")
 @export var in_game_ui: InGameUi
 @export var water_component: WaterComponent
-@export var happiness_component: HappinessComponent
 @export var flower_data: FlowerData
 
 

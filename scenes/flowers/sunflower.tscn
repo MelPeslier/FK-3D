@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=15 format=3 uid="uid://e67oiqciir2o"]
 
-[ext_resource type="Script" path="res://scripts/flowers/flower.gd" id="1_4ramh"]
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
+[ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
+[ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="2_rkkjy"]
 [ext_resource type="Shader" path="res://mat_shad/shaders/display/in_game_ui.gdshader" id="3_15qn6"]
 [ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
 [ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
@@ -16,6 +17,9 @@ resource_local_to_scene = true
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_woqa4"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_i7052")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
+size = Vector3(1, 1.9386, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6p5fa"]
 resource_local_to_scene = true
@@ -32,13 +36,13 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 [sub_resource type="QuadMesh" id="QuadMesh_qblyq"]
 resource_local_to_scene = true
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("in_game_ui", "water_component", "happiness_component", "flower_data")]
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("happiness_component", "in_game_ui", "water_component", "flower_data")]
 collision_layer = 28
 collision_mask = 0
-script = ExtResource("1_4ramh")
+script = ExtResource("1_vbhfb")
+happiness_component = NodePath("HappinessComponent")
 in_game_ui = NodePath("InGameUI")
 water_component = NodePath("WaterComponent")
-happiness_component = NodePath("HappinessComponent")
 flower_data = NodePath("FlowerData")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
@@ -46,6 +50,14 @@ shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_woqa4")
+
+[node name="InteractableComponent" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("2_rkkjy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableComponent"]
+shape = SubResource("BoxShape3D_pvtoa")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content", "body") instance=ExtResource("1_nw61n")]
 parent = NodePath("..")
@@ -64,7 +76,7 @@ happiness_component = NodePath("../../../HappinessComponent")
 water_component = NodePath("../../../WaterComponent")
 flower_data = NodePath("../../../FlowerData")
 
-[node name="WaterComponent" type="Node" parent="."]
+[node name="WaterComponent" type="Node" parent="." node_paths=PackedStringArray("happiness_component")]
 script = ExtResource("3_jngka")
 water = 45.0
 min_perfect = 15.0
@@ -72,6 +84,7 @@ max_perfect = 85.0
 decrease_coef = 0.9
 decrease_value = 3.0
 increase_coef = 1.0
+happiness_component = NodePath("../HappinessComponent")
 
 [node name="HappinessComponent" type="Node" parent="."]
 script = ExtResource("4_yssym")
@@ -84,5 +97,10 @@ increase_value = 1.0
 [node name="FlowerData" type="Node" parent="."]
 script = ExtResource("6_khebb")
 flower_name = "SunFlower"
+sell_price = 15.0
+
+[connection signal="focused" from="InteractableComponent" to="." method="_on_interactable_component_focused"]
+[connection signal="interacted" from="InteractableComponent" to="." method="_on_interactable_component_interacted"]
+[connection signal="unfocused" from="InteractableComponent" to="." method="_on_interactable_component_unfocused"]
 
 [editable path="InGameUI"]

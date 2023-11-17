@@ -34,11 +34,14 @@ albedo_color = Color(1, 0.109804, 0, 1)
 material = SubResource("StandardMaterial3D_uu5o1")
 height = 0.14
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "front_marker")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine")]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_m0k24")
-gravity = 9.8
+gravity = 10.0
+jump_strength = 4.5
+run_speed = 8.0
+walk_speed = 5.0
 accel = 6.0
 ground_decel = 4.5
 air_decel = 0.6
@@ -60,7 +63,6 @@ left_hand = NodePath("Body/LeftMarker/LeftHand")
 right_marker = NodePath("Body/RightMarker")
 right_hand = NodePath("Body/RightMarker/RightHand")
 state_machine = NodePath("FiniteStateMachine")
-front_marker = NodePath("Head/Camera3D/FrontMarker")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -93,9 +95,6 @@ player = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76837e-07, -2.42423)
 shape = SubResource("BoxShape3D_t501h")
 
-[node name="FrontMarker" type="Marker3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, -4.43203)
-
 [node name="Body" type="Node3D" parent="."]
 script = ExtResource("3_6pwpn")
 
@@ -125,21 +124,18 @@ visible = false
 script = ExtResource("8_o6qgt")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("air_state", "walk_state", "jump_state", "player_interactor_component")]
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("air_state", "walk_state", "jump_state")]
 script = ExtResource("9_tpojc")
 air_state = NodePath("../Air")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
-player_interactor_component = NodePath("../../Head/Camera3D/PlayerInteractorComponent")
 
-[node name="Walk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state", "jump_state", "player_interactor_component")]
+[node name="Walk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state", "jump_state")]
 script = ExtResource("10_ah0uo")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 air_state = NodePath("../Air")
 jump_state = NodePath("../Jump")
-player_interactor_component = NodePath("../../Head/Camera3D/PlayerInteractorComponent")
-walk_speed = 5.0
 
 [node name="Run" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "air_state", "jump_state")]
 script = ExtResource("11_tfn4x")
@@ -147,7 +143,6 @@ idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 air_state = NodePath("../Air")
 jump_state = NodePath("../Jump")
-run_speed = 8.0
 
 [node name="Air" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("12_wt6nu")
@@ -156,7 +151,3 @@ idle_state = NodePath("../Idle")
 [node name="Jump" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("air_state")]
 script = ExtResource("13_t3lpp")
 air_state = NodePath("../Air")
-jump_strength = 8.0
-
-[connection signal="drop_item" from="." to="." method="_on_drop_item"]
-[connection signal="item_received" from="Head/Camera3D/PlayerInteractorComponent" to="." method="_on_player_interactor_component_item_received"]

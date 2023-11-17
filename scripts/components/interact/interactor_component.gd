@@ -1,6 +1,7 @@
 class_name InteractorComponent
 extends Area3D
 
+signal item_unfocus
 signal item_received(obj: Node3D)
 
 var controller: Node3D

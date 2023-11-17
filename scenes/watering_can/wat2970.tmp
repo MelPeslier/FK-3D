@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2apj4504hbw6"]
+[gd_scene load_steps=13 format=3 uid="uid://c2apj4504hbw6"]
 
 [ext_resource type="Script" path="res://scripts/watering_can/watering_can.gd" id="1_od86m"]
 [ext_resource type="PackedScene" uid="uid://cqc880bbkxx5f" path="res://assets/watering_can/watering_can.blend" id="2_2i3ys"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_idle.gd" id="5_dggat"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_fall.gd" id="6_hafw8"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_hold.gd" id="7_ayave"]
+[ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_water.gd" id="8_x15u8"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_648dp"]
 points = PackedVector3Array(-5.96046e-08, 1, 1, -0.195184, 1, 0.980619, -5.96046e-08, -1, 1, 0.194988, 1, 0.980619, -0.382733, 1, 0.923845, -0.195184, -1, 0.980619, 0.194988, -1, 0.980619, 0.382537, 1, 0.923845, -0.555599, 1, 0.831441, -0.382733, -1, 0.923845, 0.382537, -1, 0.923845, 0.555403, 1, 0.831441, -0.707126, 1, 0.70693, -0.555599, -1, 0.831441, 0.555403, -1, 0.831441, 0.70693, 1, 0.70693, -0.831637, 1, 0.555403, -0.707126, -1, 0.70693, 0.70693, -1, 0.70693, 0.831441, 1, 0.555403, -0.924041, 1, 0.382537, -0.831637, -1, 0.555403, 0.831441, -1, 0.555403, 0.923845, 1, 0.382537, -0.980814, 1, 0.194988, -0.924041, -1, 0.382537, 0.923845, -1, 0.382537, 0.980618, 1, 0.194988, -1, 1, 0, -0.980814, -1, 0.194988, 0.980618, -1, 0.194988, 1, 1, 0, -0.980814, 1, -0.195184, -1, -1, 0, 1, -1, 0, 0.980618, 1, -0.195184, -0.924041, 1, -0.382733, -0.980814, -1, -0.195184, 0.980618, -1, -0.195184, 0.923845, 1, -0.382733, -0.831637, 1, -0.555599, -0.924041, -1, -0.382733, 0.923845, -1, -0.382733, 0.831441, 1, -0.555599, -0.707126, 1, -0.707126, -0.831637, -1, -0.555599, 0.831441, -1, -0.555599, 0.70693, 1, -0.707126, -0.555599, 1, -0.831637, -0.707126, -1, -0.707126, 0.70693, -1, -0.707126, 0.555403, 1, -0.831637, -0.382733, 1, -0.924041, -0.555599, -1, -0.831637, 0.555403, -1, -0.831637, 0.382537, 1, -0.924041, -0.195184, 1, -0.980814, -0.382733, -1, -0.924041, 0.382537, -1, -0.924041, 0.194988, 1, -0.980814, -5.96046e-08, 1, -1, -0.195184, -1, -0.980814, 0.194988, -1, -0.980814, -5.96046e-08, -1, -1)
@@ -23,8 +24,6 @@ collision_layer = 32
 script = ExtResource("1_od86m")
 state_machine = NodePath("InteractableFiniteStateMachine")
 interactable = NodePath("Interactable")
-water = 450.0
-output = 2.0
 
 [node name="watering_can" parent="." instance=ExtResource("2_2i3ys")]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
@@ -49,32 +48,4 @@ collision_mask = 0
 script = ExtResource("3_em4j0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.154673, 0)
-shape = SubResource("BoxShape3D_hly1n")
-
-[node name="InteractableFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("4_5qtab")
-starting_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("fall_state", "hold_state")]
-script = ExtResource("5_dggat")
-fall_state = NodePath("../Fall")
-hold_state = NodePath("../Hold")
-
-[node name="Fall" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "hold_state")]
-script = ExtResource("6_hafw8")
-idle_state = NodePath("../Idle")
-hold_state = NodePath("../Hold")
-
-[node name="Hold" type="Node" parent="InteractableFiniteStateMachine" node_paths=PackedStringArray("idle_state", "interactor_component")]
-script = ExtResource("7_ayave")
-idle_state = NodePath("../Idle")
-interactor_component = NodePath("../../WateringCanInteractorComponent")
-
-[connection signal="item_received" from="WateringCanInteractorComponent" to="." method="_on_watering_can_interactor_component_item_received"]
-[connection signal="item_unfocus" from="WateringCanInteractorComponent" to="." method="_on_watering_can_interactor_component_item_unfocus"]
-[connection signal="focused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_focused"]
-[connection signal="interacted" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_interacted"]
-[connection signal="unfocused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_unfocused"]
-
-[editable path="watering_can"]
+transform = Transform3D(1, 0, 0, 0, 1,

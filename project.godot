@@ -77,14 +77,14 @@ disjoin={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Flower"
 3d_physics/layer_4="FlowerWater"
-3d_physics/layer_5="Display3D"
+3d_physics/layer_5="Display 3D"
 3d_physics/layer_6="Object"
-3d_physics/layer_7="Interactable"
+3d_physics/layer_7="Interactable Hold"
+3d_physics/layer_8="Interactable Water"
 
 [rendering]
 
 anti_aliasing/quality/msaa_3d=2
-lights_and_shadows/quality/msaa_3d=0
 lights_and_shadows/size/mode=0
 lights_and_shadows/size/viewport_height=648
 lights_and_shadows/size/viewport_width=1152

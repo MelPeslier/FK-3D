@@ -46,10 +46,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	sub_happ(delta, decrease_value)
+	sub_happ(delta)
 
 
-func sub_happ(delta: float, decr: float) -> void:
+func sub_happ(delta: float, decr: float = decrease_value) -> void:
 	happiness -= decr * decrease_coef * delta
 
 
