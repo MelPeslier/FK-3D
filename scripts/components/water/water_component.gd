@@ -10,6 +10,7 @@ signal water_increase_coef_changed(val: float)
 
 const MIN: float = 0
 const MAX: float = 100
+const E := 0.001
 
 @export_range(MIN, MAX) var water: float:
 	set(new_value):
@@ -47,7 +48,7 @@ const MAX: float = 100
 		increase_coef = new_value
 		water_increase_coef_changed.emit(increase_coef)
 
-
+@export_category("components")
 @export var happiness_component: HappinessComponent
 
 
@@ -55,8 +56,14 @@ func _ready() -> void:
 	_init_values()
 
 
-#func _process(delta: float) -> void:
-#	sub_water(delta, decrease_value)
+func process_frame(delta: float) -> void:
+	if water > E:
+		sub_water(delta, decrease_value)
+		if water > min_perfect and water < max_perfect:
+			happiness_component.add_happ(delta)
+		return
+	
+	happiness_component.sub_happ(delta)
 
 
 func sub_water(delta: float, decr: float) -> void:
@@ -65,6 +72,14 @@ func sub_water(delta: float, decr: float) -> void:
 
 func add_water(delta: float, incr: float) -> void:
 	water += incr * increase_coef * delta
+
+
+func alter_decrease_coef(amount: float) -> void:
+	decrease_coef += amount
+
+
+func alter_increase_coef(amount: float) -> void:
+	increase_coef += amount
 
 
 func _init_values() -> void:

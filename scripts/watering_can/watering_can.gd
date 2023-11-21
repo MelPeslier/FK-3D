@@ -61,7 +61,7 @@ func watering(delta: float) -> void:
 	
 	var output_value = min(water, output)
 	water -= output_value * delta
-	flower.watering(delta, output_value)
+	flower.water_component.add_water(delta, output_value)
 
 
 func _on_watering_can_interactor_component_item_received(obj) -> void:

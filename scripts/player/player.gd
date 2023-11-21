@@ -182,7 +182,7 @@ func _on_drop_item() -> void:
 
 func hold_item(_delta: float) -> void:
 	if not item: return
-	var dir = right_hand.global_position - item.global_position
+	var dir := right_hand.global_position - item.global_position
 	
 	item.velocity = dir * 10.0
 	item.move_and_slide()

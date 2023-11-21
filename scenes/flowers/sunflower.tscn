@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=16 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
 [ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
@@ -36,14 +36,19 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 [sub_resource type="QuadMesh" id="QuadMesh_qblyq"]
 resource_local_to_scene = true
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("happiness_component", "in_game_ui", "water_component", "flower_data")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_55hf5"]
+radius = 5.0
+
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "interactable_component")]
 collision_layer = 28
 collision_mask = 0
 script = ExtResource("1_vbhfb")
-happiness_component = NodePath("HappinessComponent")
-in_game_ui = NodePath("InGameUI")
 water_component = NodePath("WaterComponent")
+in_game_ui = NodePath("InGameUI")
+happiness_component = NodePath("HappinessComponent")
 flower_data = NodePath("FlowerData")
+flower_detector = NodePath("FlowerDetector")
+interactable_component = NodePath("InteractableComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fl531")
@@ -52,7 +57,7 @@ shape = SubResource("CapsuleShape3D_fl531")
 mesh = SubResource("CapsuleMesh_woqa4")
 
 [node name="InteractableComponent" type="Area3D" parent="."]
-collision_layer = 128
+collision_layer = 192
 collision_mask = 0
 script = ExtResource("2_rkkjy")
 
@@ -90,7 +95,7 @@ happiness_component = NodePath("../HappinessComponent")
 script = ExtResource("4_yssym")
 happiness = 50.0
 decrease_coef = 1.0
-decrease_value = 1.0
+decrease_value = 5.0
 increase_coef = 1.0
 increase_value = 1.0
 
@@ -98,9 +103,13 @@ increase_value = 1.0
 script = ExtResource("6_khebb")
 flower_name = "SunFlower"
 sell_price = 15.0
+max_nearby_happ_decr_coef = 0.15
 
-[connection signal="focused" from="InteractableComponent" to="." method="_on_interactable_component_focused"]
-[connection signal="interacted" from="InteractableComponent" to="." method="_on_interactable_component_interacted"]
-[connection signal="unfocused" from="InteractableComponent" to="." method="_on_interactable_component_unfocused"]
+[node name="FlowerDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlowerDetector"]
+shape = SubResource("SphereShape3D_55hf5")
 
 [editable path="InGameUI"]
