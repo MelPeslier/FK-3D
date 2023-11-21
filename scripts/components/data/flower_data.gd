@@ -14,45 +14,65 @@ signal flower_name_changed(new_value: String)
 		flower_name_changed.emit(flower_name)
 
 @export var sell_price: float
-@export_group("Nearby Modifiers")
-@export_subgroup("Happiness Decr")
+@export_category("Nearby Modifiers")
+@export_group("Happiness")
+@export_subgroup("Coef")
 @export var min_nearby_happ_decr_coef: float
 @export var max_nearby_happ_decr_coef: float
-
-@export_subgroup("Happiness Incr")
 @export var min_nearby_happ_incr_coef: float
 @export var max_nearby_happ_incr_coef: float
 
-@export_subgroup("Water Decr")
+@export_subgroup("Value")
+@export var nearby_happ_val: float
+
+@export_group("Water")
+@export_subgroup("Coef")
 @export var min_nearby_water_decr_coef: float
 @export var max_nearby_water_decr_coef: float
-
-@export_subgroup("Water Incr")
 @export var min_nearby_water_incr_coef: float
 @export var max_nearby_water_incr_coef: float
+
+@export_subgroup("Value")
+@export var nearby_water_val: float
 
 
 var nearby_happ_decr_coef: float:
 	set(new_value):
-		new_value = clamp(new_value, min_nearby_happ_decr_coef, max_nearby_happ_decr_coef)
+		if min_nearby_happ_decr_coef < max_nearby_happ_decr_coef:
+			new_value = clamp(new_value, min_nearby_happ_decr_coef, max_nearby_happ_decr_coef)
+		else:
+			new_value = clamp(new_value, max_nearby_happ_decr_coef, min_nearby_happ_decr_coef)
+		
 		nearby_happ_decr_coef_changed.emit(nearby_happ_decr_coef, new_value)
 		nearby_happ_decr_coef = new_value
 
 var nearby_happ_incr_coef: float:
 	set(new_value):
-		new_value = clamp(new_value, min_nearby_happ_incr_coef, max_nearby_happ_incr_coef)
+		if min_nearby_happ_incr_coef < max_nearby_happ_incr_coef :
+			new_value = clamp(new_value, min_nearby_happ_incr_coef, max_nearby_happ_incr_coef)
+		else:
+			new_value = clamp(new_value, max_nearby_happ_incr_coef, min_nearby_happ_incr_coef)
+		
 		nearby_happ_incr_coef_changed.emit(nearby_happ_incr_coef, new_value)
 		nearby_happ_incr_coef = new_value
 
 var nearby_water_decr_coef: float:
 	set(new_value):
-		new_value = clamp(new_value, min_nearby_water_decr_coef, max_nearby_water_decr_coef)
+		if min_nearby_water_decr_coef < max_nearby_water_decr_coef :
+			new_value = clamp(new_value, min_nearby_water_decr_coef, max_nearby_water_decr_coef)
+		else:
+			new_value = clamp(new_value, max_nearby_water_decr_coef, min_nearby_water_decr_coef)
+		
 		nearby_water_decr_coef_changed.emit(nearby_water_decr_coef, new_value)
 		nearby_water_decr_coef = new_value
 
 var nearby_water_incr_coef: float:
 	set(new_value):
-		new_value = clamp(new_value, min_nearby_water_incr_coef, max_nearby_water_incr_coef)
+		if min_nearby_water_incr_coef < max_nearby_water_incr_coef :
+			new_value = clamp(new_value, min_nearby_water_incr_coef, max_nearby_water_incr_coef)
+		else:
+			new_value = clamp(new_value, max_nearby_water_incr_coef, min_nearby_water_incr_coef)
+		
 		nearby_water_incr_coef_changed.emit(nearby_water_incr_coef, new_value)
 		nearby_water_incr_coef = new_value
 

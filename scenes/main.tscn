@@ -115,8 +115,26 @@ mesh = SubResource("BoxMesh_jfiwf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/wall6"]
 shape = SubResource("BoxShape3D_gc4bs")
 
-[node name="Sunflower" parent="." instance=ExtResource("2_g1q22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1, 1)
-
 [node name="WateringCan" parent="." instance=ExtResource("3_vmvvf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.74573, 21.3109, 2.56941)
+
+[node name="Sunflower" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1.75811, -1)
+
+[node name="Sunflower2" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 1)
+
+[node name="Sunflower3" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 2)
+
+[node name="Sunflower4" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -1)
+
+[node name="Sunflower5" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -3)
+
+[node name="Sunflower6" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 1)
+
+[node name="Sunflower7" parent="." instance=ExtResource("2_g1q22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -5)

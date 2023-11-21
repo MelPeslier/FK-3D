@@ -25,7 +25,6 @@ func _ready() -> void:
 # Interactable 
 func _on_interactable_component_focused(_interactor: InteractorComponent) -> void:
 	_interactor.item_received.emit(self)
-	print("item_receveid")
 
 
 func _on_interactable_component_interacted(_interactor: InteractorComponent) -> void:
@@ -33,12 +32,14 @@ func _on_interactable_component_interacted(_interactor: InteractorComponent) -> 
 
 
 func _on_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
-	print("unfocus")
+	pass
 
 
 # Flower detector
 func _on_flower_detector_body_entered(body: Node3D) -> void:
 	if not body is WaterFlower: return
+	if body == self: return
+#	if (body.global_position - global_position).length() < 0.0001 : return
 	
 	nearby_water_flowers.append(body)
 
@@ -50,6 +51,11 @@ func _on_flower_detector_body_exited(body: Node3D) -> void:
 		nearby_water_flowers.erase(body)
 		var flower: WaterFlower = body as WaterFlower
 		flower.flowers_affecting_this.erase(self)
+
+
+# Player interactor + transmit
+func process_unhandled_input(event: InputEvent) -> void:
+	pass
 
 
 # UI related

@@ -48,7 +48,7 @@ in_game_ui = NodePath("InGameUI")
 happiness_component = NodePath("HappinessComponent")
 flower_data = NodePath("FlowerData")
 flower_detector = NodePath("FlowerDetector")
-interactable_component = NodePath("InteractableComponent")
+interactable_component = NodePath("WaterInteractableComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fl531")
@@ -56,12 +56,12 @@ shape = SubResource("CapsuleShape3D_fl531")
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_woqa4")
 
-[node name="InteractableComponent" type="Area3D" parent="."]
-collision_layer = 192
+[node name="WaterInteractableComponent" type="Area3D" parent="."]
+collision_layer = 128
 collision_mask = 0
 script = ExtResource("2_rkkjy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterInteractableComponent"]
 shape = SubResource("BoxShape3D_pvtoa")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content", "body") instance=ExtResource("1_nw61n")]
@@ -86,8 +86,8 @@ script = ExtResource("3_jngka")
 water = 45.0
 min_perfect = 15.0
 max_perfect = 85.0
-decrease_coef = 0.9
-decrease_value = 3.0
+decrease_coef = 1.0
+decrease_value = 1.0
 increase_coef = 1.0
 happiness_component = NodePath("../HappinessComponent")
 
@@ -95,7 +95,7 @@ happiness_component = NodePath("../HappinessComponent")
 script = ExtResource("4_yssym")
 happiness = 50.0
 decrease_coef = 1.0
-decrease_value = 5.0
+decrease_value = 1.0
 increase_coef = 1.0
 increase_value = 1.0
 
@@ -103,7 +103,8 @@ increase_value = 1.0
 script = ExtResource("6_khebb")
 flower_name = "SunFlower"
 sell_price = 15.0
-max_nearby_happ_decr_coef = 0.15
+max_nearby_happ_decr_coef = -0.15
+nearby_happ_val = 0.5
 
 [node name="FlowerDetector" type="Area3D" parent="."]
 collision_layer = 0

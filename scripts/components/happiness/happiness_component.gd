@@ -67,6 +67,13 @@ func alter_increase_coef(old_value: float, new_value: float) -> void:
 	increase_coef += new_value
 
 
+func is_happ_max() -> bool:
+	var it_is := false
+	if happiness > MAX - E:
+		it_is = true
+	return it_is
+
+
 func _init_values() -> void:
 	happiness = happiness
 	decrease_coef = decrease_coef
