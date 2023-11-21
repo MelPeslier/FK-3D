@@ -28,7 +28,6 @@ func process_unhandled_input(event: InputEvent) -> void:
 
 
 func _on_area_exited(_area: InteractableComponent) -> void:
-	pass
-#	if cached_closest == _area:
-#		print("area exited unfocus")
-#		unfocus(area)
+	if cached_closest == _area:
+		print("area exited unfocus")
+		unfocus(_area)

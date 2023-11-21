@@ -5,13 +5,13 @@ extends WateringCanFiniteState
 
 
 func enter() -> void:
-	print("enter idle")
-	parent.enable_collision_layers()
+#	print("enter idle")
+	pass
 
 
 func exit() -> void:
-	print("exit idle")
-	parent.disable_collision_layers()
+#	print("exit idle")
+	pass
 
 
 func process_physics(_delta: float) -> FiniteState:
@@ -22,6 +22,7 @@ func process_physics(_delta: float) -> FiniteState:
 
 
 func on_interactable_focused(_interactor: InteractorComponent) -> FiniteState:
+	parent.modulate_item(Color.MEDIUM_AQUAMARINE)
 	return null
 
 
@@ -32,4 +33,5 @@ func on_interactable_interacted(_interactor: InteractorComponent) -> FiniteState
 
 
 func on_interactable_unfocused(_interactor: InteractorComponent) -> FiniteState:
+	parent.modulate_item(Color.WHITE)
 	return null

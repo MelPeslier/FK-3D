@@ -11,12 +11,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7052"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wieqn"]
 resource_local_to_scene = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_woqa4"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_i7052")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
 size = Vector3(1, 1.9386, 1)
@@ -39,7 +38,7 @@ resource_local_to_scene = true
 [sub_resource type="SphereShape3D" id="SphereShape3D_55hf5"]
 radius = 5.0
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "interactable_component")]
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "interactable_component", "body_mesh")]
 collision_layer = 28
 collision_mask = 0
 script = ExtResource("1_vbhfb")
@@ -49,11 +48,13 @@ happiness_component = NodePath("HappinessComponent")
 flower_data = NodePath("FlowerData")
 flower_detector = NodePath("FlowerDetector")
 interactable_component = NodePath("WaterInteractableComponent")
+body_mesh = NodePath("BodyMesh")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_wieqn")
 mesh = SubResource("CapsuleMesh_woqa4")
 
 [node name="WaterInteractableComponent" type="Area3D" parent="."]

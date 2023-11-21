@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var flower_data: FlowerData
 @export var flower_detector: Area3D
 @export var interactable_component: InteractableComponent
+@export var body_mesh: MeshInstance3D
 
 # Variables
 var nearby_water_flowers: Array[WaterFlower]
@@ -22,24 +23,29 @@ func _ready() -> void:
 	flower_detector.body_exited.connect(_on_flower_detector_body_exited)
 
 
-# Interactable 
+# Interactable for watering can
 func _on_interactable_component_focused(_interactor: InteractorComponent) -> void:
+	modulate_item(Color.AQUA)
+
+func _on_interactable_component_interacted(_interactor: InteractorComponent) -> void:
 	_interactor.item_received.emit(self)
 
 
-func _on_interactable_component_interacted(_interactor: InteractorComponent) -> void:
-	pass # Replace with function body.
-
-
 func _on_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
-	pass
+	modulate_item(Color.WHITE)
+
+
+func modulate_item(_color: Color) -> void:
+	# Only change the mesh albedo color
+	var obj = body_mesh as MeshInstance3D
+	var mat = obj.material_override as StandardMaterial3D
+	mat.albedo_color = _color
 
 
 # Flower detector
 func _on_flower_detector_body_entered(body: Node3D) -> void:
 	if not body is WaterFlower: return
 	if body == self: return
-#	if (body.global_position - global_position).length() < 0.0001 : return
 	
 	nearby_water_flowers.append(body)
 

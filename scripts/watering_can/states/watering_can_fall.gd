@@ -5,13 +5,13 @@ extends WateringCanFiniteState
 
 
 func enter() -> void:
-	parent.enable_collision_layers()
-	print("enter fall")
+	pass
+#	print("enter fall")
 
 
 func exit() -> void:
-	parent.disable_collision_layers()
-	print("exit fall")
+	pass
+#	print("exit fall")
 
 
 func process_physics(delta: float) -> FiniteState:

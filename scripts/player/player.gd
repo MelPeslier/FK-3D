@@ -178,6 +178,7 @@ func _on_player_interactor_component_item_received(obj) -> void:
 
 func _on_drop_item() -> void:
 	item = null
+	
 
 
 func hold_item(_delta: float) -> void:

@@ -21,21 +21,16 @@ const OUTPUT_MAX: float = 50
 @export_range(OUTPUT_MIN, OUTPUT_MAX) var output: float
 
 var layers_collision: Array[int]
-
 var holder: Node3D
-
 var flower: WaterFlower
+
+@onready var watering_can: Node3D = $watering_can
 
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
-	
-	# On donne 0 zone de collisions à l'élément
-	# On laisse les états machine gérer l'activation ou non des zones de collisions
-	layers_collision = init_layers_collision()
-	disable_collision_layers()
 
 
 func process_unhandled_input(event: InputEvent) -> void:
@@ -72,25 +67,22 @@ func _on_watering_can_interactor_component_item_unfocus() -> void:
 	flower = null
 
 
-# Collision layers visibility
-func init_layers_collision() -> Array[int]:
-	var tab: Array[int] = []
-	for i in range(1, 33):
-		if interactable.get_collision_layer_value(i):
-			tab.append(i)
-	return tab
+func modulate_item(_color: Color) -> void:
+	# Only change the mesh albedo color
+	var obj = watering_can.get_child(0) as MeshInstance3D
+	var mat = obj.material_override as StandardMaterial3D
+	mat.albedo_color = _color
+	
+	# Duplicate the mesh instance, grow it and change it's color
+#	var new = obj.duplicate() as MeshInstance3D
+#	watering_can.add_child(new)
+#	new.material_override = StandardMaterial3D.new()
+#	new.material_override.grow = true
+#	new.material_override.grow_amount = 0.01
+#	new.material_override.albedo_color = Color.BLUE_VIOLET
 
 
-func disable_collision_layers() -> void:
-	alter_collision_layers(false)
 
 
-func enable_collision_layers() -> void:
-	alter_collision_layers(true)
-
-
-func alter_collision_layers(do: bool) -> void:
-	for i in layers_collision:
-		interactable.set_collision_layer_value(i, do)
 
 

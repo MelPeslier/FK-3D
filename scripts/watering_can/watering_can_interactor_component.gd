@@ -14,9 +14,9 @@ func _ready() -> void:
 func process_physics(_delta: float) -> void:
 	var new_closest: InteractableComponent = get_closest_interactable()
 	if new_closest != cached_closest:
-		item_unfocus.emit()
 		if is_instance_valid(cached_closest):
 			unfocus(cached_closest)
+			item_unfocus.emit()
 		if new_closest:
 			focus(new_closest)
 	cached_closest = new_closest
