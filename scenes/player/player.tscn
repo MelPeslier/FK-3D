@@ -34,7 +34,7 @@ albedo_color = Color(1, 0.109804, 0, 1)
 material = SubResource("StandardMaterial3D_uu5o1")
 height = 0.14
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "front_marker")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "front_marker", "player_interactor_component")]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_m0k24")
@@ -61,6 +61,7 @@ right_marker = NodePath("Body/RightMarker")
 right_hand = NodePath("Body/RightMarker/RightHand")
 state_machine = NodePath("FiniteStateMachine")
 front_marker = NodePath("Head/Camera3D/FrontMarker")
+player_interactor_component = NodePath("Head/Camera3D/PlayerInteractorComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

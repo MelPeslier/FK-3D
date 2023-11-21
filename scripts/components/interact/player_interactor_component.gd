@@ -11,7 +11,7 @@ func _ready() -> void:
 	controller = player
 
 
-func _physics_process(_delta: float) -> void:
+func process_physics(_delta: float) -> void:
 	var new_closest: InteractableComponent = get_closest_interactable()
 	if new_closest != cached_closest:
 		if is_instance_valid(cached_closest):
@@ -31,3 +31,8 @@ func _on_area_exited(_area: InteractableComponent) -> void:
 	if cached_closest == _area:
 		print("area exited unfocus")
 		unfocus(_area)
+
+
+func reset_cached_closest() -> void:
+#	cached_closest
+	cached_closest = null

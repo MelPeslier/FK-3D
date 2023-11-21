@@ -27,6 +27,9 @@ func process_physics(delta: float) -> FiniteState:
 	else:
 		return idle_state
 
+	if parent.item == null:
+		player_interactor_component.process_physics(delta)
+
 	if Input.is_action_pressed("run"):
 		return run_state
 

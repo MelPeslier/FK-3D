@@ -42,6 +42,7 @@ signal drop_item
 
 @export_group("Item")
 @export var front_marker: Marker3D
+@export var player_interactor_component: PlayerInteractorComponent
 
 
 ### PHYSICS
@@ -177,6 +178,7 @@ func _on_player_interactor_component_item_received(obj) -> void:
 
 
 func _on_drop_item() -> void:
+	player_interactor_component.reset_cached_closest()
 	item = null
 	
 

@@ -21,6 +21,9 @@ func exit() -> void:
 func process_physics(delta: float) -> FiniteState:
 	parent.direction = parent._update_direction(delta, Vector3.ZERO, parent.ground_decel)
 	
+	if parent.item == null:
+		player_interactor_component.process_physics(delta)
+	
 	if not parent.is_on_floor():
 		return air_state
 	

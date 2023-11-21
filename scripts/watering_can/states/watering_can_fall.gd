@@ -24,6 +24,7 @@ func process_physics(delta: float) -> FiniteState:
 
 
 func on_interactable_focused(_interactor: InteractorComponent) -> FiniteState:
+	parent.modulate_item(Color.MEDIUM_AQUAMARINE)
 	return null
 
 
@@ -34,4 +35,5 @@ func on_interactable_interacted(_interactor: InteractorComponent) -> FiniteState
 
 
 func on_interactable_unfocused(_interactor: InteractorComponent) -> FiniteState:
+	parent.modulate_item(Color.WHITE)
 	return null
