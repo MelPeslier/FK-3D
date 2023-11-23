@@ -31,10 +31,6 @@ func process_physics(delta: float) -> FiniteState:
 
 
 # From holder
-func process_unhandled_input(event: InputEvent) -> FiniteState:
-	if event.is_action_pressed("disjoin"):
-		parent.holder.drop_item.emit()
-		parent.holder = null
-		return idle_state
-	
-	return null
+func on_dropped() -> FiniteState:
+	parent.holder = null
+	return idle_state

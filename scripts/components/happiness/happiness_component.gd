@@ -44,17 +44,27 @@ const E := 0.001
 		increase_value = new_value
 		happ_incr_value_changed.emit(increase_value)
 
+# Environment modifiers
+const SUB_NEARBY: float = 1.0
+const ADD_NEARBY: float = -0.5
+
+const SUB_GROUND: float = 0.6
+const ADD_GROUND: float = -0.4
+
+var sub_env_modifier: float = 1
+var add_env_modifier: float = 1
+
 
 func _ready() -> void:
 	_init_values()
 
 
 func sub_happ(delta: float, decr: float = decrease_value) -> void:
-	happiness -= decr * decrease_coef * delta
+	happiness -= decr * decrease_coef * sub_env_modifier * delta
 
 
 func add_happ(delta: float, incr: float = increase_value ) -> void:
-	happiness += incr * increase_coef * delta
+	happiness += incr * increase_coef * add_env_modifier * delta
 
 
 func alter_decrease_coef(old_value: float, new_value: float) -> void:
@@ -65,6 +75,24 @@ func alter_decrease_coef(old_value: float, new_value: float) -> void:
 func alter_increase_coef(old_value: float, new_value: float) -> void:
 	increase_coef -= old_value
 	increase_coef += new_value
+
+
+func alter_nearby(activate_malus: bool) -> void:
+	if activate_malus:
+		add_env_modifier += ADD_NEARBY
+		sub_env_modifier += SUB_NEARBY
+	else:
+		add_env_modifier -= ADD_NEARBY
+		sub_env_modifier -= SUB_NEARBY
+
+
+func alter_ground(activate_malus: bool) -> void:
+	if activate_malus:
+		add_env_modifier += ADD_GROUND
+		sub_env_modifier += SUB_GROUND
+	else:
+		add_env_modifier -= ADD_GROUND
+		sub_env_modifier -= SUB_GROUND
 
 
 func is_happ_max() -> bool:

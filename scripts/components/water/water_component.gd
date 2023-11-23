@@ -51,6 +51,16 @@ const E := 0.001
 @export_category("components")
 @export var happiness_component: HappinessComponent
 
+# Environment modifiers
+const SUB_NEARBY: float = 1.0
+const ADD_NEARBY: float = -0.5
+
+const SUB_GROUND: float = 0.2
+const ADD_GROUND: float = -0.1
+
+var sub_env_modifier: float = 1
+var add_env_modifier: float = 1
+
 
 func _ready() -> void:
 	_init_values()
@@ -67,19 +77,39 @@ func process_frame(delta: float) -> void:
 
 
 func sub_water(delta: float, decr: float) -> void:
-	water -= decr * decrease_coef * delta
+	water -= decr * decrease_coef * sub_env_modifier * delta
 
 
 func add_water(delta: float, incr: float) -> void:
-	water += incr * increase_coef * delta
+	water += incr * increase_coef * add_env_modifier * delta
 
 
-func alter_decrease_coef(amount: float) -> void:
-	decrease_coef += amount
+func alter_decrease_coef(old_value: float, new_value: float) -> void:
+	decrease_coef -= old_value
+	decrease_coef += new_value
 
 
-func alter_increase_coef(amount: float) -> void:
-	increase_coef += amount
+func alter_increase_coef(old_value: float, new_value: float) -> void:
+	increase_coef -= old_value
+	increase_coef += new_value
+
+
+func alter_nearby(activate_malus: bool) -> void:
+	if activate_malus:
+		add_env_modifier += ADD_NEARBY
+		sub_env_modifier += SUB_NEARBY
+	else:
+		add_env_modifier -= ADD_NEARBY
+		sub_env_modifier -= SUB_NEARBY
+
+
+func alter_ground(activate_malus: bool) -> void:
+	if activate_malus:
+		add_env_modifier += ADD_GROUND
+		sub_env_modifier += SUB_GROUND
+	else:
+		add_env_modifier -= ADD_GROUND
+		sub_env_modifier -= SUB_GROUND
 
 
 func _init_values() -> void:

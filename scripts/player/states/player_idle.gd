@@ -39,7 +39,9 @@ func process_unhandled_input(event: InputEvent) -> FiniteState:
 	
 	if parent.item:
 		parent.item.process_unhandled_input(event)
-		
+		if event.is_action_pressed("disjoin"):
+			parent.drop_item.emit()
+	
 	else:
 		player_interactor_component.process_unhandled_input(event)
 	

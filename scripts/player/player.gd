@@ -6,7 +6,6 @@ signal drop_item
 
 @export_group("PHYSICS")
 @export_subgroup("Movements")
-@export var gravity: float
 @export var accel: float
 @export var ground_decel: float
 @export var air_decel: float
@@ -50,6 +49,7 @@ signal drop_item
 var speed: float = 0
 var direction := Vector3.ZERO
 var next_direction := Vector3.ZERO
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 ### JUICE
@@ -178,9 +178,9 @@ func _on_player_interactor_component_item_received(obj) -> void:
 
 
 func _on_drop_item() -> void:
+	item.dropped.emit()
 	player_interactor_component.reset_cached_closest()
 	item = null
-	
 
 
 func hold_item(_delta: float) -> void:

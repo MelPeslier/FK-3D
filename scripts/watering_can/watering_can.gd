@@ -1,6 +1,8 @@
 class_name WateringCan
 extends CharacterBody3D
 
+signal dropped
+
 const WATER_MIN: float = 0
 const WATER_MAX: float = 1000
 const OUTPUT_MIN: float = 1
@@ -11,7 +13,7 @@ const OUTPUT_MAX: float = 50
 @export var interactable: InteractableComponent
 
 @export_category("Variables")
-@export var gravity: float = 10
+@export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @export_category("Water")
 @export_range(WATER_MIN, WATER_MAX) var water: float:

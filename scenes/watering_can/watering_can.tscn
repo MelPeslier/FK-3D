@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_fall.gd" id="6_hafw8"]
 [ext_resource type="Script" path="res://scripts/watering_can/states/watering_can_hold.gd" id="7_ayave"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_648dp"]
+points = PackedVector3Array(-5.96046e-08, 1, 1, -0.195184, 1, 0.980619, -5.96046e-08, -1, 1, 0.194988, 1, 0.980619, -0.382733, 1, 0.923845, -0.195184, -1, 0.980619, 0.194988, -1, 0.980619, 0.382537, 1, 0.923845, -0.555599, 1, 0.831441, -0.382733, -1, 0.923845, 0.382537, -1, 0.923845, 0.555403, 1, 0.831441, -0.707126, 1, 0.70693, -0.555599, -1, 0.831441, 0.555403, -1, 0.831441, 0.70693, 1, 0.70693, -0.831637, 1, 0.555403, -0.707126, -1, 0.70693, 0.70693, -1, 0.70693, 0.831441, 1, 0.555403, -0.924041, 1, 0.382537, -0.831637, -1, 0.555403, 0.831441, -1, 0.555403, 0.923845, 1, 0.382537, -0.980814, 1, 0.194988, -0.924041, -1, 0.382537, 0.923845, -1, 0.382537, 0.980618, 1, 0.194988, -1, 1, 0, -0.980814, -1, 0.194988, 0.980618, -1, 0.194988, 1, 1, 0, -0.980814, 1, -0.195184, -1, -1, 0, 1, -1, 0, 0.980618, 1, -0.195184, -0.924041, 1, -0.382733, -0.980814, -1, -0.195184, 0.980618, -1, -0.195184, 0.923845, 1, -0.382733, -0.831637, 1, -0.555599, -0.924041, -1, -0.382733, 0.923845, -1, -0.382733, 0.831441, 1, -0.555599, -0.707126, 1, -0.707126, -0.831637, -1, -0.555599, 0.831441, -1, -0.555599, 0.70693, 1, -0.707126, -0.555599, 1, -0.831637, -0.707126, -1, -0.707126, 0.70693, -1, -0.707126, 0.555403, 1, -0.831637, -0.382733, 1, -0.924041, -0.555599, -1, -0.831637, 0.555403, -1, -0.831637, 0.382537, 1, -0.924041, -0.195184, 1, -0.980814, -0.382733, -1, -0.924041, 0.382537, -1, -0.924041, 0.194988, 1, -0.980814, -5.96046e-08, 1, -1, -0.195184, -1, -0.980814, 0.194988, -1, -0.980814, -5.96046e-08, -1, -1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r7ft3"]
 albedo_color = Color(1, 1, 0.443137, 1)
 
@@ -43,9 +46,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_cyr6h")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_648dp"]
-points = PackedVector3Array(-5.96046e-08, 1, 1, -0.195184, 1, 0.980619, -5.96046e-08, -1, 1, 0.194988, 1, 0.980619, -0.382733, 1, 0.923845, -0.195184, -1, 0.980619, 0.194988, -1, 0.980619, 0.382537, 1, 0.923845, -0.555599, 1, 0.831441, -0.382733, -1, 0.923845, 0.382537, -1, 0.923845, 0.555403, 1, 0.831441, -0.707126, 1, 0.70693, -0.555599, -1, 0.831441, 0.555403, -1, 0.831441, 0.70693, 1, 0.70693, -0.831637, 1, 0.555403, -0.707126, -1, 0.70693, 0.70693, -1, 0.70693, 0.831441, 1, 0.555403, -0.924041, 1, 0.382537, -0.831637, -1, 0.555403, 0.831441, -1, 0.555403, 0.923845, 1, 0.382537, -0.980814, 1, 0.194988, -0.924041, -1, 0.382537, 0.923845, -1, 0.382537, 0.980618, 1, 0.194988, -1, 1, 0, -0.980814, -1, 0.194988, 0.980618, -1, 0.194988, 1, 1, 0, -0.980814, 1, -0.195184, -1, -1, 0, 1, -1, 0, 0.980618, 1, -0.195184, -0.924041, 1, -0.382733, -0.980814, -1, -0.195184, 0.980618, -1, -0.195184, 0.923845, 1, -0.382733, -0.831637, 1, -0.555599, -0.924041, -1, -0.382733, 0.923845, -1, -0.382733, 0.831441, 1, -0.555599, -0.707126, 1, -0.707126, -0.831637, -1, -0.555599, 0.831441, -1, -0.555599, 0.70693, 1, -0.707126, -0.555599, 1, -0.831637, -0.707126, -1, -0.707126, 0.70693, -1, -0.707126, 0.555403, 1, -0.831637, -0.382733, 1, -0.924041, -0.555599, -1, -0.831637, 0.555403, -1, -0.831637, 0.382537, 1, -0.924041, -0.195184, 1, -0.980814, -0.382733, -1, -0.924041, 0.382537, -1, -0.924041, 0.194988, 1, -0.980814, -5.96046e-08, 1, -1, -0.195184, -1, -0.980814, 0.194988, -1, -0.980814, -5.96046e-08, -1, -1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_4qhcr"]
 size = Vector3(1.44225, 1.32115, 1.3971)
 
@@ -59,6 +59,10 @@ state_machine = NodePath("InteractableFiniteStateMachine")
 interactable = NodePath("Interactable")
 water = 450.0
 output = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.451722, 0, 0, 0, 0.451722, 0, 0, 0, 0.451722, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_648dp")
 
 [node name="watering_can" parent="." instance=ExtResource("2_2i3ys")]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
@@ -75,10 +79,6 @@ material_override = ExtResource("3_tywjb")
 
 [node name="Torus" parent="watering_can" index="3"]
 material_override = ExtResource("3_tywjb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.451722, 0, 0, 0, 0.451722, 0, 0, 0, 0.451722, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_648dp")
 
 [node name="WateringCanInteractorComponent" type="Area3D" parent="." node_paths=PackedStringArray("watering_can")]
 collision_layer = 0
@@ -118,6 +118,7 @@ script = ExtResource("7_ayave")
 idle_state = NodePath("../Idle")
 interactor_component = NodePath("../../WateringCanInteractorComponent")
 
+[connection signal="dropped" from="." to="InteractableFiniteStateMachine" method="_on_dropped"]
 [connection signal="item_received" from="WateringCanInteractorComponent" to="." method="_on_watering_can_interactor_component_item_received"]
 [connection signal="item_unfocus" from="WateringCanInteractorComponent" to="." method="_on_watering_can_interactor_component_item_unfocus"]
 [connection signal="focused" from="Interactable" to="InteractableFiniteStateMachine" method="_on_interactable_focused"]

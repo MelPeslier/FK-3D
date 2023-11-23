@@ -1,38 +1,24 @@
 class_name Flower
 extends CharacterBody3D
 
+signal dropped
 
 @export_group("Components")
 @export var in_game_ui: InGameUi
 @export var happiness_component: HappinessComponent
 @export var flower_data: FlowerData
 @export var flower_detector: Area3D
-@export var interactable_component: InteractableComponent
+@export var hold_interactable_component: InteractableComponent
 @export var body_mesh: MeshInstance3D
 
 # Variables
-var nearby_water_flowers: Array[WaterFlower]
-
+var holder: Node3D
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
-	interactable_component.focused.connect(_on_interactable_component_focused)
-	interactable_component.interacted.connect(_on_interactable_component_interacted)
-	interactable_component.unfocused.connect(_on_interactable_component_unfocused)
-	
-	flower_detector.body_entered.connect(_on_flower_detector_body_entered)
-	flower_detector.body_exited.connect(_on_flower_detector_body_exited)
-
-
-# Interactable for watering can
-func _on_interactable_component_focused(_interactor: InteractorComponent) -> void:
-	modulate_item(Color.AQUA)
-
-func _on_interactable_component_interacted(_interactor: InteractorComponent) -> void:
-	_interactor.item_received.emit(self)
-
-
-func _on_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
-	modulate_item(Color.WHITE)
+	hold_interactable_component.focused.connect(_on_hold_interactable_component_focused)
+	hold_interactable_component.interacted.connect(_on_hold_interactable_component_interacted)
+	hold_interactable_component.unfocused.connect(_on_hold_interactable_component_unfocused)
 
 
 func modulate_item(_color: Color) -> void:
@@ -42,26 +28,27 @@ func modulate_item(_color: Color) -> void:
 	mat.albedo_color = _color
 
 
-# Flower detector
-func _on_flower_detector_body_entered(body: Node3D) -> void:
-	if not body is WaterFlower: return
-	if body == self: return
-	
-	nearby_water_flowers.append(body)
+# Hold interactable
+func _on_hold_interactable_component_focused(_interactor: InteractorComponent):
+	modulate_item(Color.DIM_GRAY)
 
 
-func _on_flower_detector_body_exited(body: Node3D) -> void:
-	if not body is WaterFlower: return
-	
-	if body in nearby_water_flowers:
-		nearby_water_flowers.erase(body)
-		var flower: WaterFlower = body as WaterFlower
-		flower.flowers_affecting_this.erase(self)
+func _on_hold_interactable_component_interacted(_interactor: InteractorComponent):
+	holder = _interactor.controller
+	_interactor.item_received.emit(self)
 
 
-# Player interactor + transmit
+func _on_hold_interactable_component_unfocused(_interactor: InteractorComponent):
+	modulate_item(Color.WHITE)
+
+
+# Player  transmit
 func process_unhandled_input(event: InputEvent) -> void:
 	pass
+
+
+func _on_dropped() -> void:
+	holder = null
 
 
 # UI related
