@@ -10,6 +10,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity
+	else:
+		velocity = _update_direction(delta, velocity, Vector3.ZERO, 4.5)
 	
 	move_and_slide()
 

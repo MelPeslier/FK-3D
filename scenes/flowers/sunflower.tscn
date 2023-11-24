@@ -44,13 +44,11 @@ resource_local_to_scene = true
 radius = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o5pho"]
-resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("10_r44qu")
-shader_parameter/color = Color(0, 0.0980392, 0.47451, 1)
-shader_parameter/alpha = 0.46
 
 [sub_resource type="SphereMesh" id="SphereMesh_nnr33"]
+resource_local_to_scene = true
 radius = 2.005
 height = 4.07
 
@@ -135,6 +133,8 @@ nearby_happ_val = 0.5
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("9_b5gle")
+appear_time = 1.25
+disappear_time = 0.75
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FlowerDetector"]
 shape = SubResource("SphereShape3D_55hf5")
@@ -142,6 +142,8 @@ shape = SubResource("SphereShape3D_55hf5")
 [node name="FlowerDetectorMesh" type="MeshInstance3D" parent="FlowerDetector"]
 material_override = SubResource("ShaderMaterial_o5pho")
 cast_shadow = 0
+instance_shader_parameters/alpha = 0.0
+instance_shader_parameters/color = Color(0, 0, 0, 1)
 mesh = SubResource("SphereMesh_nnr33")
 skeleton = NodePath("../..")
 

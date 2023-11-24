@@ -41,10 +41,17 @@ func process_unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	
+	move_and_slide()
 
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
+
+
+func _update_direction(delta: float, direction: Vector3, target_direction: Vector3, coef: float) -> Vector3:
+	var new_direction = direction.lerp(target_direction, delta * coef)
+	return new_direction
 
 
 # Water

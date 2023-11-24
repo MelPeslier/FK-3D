@@ -39,7 +39,7 @@ func _on_flower_detector_body_entered(body: Node3D) -> void:
 		_too_much_nearby = true
 		water_component.alter_nearby(true)
 		happiness_component.alter_nearby(true)
-		flower_detector.modulate_zone(false)
+		flower_detector.appear_zone(true)
 
 
 func _on_flower_detector_body_exited(body: Node3D) -> void:
@@ -55,7 +55,7 @@ func _on_flower_detector_body_exited(body: Node3D) -> void:
 		_too_much_nearby = false
 		water_component.alter_nearby(false)
 		happiness_component.alter_nearby(false)
-		flower_detector.modulate_zone(true)
+		flower_detector.appear_zone(false)
 
 
 func start_being_affected_by(flower: WaterFlower) -> void:
