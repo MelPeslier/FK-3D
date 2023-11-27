@@ -81,6 +81,7 @@ disjoin={
 3d_physics/layer_6="Object"
 3d_physics/layer_7="Interactable Hold"
 3d_physics/layer_8="Interactable Water"
+3d_physics/layer_9="Interactable Flower"
 
 [rendering]
 

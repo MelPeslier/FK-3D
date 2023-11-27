@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=24 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
 [ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/components/data/flower_data.gd" id="6_khebb"]
 [ext_resource type="Script" path="res://scripts/flowers/flower_detector.gd" id="9_b5gle"]
 [ext_resource type="Shader" path="res://mat_shad/shaders/flower_detector.gdshader" id="10_r44qu"]
+[ext_resource type="Script" path="res://scripts/components/interact/flower_interactor_component.gd" id="11_qjvjb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 radius = 0.25
@@ -23,11 +24,17 @@ resource_local_to_scene = true
 radius = 0.25
 height = 1.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
-size = Vector3(0.5, 1, 0.5)
+[sub_resource type="BoxMesh" id="BoxMesh_bqe5l"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2rhst"]
 size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0vl2h"]
+radius = 1.54654
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6p5fa"]
 resource_local_to_scene = true
@@ -56,7 +63,7 @@ resource_local_to_scene = true
 radius = 2.005
 height = 4.07
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "hold_interactable_component", "body_mesh")]
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "hold_interactable_component", "body_mesh", "flower_interactor_component")]
 collision_layer = 28
 script = ExtResource("1_vbhfb")
 water_interactable_component = NodePath("WaterInteractableComponent")
@@ -67,6 +74,7 @@ flower_data = NodePath("FlowerData")
 flower_detector = NodePath("FlowerDetector")
 hold_interactable_component = NodePath("HoldInteractableComponent")
 body_mesh = NodePath("BodyMesh")
+flower_interactor_component = NodePath("FlowerInteractorComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -77,14 +85,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_wieqn")
 mesh = SubResource("CapsuleMesh_woqa4")
 
-[node name="WaterInteractableComponent" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-collision_layer = 128
-collision_mask = 0
-script = ExtResource("2_rkkjy")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterInteractableComponent"]
-shape = SubResource("BoxShape3D_pvtoa")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.271797, -0.25294)
+mesh = SubResource("BoxMesh_bqe5l")
 
 [node name="HoldInteractableComponent" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -95,15 +98,29 @@ script = ExtResource("2_rkkjy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HoldInteractableComponent"]
 shape = SubResource("BoxShape3D_2rhst")
 
+[node name="WaterInteractableComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("2_rkkjy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterInteractableComponent"]
+shape = SubResource("BoxShape3D_pvtoa")
+
+[node name="FlowerInteractorComponent" type="Area3D" parent="." node_paths=PackedStringArray("flower")]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("11_qjvjb")
+flower = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlowerInteractorComponent"]
+shape = SubResource("SphereShape3D_0vl2h")
+
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content", "body") instance=ExtResource("1_nw61n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 parent = NodePath("..")
 display_content = NodePath("SubViewport/DisplayBarHW")
 body = NodePath("../BodyMesh")
-
-[node name="RotationComponent" parent="InGameUI" index="0" node_paths=PackedStringArray("pivot")]
-mode = 1
-pivot = NodePath("../..")
 
 [node name="DisplayMesh" parent="InGameUI" index="1"]
 material_override = SubResource("ShaderMaterial_6p5fa")

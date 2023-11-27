@@ -53,7 +53,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if player == null: return
-	rotation_component.rotate_towards(delta, player)
+	rotation_component.rotate_towards(delta, parent, player)
 
 
 # Need to set the mesh resource to local

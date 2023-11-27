@@ -1,4 +1,3 @@
-@tool
 class_name RotationComponent
 extends Node
 
@@ -11,21 +10,8 @@ enum Mode {
 @export var mode: Mode
 @export var speed: float = 180
 
-@export var pivot: Node3D
 
-
-func _get_configuration_warnings() -> PackedStringArray:
-	var msg: PackedStringArray = []
-	if not pivot is Node3D:
-		msg.append("Parent must be of type Node3D")
-	
-	if get_child_count() != 0:
-		msg.append("Component must not have any child")
-	
-	return msg
-
-
-func rotate_towards(delta: float, target: Node3D) -> void:
+func rotate_towards(delta: float, pivot: Node3D, target: Node3D) -> void:
 	# magnitude
 	var direction := Vector2( target.global_position.x, target.global_position.z ) - Vector2( pivot.global_position.x, pivot.global_position.z )
 	var rotation: float = 0

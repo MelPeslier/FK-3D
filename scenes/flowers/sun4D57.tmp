@@ -1,0 +1,96 @@
+[gd_scene load_steps=21 format=3 uid="uid://e67oiqciir2o"]
+
+[ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
+[ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
+[ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="2_rkkjy"]
+[ext_resource type="Shader" path="res://mat_shad/shaders/display/in_game_ui.gdshader" id="3_15qn6"]
+[ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
+[ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
+[ext_resource type="PackedScene" uid="uid://b0xlbpnteputm" path="res://scenes/display/display_bar_hw.tscn" id="5_yc546"]
+[ext_resource type="Script" path="res://scripts/components/data/flower_data.gd" id="6_khebb"]
+[ext_resource type="Script" path="res://scripts/flowers/flower_detector.gd" id="9_b5gle"]
+[ext_resource type="Shader" path="res://mat_shad/shaders/flower_detector.gdshader" id="10_r44qu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wieqn"]
+resource_local_to_scene = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_woqa4"]
+resource_local_to_scene = true
+radius = 0.25
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2rhst"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6p5fa"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_15qn6")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_qblyq"]
+resource_local_to_scene = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_55hf5"]
+radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o5pho"]
+render_priority = 0
+shader = ExtResource("10_r44qu")
+
+[sub_resource type="SphereMesh" id="SphereMesh_nnr33"]
+resource_local_to_scene = true
+radius = 2.005
+height = 4.07
+
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "in_game_ui", "happiness_component", "flower_data", "flower_detector", "hold_interactable_component", "body_mesh")]
+collision_layer = 28
+script = ExtResource("1_vbhfb")
+water_interactable_component = NodePath("WaterInteractableComponent")
+water_component = NodePath("WaterComponent")
+in_game_ui = NodePath("InGameUI")
+happiness_component = NodePath("HappinessComponent")
+flower_data = NodePath("FlowerData")
+flower_detector = NodePath("FlowerDetector")
+hold_interactable_component = NodePath("HoldInteractableComponent")
+body_mesh = NodePath("BodyMesh")
+
+[node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_fl531")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_wieqn")
+mesh = SubResource("CapsuleMesh_woqa4")
+
+[node name="WaterInteractableComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("2_rkkjy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterInteractableComponent"]
+shape = SubResource("BoxShape3D_pvtoa")
+
+[node name="HoldInteractableComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("2_rkkjy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HoldInteractableComponent"]
+shape = SubResourc

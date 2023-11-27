@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgm0eqxnl8a8r"]
+[gd_scene load_steps=15 format=3 uid="uid://dgm0eqxnl8a8r"]
 
 [ext_resource type="PackedScene" uid="uid://buis32vf4org1" path="res://scenes/player/player.tscn" id="1_oipkr"]
 [ext_resource type="PackedScene" uid="uid://e67oiqciir2o" path="res://scenes/flowers/sunflower.tscn" id="2_g1q22"]
 [ext_resource type="PackedScene" uid="uid://c2apj4504hbw6" path="res://scenes/watering_can/watering_can.tscn" id="3_vmvvf"]
 [ext_resource type="PackedScene" uid="uid://cxxv5jv60833d" path="res://scenes/house/table/table.tscn" id="4_jmwnf"]
+[ext_resource type="PackedScene" uid="uid://bjm6p5iv68qwr" path="res://scenes/house/table/pot_placement.tscn" id="5_dt60s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7644"]
 sky_top_color = Color(0.00392157, 0.262745, 0.443137, 1)
@@ -133,3 +134,6 @@ shape = SubResource("BoxShape3D_gc4bs")
 
 [node name="Table" parent="Environment" instance=ExtResource("4_jmwnf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.48677, -0.0519621, 4.29126)
+
+[node name="PotPlacement" parent="." instance=ExtResource("5_dt60s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)

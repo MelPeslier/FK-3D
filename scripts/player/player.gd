@@ -3,7 +3,6 @@ extends CharacterBody3D
 
 signal drop_item
 
-
 @export_group("PHYSICS")
 @export_subgroup("Movements")
 @export var accel: float
@@ -42,6 +41,7 @@ signal drop_item
 @export_group("Item")
 @export var player_interactor_component: PlayerInteractorComponent
 
+@export var rotation_component: RotationComponent
 
 ### PHYSICS
 # Movements PHYSICS
@@ -203,8 +203,10 @@ func hold_item(delta: float) -> void:
 	item.velocity = dir * 10.0
 	item.move_and_slide()
 	
-	var angle: float = 0.1
-	angle = item.basis
-	
-	item.rotate_y(angle)
+	item.global_transform.basis = right_marker.global_transform.basis
+#	rotation_component.rotate_towards(delta, item, self)
 	item.transform = item.transform.orthonormalized()
+	
+	if item is Flower:
+		var i = item as Flower
+		i.process_physics_player(delta)

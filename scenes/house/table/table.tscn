@@ -17,16 +17,16 @@ shape = SubResource("BoxShape3D_fh05r")
 
 [node name="table" parent="." instance=ExtResource("1_e1mw6")]
 
-[node name="PotPlacement" parent="." instance=ExtResource("3_j3ng7")]
-transform = Transform3D(1, 0, 0, 0, 0.959496, 0.281722, 0, -0.281722, 0.959496, 0.188469, 1.05989, 0.989792)
-
 [node name="PotPlacement2" parent="." instance=ExtResource("3_j3ng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233552, 1.05989, 0.370129)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.233552, 1.05989, 0.370129)
 
 [node name="PotPlacement3" parent="." instance=ExtResource("3_j3ng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.209562, 1.05989, -0.325512)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.209562, 1.05989, -0.325512)
 
 [node name="PotPlacement4" parent="." instance=ExtResource("3_j3ng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.238458, 1.05989, -1.03561)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.238458, 1.05989, -1.03561)
+
+[node name="PotPlacement" parent="." instance=ExtResource("3_j3ng7")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.81841e-08, 1.04118, 1.11039)
 
 [editable path="table"]

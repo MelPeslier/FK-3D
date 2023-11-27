@@ -36,6 +36,7 @@ height = 0.14
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "player_interactor_component", "rotation_component")]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_m0k24")
 accel = 6.0
 ground_decel = 4.5
