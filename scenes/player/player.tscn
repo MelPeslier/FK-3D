@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://buis32vf4org1"]
+[gd_scene load_steps=19 format=3 uid="uid://buis32vf4org1"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_m0k24"]
 [ext_resource type="Script" path="res://scripts/player/head.gd" id="2_a2d5s"]
 [ext_resource type="Script" path="res://scripts/player/body.gd" id="3_6pwpn"]
-[ext_resource type="Script" path="res://scripts/player/interaction_ray_cast.gd" id="3_gd8e8"]
 [ext_resource type="Script" path="res://scripts/components/interact/player_interactor_component.gd" id="4_nqxj5"]
 [ext_resource type="PackedScene" uid="uid://bv66dap88ainm" path="res://assets/player/gloves/right_glove.blend" id="4_vbyoy"]
 [ext_resource type="Script" path="res://scripts/player/hand.gd" id="5_jqs30"]
@@ -34,7 +33,7 @@ albedo_color = Color(1, 0.109804, 0, 1)
 material = SubResource("StandardMaterial3D_uu5o1")
 height = 0.14
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "front_marker", "player_interactor_component")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "head", "body", "left_marker", "left_hand", "right_marker", "right_hand", "state_machine", "player_interactor_component")]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_m0k24")
@@ -59,7 +58,6 @@ left_hand = NodePath("Body/LeftMarker/LeftHand")
 right_marker = NodePath("Body/RightMarker")
 right_hand = NodePath("Body/RightMarker/RightHand")
 state_machine = NodePath("FiniteStateMachine")
-front_marker = NodePath("Head/Camera3D/FrontMarker")
 player_interactor_component = NodePath("Head/Camera3D/PlayerInteractorComponent")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
@@ -73,28 +71,17 @@ script = ExtResource("2_a2d5s")
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.987688, 0.156434, 0, -0.156434, 0.987688, 0, 0, 0)
 
-[node name="InteractionRayCast" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-target_position = Vector3(0, 0, -10)
-collision_mask = 16
-debug_shape_custom_color = Color(0, 0.635294, 0.419608, 1)
-debug_shape_thickness = 5
-script = ExtResource("3_gd8e8")
-player = NodePath("../../..")
-
 [node name="PlayerInteractorComponent" type="Area3D" parent="Head/Camera3D" node_paths=PackedStringArray("player")]
 collision_layer = 0
 collision_mask = 64
 input_ray_pickable = false
 script = ExtResource("4_nqxj5")
 player = NodePath("../../..")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera3D/PlayerInteractorComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76837e-07, -2.42423)
 shape = SubResource("BoxShape3D_t501h")
-
-[node name="FrontMarker" type="Marker3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, -4.43203)
 
 [node name="Body" type="Node3D" parent="."]
 script = ExtResource("3_6pwpn")
@@ -125,12 +112,11 @@ visible = false
 script = ExtResource("8_o6qgt")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("air_state", "walk_state", "jump_state", "player_interactor_component")]
+[node name="Idle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("air_state", "walk_state", "jump_state")]
 script = ExtResource("9_tpojc")
 air_state = NodePath("../Air")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
-player_interactor_component = NodePath("../../Head/Camera3D/PlayerInteractorComponent")
 
 [node name="Walk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "air_state", "jump_state", "player_interactor_component")]
 script = ExtResource("10_ah0uo")

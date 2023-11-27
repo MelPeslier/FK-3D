@@ -27,9 +27,6 @@ func process_physics(delta: float) -> FiniteState:
 	else:
 		return idle_state
 
-	if parent.item == null:
-		player_interactor_component.process_physics(delta)
-
 	if Input.is_action_pressed("run"):
 		return run_state
 
@@ -42,12 +39,6 @@ func process_physics(delta: float) -> FiniteState:
 func process_unhandled_input(event: InputEvent) -> FiniteState:
 	if event.is_action_pressed("jump") and parent.is_on_floor():
 		return jump_state
-	
-	if parent.item:
-		parent.item.process_unhandled_input(event)
-	
-	else:
-		player_interactor_component.process_unhandled_input(event)
 	
 	return null
 

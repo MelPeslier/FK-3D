@@ -36,6 +36,7 @@ func _on_hold_interactable_component_focused(_interactor: InteractorComponent):
 func _on_hold_interactable_component_interacted(_interactor: InteractorComponent):
 	holder = _interactor.controller
 	_interactor.item_received.emit(self)
+	modulate_item(Color.WHITE)
 
 
 func _on_hold_interactable_component_unfocused(_interactor: InteractorComponent):

@@ -6,24 +6,28 @@
 [ext_resource type="Shader" path="res://mat_shad/shaders/display/in_game_ui.gdshader" id="3_15qn6"]
 [ext_resource type="Script" path="res://scripts/components/water/water_component.gd" id="3_jngka"]
 [ext_resource type="Script" path="res://scripts/components/happiness/happiness_component.gd" id="4_yssym"]
-[ext_resource type="PackedScene" uid="uid://dq0q2eyaf55j3" path="res://scenes/display/display_content.tscn" id="6_aelxj"]
+[ext_resource type="PackedScene" uid="uid://b0xlbpnteputm" path="res://scenes/display/display_bar_hw.tscn" id="5_yc546"]
 [ext_resource type="Script" path="res://scripts/components/data/flower_data.gd" id="6_khebb"]
 [ext_resource type="Script" path="res://scripts/flowers/flower_detector.gd" id="9_b5gle"]
 [ext_resource type="Shader" path="res://mat_shad/shaders/flower_detector.gdshader" id="10_r44qu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
+radius = 0.25
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wieqn"]
 resource_local_to_scene = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_woqa4"]
 resource_local_to_scene = true
+radius = 0.25
+height = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pvtoa"]
-size = Vector3(1, 1.9386, 1)
+size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2rhst"]
-size = Vector3(1, 1.9386, 1)
+size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6p5fa"]
 resource_local_to_scene = true
@@ -41,7 +45,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 resource_local_to_scene = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_55hf5"]
-radius = 5.0
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o5pho"]
 render_priority = 0
@@ -65,13 +69,16 @@ hold_interactable_component = NodePath("HoldInteractableComponent")
 body_mesh = NodePath("BodyMesh")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_fl531")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_wieqn")
 mesh = SubResource("CapsuleMesh_woqa4")
 
 [node name="WaterInteractableComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("2_rkkjy")
@@ -80,6 +87,7 @@ script = ExtResource("2_rkkjy")
 shape = SubResource("BoxShape3D_pvtoa")
 
 [node name="HoldInteractableComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("2_rkkjy")
@@ -88,18 +96,20 @@ script = ExtResource("2_rkkjy")
 shape = SubResource("BoxShape3D_2rhst")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content", "body") instance=ExtResource("1_nw61n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 parent = NodePath("..")
-display_content = NodePath("SubViewport/DisplayContent")
+display_content = NodePath("SubViewport/DisplayBarHW")
 body = NodePath("../BodyMesh")
 
-[node name="RotationComponent" parent="InGameUI" index="0"]
+[node name="RotationComponent" parent="InGameUI" index="0" node_paths=PackedStringArray("pivot")]
 mode = 1
+pivot = NodePath("../..")
 
 [node name="DisplayMesh" parent="InGameUI" index="1"]
 material_override = SubResource("ShaderMaterial_6p5fa")
 mesh = SubResource("QuadMesh_qblyq")
 
-[node name="DisplayContent" parent="InGameUI/SubViewport" index="0" node_paths=PackedStringArray("happiness_component", "water_component", "flower_data") instance=ExtResource("6_aelxj")]
+[node name="DisplayBarHW" parent="InGameUI/SubViewport" index="0" node_paths=PackedStringArray("happiness_component", "water_component", "flower_data") instance=ExtResource("5_yc546")]
 happiness_component = NodePath("../../../HappinessComponent")
 water_component = NodePath("../../../WaterComponent")
 flower_data = NodePath("../../../FlowerData")
@@ -109,17 +119,13 @@ script = ExtResource("3_jngka")
 water = 45.0
 min_perfect = 15.0
 max_perfect = 85.0
-decrease_coef = 1.0
 decrease_value = 1.0
-increase_coef = 1.0
 happiness_component = NodePath("../HappinessComponent")
 
 [node name="HappinessComponent" type="Node" parent="."]
 script = ExtResource("4_yssym")
 happiness = 50.0
-decrease_coef = 1.0
-decrease_value = 1.0
-increase_coef = 1.0
+decrease_value = 2.0
 increase_value = 1.0
 
 [node name="FlowerData" type="Node" parent="."]

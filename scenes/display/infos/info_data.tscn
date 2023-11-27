@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckt5sb5uby35l"]
+
+[ext_resource type="Script" path="res://scripts/display/infos/info_data.gd" id="1_d4mst"]
+[ext_resource type="Shader" path="res://mat_shad/shaders/display/progress_bar.gdshader" id="2_30p26"]
+[ext_resource type="Texture2D" uid="uid://cy34bbawteql6" path="res://assets/display/fleche.png" id="4_7twhl"]
+[ext_resource type="Shader" path="res://mat_shad/shaders/display/icon_incr.gdshader" id="4_fqjj8"]
+[ext_resource type="Script" path="res://scripts/display/infos/progress_bar.gd" id="5_7cdbg"]
+[ext_resource type="Script" path="res://scripts/display/icon_up_down.gd" id="5_pls61"]
+[ext_resource type="Shader" path="res://mat_shad/shaders/display/icon_decr.gdshader" id="7_387p8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48ikr"]
+resource_local_to_scene = true
+shader = ExtResource("2_30p26")
+shader_parameter/stroke_size = 0.016
+shader_parameter/value = 0.26
+shader_parameter/front_color = Color(0, 0.258824, 1, 1)
+shader_parameter/back_color = Color(0.176471, 0.176471, 0.176471, 1)
+shader_parameter/thresholds_color = Color(1, 1, 1, 1)
+shader_parameter/thresh_1 = 0.0
+shader_parameter/thresh_2 = 0.0
+shader_parameter/thresh_3 = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_025ju"]
+resource_local_to_scene = true
+shader = ExtResource("4_fqjj8")
+shader_parameter/coef = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ui8r"]
+resource_local_to_scene = true
+shader = ExtResource("7_387p8")
+shader_parameter/coef = 1.0
+
+[node name="InfoData" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -23.5
+offset_right = 132.5
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+script = ExtResource("1_d4mst")
+base_color = Color(0, 0, 1, 1)
+
+[node name="Icon" type="PanelContainer" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_type_variation = &"iconborder"
+
+[node name="IconTex" type="TextureRect" parent="Icon"]
+layout_mode = 2
+expand_mode = 3
+
+[node name="ProgressBar" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_48ikr")
+custom_minimum_size = Vector2(265, 47)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_type_variation = &"iconborder"
+script = ExtResource("5_7cdbg")
+
+[node name="IconUp" type="PanelContainer" parent="."]
+self_modulate = Color(0.305882, 0.505882, 1, 1)
+material = SubResource("ShaderMaterial_025ju")
+layout_mode = 2
+theme_type_variation = &"iconborder"
+script = ExtResource("5_pls61")
+
+[node name="IconUpTex" type="TextureRect" parent="IconUp"]
+layout_mode = 2
+texture = ExtResource("4_7twhl")
+expand_mode = 3
+
+[node name="IconDown" type="PanelContainer" parent="."]
+self_modulate = Color(0.305882, 0.505882, 1, 1)
+material = SubResource("ShaderMaterial_4ui8r")
+layout_mode = 2
+theme_type_variation = &"iconborder"
+script = ExtResource("5_pls61")
+
+[node name="IconDownTex" type="TextureRect" parent="IconDown"]
+layout_mode = 2
+texture = ExtResource("4_7twhl")
+expand_mode = 3
+flip_v = true

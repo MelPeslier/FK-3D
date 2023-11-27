@@ -11,7 +11,7 @@ enum Mode {
 @export var mode: Mode
 @export var speed: float = 180
 
-@onready var pivot = get_parent()
+@export var pivot: Node3D
 
 
 func _get_configuration_warnings() -> PackedStringArray:

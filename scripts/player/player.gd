@@ -40,7 +40,6 @@ signal drop_item
 @export var state_machine: FiniteStateMachine
 
 @export_group("Item")
-@export var front_marker: Marker3D
 @export var player_interactor_component: PlayerInteractorComponent
 
 
@@ -89,6 +88,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 	
 	state_machine.process_unhandled_input(event)
+	process_unhandled_input(event)
 
 
 func _physics_process(delta: float) -> void:
@@ -96,7 +96,6 @@ func _physics_process(delta: float) -> void:
 	next_direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	state_machine.process_physics(delta)
-	
 	
 	_update_velocity()
 	move_and_slide()
@@ -183,12 +182,29 @@ func _on_drop_item() -> void:
 	item = null
 
 
-func hold_item(_delta: float) -> void:
+func process_unhandled_input(event: InputEvent):
+	if item:
+		item.process_unhandled_input(event)
+		if event.is_action_pressed("disjoin"):
+			drop_item.emit()
+	
+	else:
+		player_interactor_component.process_unhandled_input(event)
+
+
+func hold_item(delta: float) -> void:
+	if not item:
+		player_interactor_component.process_physics(delta)
+	
 	if not item: return
+	
 	var dir := right_hand.global_position - item.global_position
 	
 	item.velocity = dir * 10.0
 	item.move_and_slide()
 	
-	if item.global_position != front_marker.global_position:
-		item.look_at(front_marker.global_position)
+	var angle: float = 0.1
+	angle = item.basis
+	
+	item.rotate_y(angle)
+	item.transform = item.transform.orthonormalized()

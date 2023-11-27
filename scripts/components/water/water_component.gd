@@ -31,7 +31,7 @@ const E := 0.001
 
 
 @export_category("Decrease")
-@export_range(0.1, 7.0, 0.1) var decrease_coef: float:
+@export var decrease_coef: float = 1:
 	set(new_value):
 		decrease_coef = new_value
 		water_decrease_coef_changed.emit(decrease_coef)
@@ -43,7 +43,7 @@ const E := 0.001
 
 
 @export_category("Increase")
-@export_range(0.1, 7.0, 0.1) var increase_coef: float:
+@export var increase_coef: float = 1:
 	set(new_value):
 		increase_coef = new_value
 		water_increase_coef_changed.emit(increase_coef)

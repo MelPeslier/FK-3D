@@ -27,7 +27,7 @@ enum Anchor {
 
 @export var rotation_component: RotationComponent
 
-var player: Player
+var player: CharacterBody3D
 
 var show_ui_state := false
 
@@ -116,7 +116,7 @@ func _calculate_position(_ui: float, _body_2: float, _anchor: Anchor, _margin: f
 	return result
 
 # Show UI
-func show_ui(_player: Player) -> void:
+func show_ui(_player: CharacterBody3D) -> void:
 	if show_ui_state: return
 	show_ui_state = true
 	
@@ -134,7 +134,7 @@ func show_ui(_player: Player) -> void:
 
 
 
-func _enable_ui(_player: Player) -> void:
+func _enable_ui(_player: CharacterBody3D) -> void:
 	visible = true
 	set_process(true)
 	player = _player

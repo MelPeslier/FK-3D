@@ -1,0 +1,2 @@
+class_name PotPlacement
+extends Node3D

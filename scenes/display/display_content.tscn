@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq0q2eyaf55j3"]
+[gd_scene load_steps=6 format=3 uid="uid://dq0q2eyaf55j3"]
 
 [ext_resource type="Script" path="res://scripts/display/display_content.gd" id="1_tvjag"]
 [ext_resource type="PackedScene" uid="uid://c0aw2oyfwshmv" path="res://scenes/display/infos/happiness_info.tscn" id="2_4clum"]
 [ext_resource type="PackedScene" uid="uid://clw3l40io8ro8" path="res://scenes/display/infos/name_info.tscn" id="2_32g0i"]
 [ext_resource type="PackedScene" uid="uid://br1x46tmnig4j" path="res://scenes/display/infos/water_info.tscn" id="3_xxp6n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbalf"]
+bg_color = Color(0, 0.164706, 0, 1)
 
 [node name="DisplayContent" type="PanelContainer" node_paths=PackedStringArray("name_info", "happiness_info", "water_info")]
 anchors_preset = 8
@@ -19,6 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_nbalf")
 script = ExtResource("1_tvjag")
 name_info = NodePath("UIMargin/ContentVBoxContainer/NameInfo")
 happiness_info = NodePath("UIMargin/ContentVBoxContainer/HappinessInfo")

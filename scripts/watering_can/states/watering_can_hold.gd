@@ -33,4 +33,7 @@ func process_physics(delta: float) -> FiniteState:
 # From holder
 func on_dropped() -> FiniteState:
 	parent.holder = null
+	if interactor_component.cached_closest:
+		interactor_component.unfocus(interactor_component.cached_closest)
+		interactor_component.cached_closest = null
 	return idle_state

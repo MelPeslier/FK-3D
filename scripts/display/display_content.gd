@@ -6,8 +6,8 @@ extends PanelContainer
 @export var flower_data: FlowerData
 
 @export var name_info: NameInfo
-@export var happiness_info: HappinessInfo
-@export var water_info: WaterInfo
+@export var water_info: InfoData
+@export var happiness_info: InfoData
 
 
 func _ready() -> void:
@@ -40,49 +40,49 @@ func _on_flower_name_changed(val: String) -> void:
 
 # Happiness
 func _on_happ_changed(val: float) -> void:
-	happiness_info.set_happ_label(val)
+	happiness_info.set_value(val)
 
 
 func _on_happ_decr_coef_changed(val: float) -> void:
-	happiness_info.set_happ_decr_coef(val)
+	happiness_info.set_decr_coef(val)
 
 
 func _on_happ_decr_value_changed(val: float) -> void:
-	happiness_info.set_happ_decr_value(val)
+	happiness_info.set_decr_value(val)
 
 
 func _on_happ_incr_coef_changed(val: float) -> void:
-	happiness_info.set_happ_incr_coef(val)
+	happiness_info.set_incr_coef(val)
 
 
 func _on_happ_incr_value_changed(val: float) -> void:
-	happiness_info.set_happ_incr_value(val)
+	happiness_info.set_incr_value(val)
 
 
 # Water
 
 func _on_water_changed(val: float) -> void:
-	water_info.set_water_label(val)
+	water_info.set_value(val)
 
 
 func _on_water_min_perfect_changed(val: float) -> void:
-	water_info.set_water_min_perfect_label(val)
+	water_info.set_min_perfect(val)
 
 
 func _on_water_max_perfect_changed(val: float) -> void:
-	water_info.set_water_max_perfect_label(val)
+	water_info.set_max_perfect(val)
 
 
 func _on_water_decrease_coef_changed(val: float) -> void:
-	water_info.set_water_decr_coef_label(val)
+	water_info.set_decr_coef(val)
 
 
 func _on_water_decrease_value_changed(val: float) -> void:
-	water_info.set_water_decr_value_label(val)
+	water_info.set_decr_value(val)
 
 
 func _on_water_increase_coef_changed(val: float) -> void:
-	water_info.set_water_incr_coef_label(val)
+	water_info.set_incr_coef(val)
 
 
 # Animation state

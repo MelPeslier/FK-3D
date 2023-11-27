@@ -77,6 +77,7 @@ func stop_being_affected_by(flower: WaterFlower) -> void:
 # Interactable for watering can
 func _on_water_interactable_component_focused(_interactor: InteractorComponent) -> void:
 	modulate_item(Color.AQUA)
+	in_game_ui.show_ui(_interactor.controller)
 
 
 func _on_water_interactable_component_interacted(_interactor: InteractorComponent) -> void:
@@ -85,4 +86,5 @@ func _on_water_interactable_component_interacted(_interactor: InteractorComponen
 
 func _on_water_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
 	modulate_item(Color.WHITE)
+	in_game_ui.hide_ui()
 

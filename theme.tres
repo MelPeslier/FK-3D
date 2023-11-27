@@ -1,4 +1,11 @@
-[gd_resource type="Theme" format=3 uid="uid://bjadu821k1r70"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bjadu821k1r70"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymfby"]
+bg_color = Color(1, 0.760784, 0.662745, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [resource]
 VBoxInfo/base_type = &"VBoxContainer"
@@ -9,3 +16,5 @@ gui_subtitle/base_type = &"Label"
 gui_subtitle/font_sizes/font_size = 24
 gui_title/base_type = &"Label"
 gui_title/font_sizes/font_size = 32
+iconborder/base_type = &"PanelContainer"
+iconborder/styles/panel = SubResource("StyleBoxFlat_ymfby")
