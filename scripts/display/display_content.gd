@@ -15,6 +15,7 @@ func _ready() -> void:
 	flower_data.flower_name_changed.connect(_on_flower_name_changed)
 	
 	# Happiness
+	happiness_component.happ_max_changed.connect(_on_happ_max_changed)
 	happiness_component.happ_changed.connect(_on_happ_changed)
 	happiness_component.happ_decr_coef_changed.connect(_on_happ_decr_coef_changed)
 	happiness_component.happ_decr_value_changed.connect(_on_happ_decr_value_changed)
@@ -22,6 +23,7 @@ func _ready() -> void:
 	happiness_component.happ_incr_value_changed.connect(_on_happ_incr_value_changed)
 	
 	# Water
+	water_component.water_max_changed.connect(_on_water_max_changed)
 	water_component.water_changed.connect(_on_water_changed)
 	water_component.water_min_perfect_changed.connect(_on_water_min_perfect_changed)
 	water_component.water_max_perfect_changed.connect(_on_water_max_perfect_changed)
@@ -39,8 +41,12 @@ func _on_flower_name_changed(val: String) -> void:
 
 
 # Happiness
-func _on_happ_changed(val: float) -> void:
-	happiness_info.set_value(val)
+func _on_happ_max_changed(val: float, val_min: float, val_max: float) -> void:
+	happiness_info.set_max_value(val, val_min, val_max)
+
+
+func _on_happ_changed(val: float, val_min: float, val_max: float) -> void:
+	happiness_info.set_value(val, val_min, val_max)
 
 
 func _on_happ_decr_coef_changed(val: float) -> void:
@@ -60,9 +66,12 @@ func _on_happ_incr_value_changed(val: float) -> void:
 
 
 # Water
+func _on_water_max_changed(val: float, val_min: float, val_max: float) -> void:
+	water_info.set_max_value(val, val_min, val_max)
 
-func _on_water_changed(val: float) -> void:
-	water_info.set_value(val)
+
+func _on_water_changed(val: float, val_min, val_max) -> void:
+	water_info.set_value(val, val_min, val_max)
 
 
 func _on_water_min_perfect_changed(val: float) -> void:

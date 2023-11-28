@@ -5,6 +5,9 @@ enum Type{
 	WATER
 }
 
+const MIN_SIZE_X : float = 44
+const MAX_SIZE_X : float = 265
+
 @export_file("*.png") var icon_tex_path: String
 @export var base_color: Color
 
@@ -21,7 +24,14 @@ func _ready() -> void:
 	progress_bar.color = base_color
 
 
-func set_value(val: float) -> void:
+func set_max_value(val: float, val_min: float, val_max: float) -> void:
+	var new_val := remap(val, val_min, val_max, MIN_SIZE_X, MAX_SIZE_X)
+	progress_bar.custom_minimum_size.x = new_val
+
+
+func set_value(val: float, val_min: float, val_max: float) -> void:
+	val = remap(val, val_min, val_max, 0, 1)
+	val = clampf(val, 0, 1)
 	progress_bar.edge = val
 
 

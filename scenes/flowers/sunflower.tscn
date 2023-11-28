@@ -133,7 +133,7 @@ flower_data = NodePath("../../../FlowerData")
 
 [node name="WaterComponent" type="Node" parent="." node_paths=PackedStringArray("happiness_component")]
 script = ExtResource("3_jngka")
-water = 45.0
+water = 40.0
 min_perfect = 15.0
 max_perfect = 85.0
 decrease_value = 1.0
@@ -141,7 +141,7 @@ happiness_component = NodePath("../HappinessComponent")
 
 [node name="HappinessComponent" type="Node" parent="."]
 script = ExtResource("4_yssym")
-happiness = 50.0
+happiness = 25.0
 decrease_value = 2.0
 increase_value = 1.0
 

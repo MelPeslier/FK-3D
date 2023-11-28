@@ -1,7 +1,8 @@
 class_name WaterComponent
 extends Node
 
-signal water_changed(val: float)
+signal water_max_changed(val: float, min_max: float, max_max: float)
+signal water_changed(val: float, val_min: float, val_max: float)
 signal water_min_perfect_changed(val: float)
 signal water_max_perfect_changed(val: float)
 signal water_decrease_coef_changed(val: float)
@@ -15,7 +16,7 @@ const E := 0.001
 @export_range(MIN, MAX) var water: float:
 	set(new_value):
 		water = clamp(new_value, MIN, MAX)
-		water_changed.emit(water)
+		water_changed.emit(water, MIN, MAX)
 
 
 @export_category("Perfect")
@@ -113,6 +114,7 @@ func alter_ground(activate_malus: bool) -> void:
 
 
 func _init_values() -> void:
+	water_max_changed.emit(MAX, MIN, MAX)
 	water = water
 	min_perfect = min_perfect
 	max_perfect = max_perfect

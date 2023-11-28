@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 	var new_happ_decr: float = remap(
 		happiness_component.happiness,
 		happiness_component.MIN,
-		happiness_component.MAX,
+		happiness_component.max_max,
 		flower_data.min_nearby_happ_decr_coef,
 		flower_data.max_nearby_happ_decr_coef
 	)
