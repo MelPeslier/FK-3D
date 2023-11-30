@@ -13,8 +13,12 @@ config_version=5
 config/name="Florist King"
 config/tags=PackedStringArray("project")
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Event="*res://autoloads/event.gd"
 
 [display]
 
@@ -22,6 +26,22 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/window_width_override=1536
 window/size/window_height_override=864
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "orange",
+"res://autoloads/": "pink",
+"res://fonts/": "gray",
+"res://mat_shad/": "purple",
+"res://scenes/": "red",
+"res://scripts/": "blue",
+"res://vfx/": "teal"
+}
+
+[filesystem]
+
+import/fbx/enabled=false
 
 [gui]
 

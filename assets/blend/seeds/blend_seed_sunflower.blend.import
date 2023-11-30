@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bv66dap88ainm"
-path="res://.godot/imported/right_glove.blend-f78ac98a2c5879a83a51b51736752f1a.scn"
+uid="uid://3mfh3n8dbu7u"
+path="res://.godot/imported/blend_seed_sunflower.blend-7b292f816d22e18ab71dd5baa9e6ffb9.scn"
 
 [deps]
 
-source_file="res://assets/player/gloves/right_glove.blend"
-dest_files=["res://.godot/imported/right_glove.blend-f78ac98a2c5879a83a51b51736752f1a.scn"]
+source_file="res://assets/blend/seeds/blend_seed_sunflower.blend"
+dest_files=["res://.godot/imported/blend_seed_sunflower.blend-7b292f816d22e18ab71dd5baa9e6ffb9.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
@@ -22,6 +22,7 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
@@ -29,6 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={}
+gltf/naming_version=1
 gltf/embedded_image_handling=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true

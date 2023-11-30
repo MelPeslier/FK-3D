@@ -85,6 +85,6 @@ func _on_water_interactable_component_interacted(_interactor: InteractorComponen
 
 
 func _on_water_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
-	modulate_item(Color.WHITE)
+	modulate_back()
 	in_game_ui.hide_ui()
 

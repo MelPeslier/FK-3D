@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://8mqnsikxtcgn"
-path="res://.godot/imported/table.blend-a48781023faa6a8cdff31d99d2b617a5.scn"
+uid="uid://bv66dap88ainm"
+path="res://.godot/imported/right_glove.blend-b80d208f21ff9feac4ec7ada76b09c7d.scn"
 
 [deps]
 
-source_file="res://assets/house/table/table.blend"
-dest_files=["res://.godot/imported/table.blend-a48781023faa6a8cdff31d99d2b617a5.scn"]
+source_file="res://assets/blend/player/gloves/right_glove.blend"
+dest_files=["res://.godot/imported/right_glove.blend-b80d208f21ff9feac4ec7ada76b09c7d.scn"]
 
 [params]
 
@@ -22,6 +22,7 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
@@ -29,6 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={}
+gltf/naming_version=0
 gltf/embedded_image_handling=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true

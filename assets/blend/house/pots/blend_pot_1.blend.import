@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cqc880bbkxx5f"
-path="res://.godot/imported/watering_can.blend-a28a0824170c4d81e42b2702e087e9c8.scn"
+uid="uid://cyupnmgld3uki"
+path="res://.godot/imported/blend_pot_1.blend-5e521d48bcf908fa234aa0e2d431a73e.scn"
 
 [deps]
 
-source_file="res://assets/watering_can/watering_can.blend"
-dest_files=["res://.godot/imported/watering_can.blend-a28a0824170c4d81e42b2702e087e9c8.scn"]
+source_file="res://assets/blend/house/pots/blend_pot_1.blend"
+dest_files=["res://.godot/imported/blend_pot_1.blend-5e521d48bcf908fa234aa0e2d431a73e.scn"]
 
 [params]
 
@@ -22,6 +22,7 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
@@ -29,6 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={}
+gltf/naming_version=0
 gltf/embedded_image_handling=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true

@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/player/head.gd" id="2_a2d5s"]
 [ext_resource type="Script" path="res://scripts/player/body.gd" id="3_6pwpn"]
 [ext_resource type="Script" path="res://scripts/components/interact/player_interactor_component.gd" id="4_nqxj5"]
-[ext_resource type="PackedScene" uid="uid://bv66dap88ainm" path="res://assets/player/gloves/right_glove.blend" id="4_vbyoy"]
+[ext_resource type="PackedScene" uid="uid://bv66dap88ainm" path="res://assets/blend/player/gloves/right_glove.blend" id="4_vbyoy"]
 [ext_resource type="Script" path="res://scripts/player/hand.gd" id="5_jqs30"]
 [ext_resource type="Script" path="res://scripts/components/finite_state_machine/finite_state_machine.gd" id="8_o6qgt"]
 [ext_resource type="Script" path="res://scripts/player/states/player_idle.gd" id="9_tpojc"]

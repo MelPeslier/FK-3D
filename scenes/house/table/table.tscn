@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxxv5jv60833d"]
 
 [ext_resource type="Script" path="res://scripts/house/table/table.gd" id="1_6wuov"]
-[ext_resource type="PackedScene" uid="uid://8mqnsikxtcgn" path="res://assets/house/table/table.blend" id="1_e1mw6"]
+[ext_resource type="PackedScene" uid="uid://8mqnsikxtcgn" path="res://assets/blend/house/table/table.blend" id="1_e1mw6"]
 [ext_resource type="PackedScene" uid="uid://bjm6p5iv68qwr" path="res://scenes/house/table/pot_placement.tscn" id="3_j3ng7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fh05r"]
