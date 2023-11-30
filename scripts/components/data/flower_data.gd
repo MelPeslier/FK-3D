@@ -13,7 +13,9 @@ signal flower_name_changed(new_value: String)
 		flower_name = new_value
 		flower_name_changed.emit(flower_name)
 
+@export var seed_price: float
 @export var sell_price: float
+
 @export_category("Nearby Modifiers")
 @export_group("Happiness")
 @export_subgroup("Coef")

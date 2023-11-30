@@ -23,6 +23,8 @@ func _ready() -> void:
 	water_interactable_component.focused.connect(_on_water_interactable_component_focused)
 	water_interactable_component.interacted.connect(_on_water_interactable_component_interacted)
 	water_interactable_component.unfocused.connect(_on_water_interactable_component_unfocused)
+	
+	water_interactable_component.alter_collision(true)
 
 
 # Flower detector

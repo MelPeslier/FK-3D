@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkkeh4eppb2bh"]
+
+[ext_resource type="PackedScene" uid="uid://w016gml5qwm6" path="res://assets/furnitures/sideTable.glb" id="1_kfeb2"]
+[ext_resource type="PackedScene" uid="uid://bjm6p5iv68qwr" path="res://scenes/house/table/pot_placement.tscn" id="2_2au2i"]
+
+[node name="sideTable" instance=ExtResource("1_kfeb2")]
+
+[node name="PotPlacement" parent="." index="1" instance=ExtResource("2_2au2i")]
+transform = Transform3D(-0.624152, 0, -0.781303, 0, 1, 0, 0.781303, 0, -0.624152, 0.0285227, 0.373247, -0.0937291)
+
+[node name="PotPlacement3" parent="." index="2" instance=ExtResource("2_2au2i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.173753, 0.373247, -0.147925)
+
+[node name="PotPlacement4" parent="." index="3" instance=ExtResource("2_2au2i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.349481, 0.373247, -0.151977)
+
+[node name="PotPlacement2" parent="." index="4" instance=ExtResource("2_2au2i")]
+transform = Transform3D(-0.781303, 0, 0.624152, 0, 1, 0, -0.624152, 0, -0.781303, 0.480054, 0.373247, -0.102738)

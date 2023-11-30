@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://e67oiqciir2o"]
+[gd_scene load_steps=32 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
 [ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
@@ -15,7 +15,10 @@
 [ext_resource type="Shader" path="res://mat_shad/shaders/flower_detector.gdshader" id="10_r44qu"]
 [ext_resource type="Script" path="res://scripts/components/interact/flower_interactor_component.gd" id="11_qjvjb"]
 [ext_resource type="PackedScene" uid="uid://cqymljen7t05l" path="res://vfx/grow_particles.tscn" id="15_pfdx5"]
-[ext_resource type="Script" path="res://scripts/components/finite_state_machine/finite_state_machine.gd" id="16_ktdyw"]
+[ext_resource type="Script" path="res://scripts/flowers/states/shared/flower_phase_state_machine.gd" id="16_e4vc2"]
+[ext_resource type="Script" path="res://scripts/flowers/states/shared/day.gd" id="17_owpbt"]
+[ext_resource type="Script" path="res://scripts/flowers/states/shared/seed.gd" id="19_t8dca"]
+[ext_resource type="Script" path="res://scripts/flowers/states/sunflower/night.gd" id="20_yysr1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fl531"]
 radius = 0.25
@@ -156,22 +159,48 @@ _data = {
 "RESET": SubResource("Animation_78rri")
 }
 
-[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "happiness_component", "hold_interactable_component", "flower_interactor_component", "flower_data", "in_game_ui", "flower_detector", "body_meshs")]
+[node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "happiness_component", "hold_interactable_component", "flower_interactor_component", "flower_data", "animator", "in_game_ui", "flower_detector", "body_meshs", "flower_phase_state_machine")]
 collision_layer = 28
 script = ExtResource("1_vbhfb")
-water_interactable_component = NodePath("WaterInteractableComponent")
-water_component = NodePath("WaterComponent")
-happiness_component = NodePath("HappinessComponent")
-hold_interactable_component = NodePath("HoldInteractableComponent")
-flower_interactor_component = NodePath("FlowerInteractorComponent")
-flower_data = NodePath("FlowerData")
+water_interactable_component = NodePath("Areas/WaterInteractableComponent")
+water_component = NodePath("Components/WaterComponent")
+happiness_component = NodePath("Components/HappinessComponent")
+hold_interactable_component = NodePath("Areas/HoldInteractableComponent")
+flower_interactor_component = NodePath("Areas/FlowerInteractorComponent")
+flower_data = NodePath("Components/FlowerData")
+animator = NodePath("Animator")
 in_game_ui = NodePath("InGameUI")
-flower_detector = NodePath("FlowerDetector")
+flower_detector = NodePath("Areas/FlowerDetector")
 body_meshs = [NodePath("Meshs/blend_pot_1/Pot"), NodePath("Meshs/blend_pot_1/Border")]
+flower_phase_state_machine = NodePath("States/FlowerPhaseStateMachine")
 
 [node name="BodyCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("CapsuleShape3D_fl531")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="WaterComponent" type="Node" parent="Components" node_paths=PackedStringArray("happiness_component")]
+script = ExtResource("3_jngka")
+water = 40.0
+min_perfect = 15.0
+max_perfect = 85.0
+decrease_value = 1.0
+happiness_component = NodePath("../HappinessComponent")
+
+[node name="HappinessComponent" type="Node" parent="Components"]
+script = ExtResource("4_yssym")
+happiness = 25.0
+decrease_value = 2.0
+increase_value = 1.0
+
+[node name="FlowerData" type="Node" parent="Components"]
+script = ExtResource("6_khebb")
+flower_name = "SunFlower"
+seed_price = 4.0
+sell_price = 15.0
+max_nearby_happ_decr_coef = -0.15
+nearby_happ_val = 0.5
 
 [node name="SeedStuff" type="Node3D" parent="."]
 
@@ -189,51 +218,53 @@ visible = false
 
 [node name="blend_pot_1" parent="Meshs" instance=ExtResource("2_js4op")]
 
-[node name="HoldInteractableComponent" type="Area3D" parent="."]
+[node name="Areas" type="Node3D" parent="."]
+
+[node name="HoldInteractableComponent" type="Area3D" parent="Areas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("2_rkkjy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HoldInteractableComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/HoldInteractableComponent"]
 shape = SubResource("BoxShape3D_2rhst")
 
-[node name="WaterInteractableComponent" type="Area3D" parent="."]
+[node name="WaterInteractableComponent" type="Area3D" parent="Areas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05787, 0)
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("2_rkkjy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WaterInteractableComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/WaterInteractableComponent"]
 shape = SubResource("BoxShape3D_pvtoa")
 
-[node name="FlowerInteractorComponent" type="Area3D" parent="." node_paths=PackedStringArray("flower")]
+[node name="FlowerInteractorComponent" type="Area3D" parent="Areas" node_paths=PackedStringArray("flower")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 0
 collision_mask = 256
 script = ExtResource("11_qjvjb")
-flower = NodePath("..")
+flower = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FlowerInteractorComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/FlowerInteractorComponent"]
 shape = SubResource("SphereShape3D_0vl2h")
 
-[node name="FlowerDetector" type="Area3D" parent="."]
+[node name="FlowerDetector" type="Area3D" parent="Areas"]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("9_b5gle")
 appear_time = 1.25
 disappear_time = 0.75
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FlowerDetector"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/FlowerDetector"]
 shape = SubResource("SphereShape3D_55hf5")
 
-[node name="FlowerDetectorMesh" type="MeshInstance3D" parent="FlowerDetector"]
+[node name="FlowerDetectorMesh" type="MeshInstance3D" parent="Areas/FlowerDetector"]
 material_override = SubResource("ShaderMaterial_o5pho")
 cast_shadow = 0
 instance_shader_parameters/alpha = 0.0
 instance_shader_parameters/color = Color(0, 0, 0, 1)
 mesh = SubResource("SphereMesh_nnr33")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="InGameUI" parent="." node_paths=PackedStringArray("parent", "display_content") instance=ExtResource("1_nw61n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -246,46 +277,36 @@ material_override = SubResource("ShaderMaterial_6p5fa")
 mesh = SubResource("QuadMesh_qblyq")
 
 [node name="DisplayBarHW" parent="InGameUI/SubViewport" index="0" node_paths=PackedStringArray("happiness_component", "water_component", "flower_data") instance=ExtResource("5_yc546")]
-happiness_component = NodePath("../../../HappinessComponent")
-water_component = NodePath("../../../WaterComponent")
-flower_data = NodePath("../../../FlowerData")
-
-[node name="WaterComponent" type="Node" parent="." node_paths=PackedStringArray("happiness_component")]
-script = ExtResource("3_jngka")
-water = 40.0
-min_perfect = 15.0
-max_perfect = 85.0
-decrease_value = 1.0
-happiness_component = NodePath("../HappinessComponent")
-
-[node name="HappinessComponent" type="Node" parent="."]
-script = ExtResource("4_yssym")
-happiness = 25.0
-decrease_value = 2.0
-increase_value = 1.0
-
-[node name="FlowerData" type="Node" parent="."]
-script = ExtResource("6_khebb")
-flower_name = "SunFlower"
-sell_price = 15.0
-max_nearby_happ_decr_coef = -0.15
-nearby_happ_val = 0.5
+happiness_component = NodePath("../../../Components/HappinessComponent")
+water_component = NodePath("../../../Components/WaterComponent")
+flower_data = NodePath("../../../Components/FlowerData")
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_fwt3b")
 }
 
-[node name="FlowerPhaseStateMachine" type="Node" parent="."]
-script = ExtResource("16_ktdyw")
+[node name="States" type="Node" parent="."]
 
-[node name="day" type="Node" parent="FlowerPhaseStateMachine"]
+[node name="FlowerPhaseStateMachine" type="Node" parent="States" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("16_e4vc2")
+starting_state = NodePath("seed")
 
-[node name="customer" type="Node" parent="FlowerPhaseStateMachine"]
+[node name="seed" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
+script = ExtResource("19_t8dca")
+night = NodePath("../night")
 
-[node name="seed" type="Node" parent="FlowerPhaseStateMachine"]
+[node name="day" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
+script = ExtResource("17_owpbt")
+night = NodePath("../night")
 
-[node name="night" type="Node" parent="FlowerPhaseStateMachine"]
+[node name="night" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("water_interactor_component", "happiness_component", "water_component", "flower_data", "day")]
+script = ExtResource("20_yysr1")
+water_interactor_component = NodePath("../../../Areas/WaterInteractableComponent")
+happiness_component = NodePath("../../../Components/HappinessComponent")
+water_component = NodePath("../../../Components/WaterComponent")
+flower_data = NodePath("../../../Components/FlowerData")
+day = NodePath("../day")
 
 [editable path="SeedStuff/blend_seed_sunflower"]
 [editable path="Meshs/blend_sunflower"]

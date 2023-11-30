@@ -93,7 +93,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	next_direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	next_direction = (head.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	state_machine.process_physics(delta)
 	

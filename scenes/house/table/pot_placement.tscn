@@ -46,12 +46,12 @@ shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vlbaq"]
-top_radius = 0.1
-bottom_radius = 0.1
+top_radius = 0.025
+bottom_radius = 0.025
 height = 0.001
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wdi8p"]
-radius = 0.338429
+radius = 0.085
 
 [node name="PotPlacement" type="Node3D"]
 script = ExtResource("1_3a1t8")
