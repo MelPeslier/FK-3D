@@ -1,6 +1,6 @@
 extends PanelContainer
 
-var mat = material as ShaderMaterial
+var mat: ShaderMaterial = material as ShaderMaterial
 
 var edge: float:
 	set(new_value):

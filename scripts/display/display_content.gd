@@ -70,7 +70,7 @@ func _on_water_max_changed(val: float, val_min: float, val_max: float) -> void:
 	water_info.set_max_value(val, val_min, val_max)
 
 
-func _on_water_changed(val: float, val_min, val_max) -> void:
+func _on_water_changed(val: float, val_min: float, val_max: float) -> void:
 	water_info.set_value(val, val_min, val_max)
 
 

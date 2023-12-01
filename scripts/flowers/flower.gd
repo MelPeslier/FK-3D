@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 signal dropped
 
-@export_group("Components")
+@export_group("Components flower")
 @export var happiness_component: HappinessComponent
 @export var hold_interactable_component: InteractableComponent
 @export var flower_interactor_component: FlowerInteractorComponent

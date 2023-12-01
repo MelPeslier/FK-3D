@@ -34,5 +34,5 @@ func steal(amount: float) -> float:
 	return money_gone
 
 
-func _on_update_money(money: float) -> void:
-	label_3d.text = "%.2f %s" % [money, "€"]
+func _on_update_money(_money: float) -> void:
+	label_3d.text = "%.2f %s" % [_money, "€"]

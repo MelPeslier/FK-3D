@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://e67oiqciir2o"]
 
 [ext_resource type="PackedScene" uid="uid://boc3yvvasr211" path="res://scenes/display/in_game_ui.tscn" id="1_nw61n"]
-[ext_resource type="Script" path="res://scripts/flowers/sunflower.gd" id="1_vbhfb"]
+[ext_resource type="Script" path="res://scripts/flowers/states/sunflower/sunflower.gd" id="1_vbhfb"]
 [ext_resource type="PackedScene" uid="uid://blakylwfxt6i1" path="res://assets/blend/flowers/blend_sunflower.blend" id="2_1b55w"]
 [ext_resource type="PackedScene" uid="uid://cyupnmgld3uki" path="res://assets/blend/house/pots/blend_pot_1.blend" id="2_js4op"]
 [ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="2_rkkjy"]
@@ -161,6 +161,7 @@ _data = {
 
 [node name="Sunflower" type="CharacterBody3D" node_paths=PackedStringArray("water_interactable_component", "water_component", "happiness_component", "hold_interactable_component", "flower_interactor_component", "flower_data", "animator", "in_game_ui", "flower_detector", "body_meshs", "flower_phase_state_machine")]
 collision_layer = 28
+collision_mask = 5
 script = ExtResource("1_vbhfb")
 water_interactable_component = NodePath("Areas/WaterInteractableComponent")
 water_component = NodePath("Components/WaterComponent")
@@ -196,6 +197,7 @@ increase_value = 1.0
 
 [node name="FlowerData" type="Node" parent="Components"]
 script = ExtResource("6_khebb")
+picture_path = "res://assets/pictures/sunflower.PNG"
 flower_name = "SunFlower"
 seed_price = 4.0
 sell_price = 15.0
@@ -262,6 +264,7 @@ shape = SubResource("SphereShape3D_55hf5")
 material_override = SubResource("ShaderMaterial_o5pho")
 cast_shadow = 0
 instance_shader_parameters/alpha = 0.0
+instance_shader_parameters/color = Color(0.0352941, 0.0352941, 0.0352941, 1)
 mesh = SubResource("SphereMesh_nnr33")
 skeleton = NodePath("../../..")
 

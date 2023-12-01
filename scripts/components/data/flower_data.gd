@@ -8,6 +8,8 @@ signal nearby_water_incr_coef_changed(old_value: float, new_value: float)
 signal flower_name_changed(new_value: String)
 
 
+@export_file("*flower.png") var picture_path: String
+
 @export var flower_name: String:
 	set(new_value):
 		flower_name = new_value

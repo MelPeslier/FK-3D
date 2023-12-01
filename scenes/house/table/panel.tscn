@@ -1,21 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://da8v7ukvwamv6"]
+[gd_scene load_steps=7 format=3 uid="uid://da8v7ukvwamv6"]
 
 [ext_resource type="PackedScene" uid="uid://c2gtsm88uxl51" path="res://assets/blend/furnitures/paneling.glb" id="1_qd2u2"]
+[ext_resource type="Script" path="res://scripts/house/panel/flower_panel.gd" id="1_tt2kw"]
 [ext_resource type="Texture2D" uid="uid://cj0qxb07jvuvm" path="res://icon.svg" id="2_4aodw"]
+[ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="4_jmjvg"]
 
-[node name="Panel" type="Node3D"]
+[sub_resource type="QuadMesh" id="QuadMesh_0oe05"]
+size = Vector2(0.45, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4gj3d"]
+radius = 0.179021
+
+[node name="FlowerPanel" type="Node3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_tt2kw")
 
 [node name="paneling" parent="." instance=ExtResource("1_qd2u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.283, 0)
 
-[node name="Sprite3D" type="MeshInstance3D" parent="."]
+[node name="PictureSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.016)
+pixel_size = 0.0008
+texture = ExtResource("2_4aodw")
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.252584, 0.0309651, 0.0226354)
+[node name="PanelPrice" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.018)
+visible = false
+mesh = SubResource("QuadMesh_0oe05")
+
+[node name="LabelPrice" type="Label3D" parent="PanelPrice"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00238393)
+pixel_size = 0.0015
+text = "buy for x x x  €"
+autowrap_mode = 2
+width = 122.0
+
+[node name="LabelName" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.257405, 0.023)
 pixel_size = 0.0015
 text = "Flower Name"
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.253891, 0.2805, 0.0163422)
-pixel_size = 0.0037
-texture = ExtResource("2_4aodw")
+[node name="InteractableComponent" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("4_jmjvg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00312805, -0.000823975, 0.00474483)
+shape = SubResource("SphereShape3D_4gj3d")
+
+[node name="Spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00285691, 0.226952)
+
+[connection signal="focused" from="InteractableComponent" to="." method="_on_interactable_component_focused"]
+[connection signal="interacted" from="InteractableComponent" to="." method="_on_interactable_component_interacted"]
+[connection signal="unfocused" from="InteractableComponent" to="." method="_on_interactable_component_unfocused"]

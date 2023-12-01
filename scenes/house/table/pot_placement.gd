@@ -20,7 +20,7 @@ func _on_interactable_component_focused(_interactor: InteractorComponent) -> voi
 func _on_interactable_component_interacted(_interactor: InteractorComponent) -> void:
 	collision_shape_3d.disabled = true
 	_interactor.item_unfocus.emit()
-	_interactor.controller.global_transform = global_transform
+	_interactor.controller.global_transform.origin = global_transform.origin
 	_interactor.item_received.emit(self)
 	set_color(color_unfocused)
 

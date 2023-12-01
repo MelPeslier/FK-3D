@@ -9,24 +9,24 @@ func _ready() -> void:
 
 
 func on_day_start() -> void:
-	var new_state = current_state.on_day_start()
+	var new_state: FiniteState = current_state.on_day_start()
 	if new_state:
 		change_state(new_state)
 
 
 func on_placement_start() -> void:
-	var new_state = current_state.on_placement_start()
+	var new_state: FiniteState = current_state.on_placement_start()
 	if new_state:
 		change_state(new_state)
 
 
 func on_customer_start() -> void:
-	var new_state = current_state.on_customer_start()
+	var new_state: FiniteState = current_state.on_customer_start()
 	if new_state:
 		change_state(new_state)
 
 
 func on_night_start() -> void:
-	var new_state = current_state.on_night_start()
+	var new_state: FiniteState = current_state.on_night_start()
 	if new_state:
 		change_state(new_state)

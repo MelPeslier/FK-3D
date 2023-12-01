@@ -32,7 +32,6 @@ import_script/path=""
 _subresources={
 "nodes": {
 "PATH:bathroomSink(Clone)": {
-"generate/navmesh": 1,
 "generate/physics": true,
 "physics/layer": 129
 }
