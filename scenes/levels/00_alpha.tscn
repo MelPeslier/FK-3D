@@ -1,6 +1,5 @@
-[gd_scene load_steps=24 format=3 uid="uid://cynosqrfrdhuy"]
+[gd_scene load_steps=23 format=3 uid="uid://cynosqrfrdhuy"]
 
-[ext_resource type="Script" path="res://scripts/game_data.gd" id="1_iw7v7"]
 [ext_resource type="PackedScene" uid="uid://d1wfb8olgtw6y" path="res://assets/blend/furnitures/bathroomSink.glb" id="2_j7i4e"]
 [ext_resource type="PackedScene" uid="uid://br125u35xsej6" path="res://assets/blend/furnitures/floorFull.glb" id="3_hdccv"]
 [ext_resource type="PackedScene" uid="uid://cp4xd38m7qtpg" path="res://assets/blend/furnitures/wall.glb" id="4_apvgg"]
@@ -559,8 +558,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -5)
 
 [node name="floorFull88" parent="House/Floor" instance=ExtResource("3_hdccv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="floorFull89" parent="House/Floor" instance=ExtResource("3_hdccv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
@@ -668,9 +665,5 @@ mesh = SubResource("BoxMesh_cvixe")
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.105628, 0, 0)
 mesh = SubResource("CylinderMesh_a4x38")
 
-[node name="CashMachine" parent="House" node_paths=PackedStringArray("game_data") instance=ExtResource("14_ipf2u")]
+[node name="CashMachine" parent="House" instance=ExtResource("14_ipf2u")]
 transform = Transform3D(0.814024, 0, -0.580831, 0, 1, 0, 0.580831, 0, 0.814024, -3.34161, 0.373972, -5.26901)
-game_data = NodePath("../../GameData")
-
-[node name="GameData" type="Node" parent="."]
-script = ExtResource("1_iw7v7")

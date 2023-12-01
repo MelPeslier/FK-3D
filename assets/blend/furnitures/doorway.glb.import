@@ -32,8 +32,8 @@ import_script/path=""
 _subresources={
 "nodes": {
 "PATH:doorway(Clone)/door": {
-"generate/navmesh": 1,
-"generate/physics": true
+"generate/physics": true,
+"physics/shape_type": 1
 }
 }
 }
