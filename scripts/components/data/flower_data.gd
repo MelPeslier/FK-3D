@@ -44,7 +44,7 @@ var nearby_happ_decr_coef: float = 0:
 			new_value = clamp(new_value, min_nearby_happ_decr_coef, max_nearby_happ_decr_coef)
 		else:
 			new_value = clamp(new_value, max_nearby_happ_decr_coef, min_nearby_happ_decr_coef)
-		
+
 		nearby_happ_decr_coef_changed.emit(nearby_happ_decr_coef, new_value)
 		nearby_happ_decr_coef = new_value
 
@@ -54,7 +54,7 @@ var nearby_happ_incr_coef: float = 0:
 			new_value = clamp(new_value, min_nearby_happ_incr_coef, max_nearby_happ_incr_coef)
 		else:
 			new_value = clamp(new_value, max_nearby_happ_incr_coef, min_nearby_happ_incr_coef)
-		
+
 		nearby_happ_incr_coef_changed.emit(nearby_happ_incr_coef, new_value)
 		nearby_happ_incr_coef = new_value
 
@@ -64,7 +64,7 @@ var nearby_water_decr_coef: float = 0:
 			new_value = clamp(new_value, min_nearby_water_decr_coef, max_nearby_water_decr_coef)
 		else:
 			new_value = clamp(new_value, max_nearby_water_decr_coef, min_nearby_water_decr_coef)
-		
+
 		nearby_water_decr_coef_changed.emit(nearby_water_decr_coef, new_value)
 		nearby_water_decr_coef = new_value
 
@@ -74,7 +74,7 @@ var nearby_water_incr_coef: float = 0:
 			new_value = clamp(new_value, min_nearby_water_incr_coef, max_nearby_water_incr_coef)
 		else:
 			new_value = clamp(new_value, max_nearby_water_incr_coef, min_nearby_water_incr_coef)
-		
+
 		nearby_water_incr_coef_changed.emit(nearby_water_incr_coef, new_value)
 		nearby_water_incr_coef = new_value
 

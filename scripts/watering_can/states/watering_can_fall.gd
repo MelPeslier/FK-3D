@@ -16,7 +16,7 @@ func exit() -> void:
 
 func process_physics(delta: float) -> FiniteState:
 	parent.velocity.y -= parent.gravity * delta
-	
+
 	if parent.is_on_floor():
 		return idle_state
 	return null

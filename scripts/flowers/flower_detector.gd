@@ -29,26 +29,26 @@ func _modulate_zone_alpha(_alpha: float) -> void:
 func appear_zone(appear: bool) -> void:
 	var actual_color: Color = flower_detector_mesh.get_instance_shader_parameter("color")
 	var actual_alpha: float = flower_detector_mesh.get_instance_shader_parameter("alpha")
-	
+
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	
+
 	if appear:
 		tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_method(_modulate_zone_color, actual_color, bad_color, appear_time * 1.25)
 		tween.parallel().tween_method(_modulate_zone_alpha, actual_alpha, 1.0, appear_time * 1.25)
-		
+
 		tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
 		tween.parallel().tween_property(flower_detector_mesh, "mesh:radius", max_size, appear_time)
 		tween.parallel().tween_property(flower_detector_mesh, "mesh:height", max_size * 2.0, appear_time)
-	
+
 	else:
 		tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_method(_modulate_zone_color, actual_color, good_color, disappear_time * 0.4)
 		tween.parallel().tween_method(_modulate_zone_alpha, actual_alpha, 0.0, disappear_time * 0.9)
-		
+
 		tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN)
 		tween.parallel().tween_property(flower_detector_mesh, "mesh:radius", 0.0, disappear_time)
 		tween.parallel().tween_property(flower_detector_mesh, "mesh:height", 0.0, disappear_time)
-		
+

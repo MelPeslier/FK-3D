@@ -73,7 +73,7 @@ func process_frame(delta: float) -> void:
 		if water > min_perfect and water < max_perfect:
 			happiness_component.add_happ(delta)
 		return
-	
+
 	happiness_component.sub_happ(delta)
 
 

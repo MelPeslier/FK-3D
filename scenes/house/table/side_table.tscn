@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkkeh4eppb2bh"]
 
-[ext_resource type="PackedScene" uid="uid://w016gml5qwm6" path="res://assets/furnitures/sideTable.glb" id="1_kfeb2"]
+[ext_resource type="PackedScene" uid="uid://w016gml5qwm6" path="res://assets/blend/furnitures/sideTable.glb" id="1_kfeb2"]
 [ext_resource type="PackedScene" uid="uid://bjm6p5iv68qwr" path="res://scenes/house/table/pot_placement.tscn" id="2_2au2i"]
 
 [node name="sideTable" instance=ExtResource("1_kfeb2")]

@@ -71,7 +71,9 @@ const ADD_NEARBY: float = -0.5
 const SUB_GROUND: float = 0.6
 const ADD_GROUND: float = -0.4
 
+# From 1 to 2.6
 var sub_env_modifier: float = 1
+# From 1 to 0.1
 var add_env_modifier: float = 1
 
 
@@ -150,7 +152,7 @@ func _init_values() -> void:
 
 
 func _init_bonus() -> void:
-	var diff = max_max - min_max
+	var diff := max_max - min_max
 	bonus_max = diff / bonus_max_coef
 	malus_max = diff / malus_max_coef
 
@@ -160,13 +162,13 @@ func _init_timers() -> void:
 	normal_happiness.connect(_on_normal_happiness)
 	zero_happiness.connect(_on_zero_happiness)
 	full_happiness.connect(_on_full_happiness)
-	
+
 	zero_timer.autostart = false
 	zero_timer.one_shot = true
 	zero_timer.process_callback = Timer.TIMER_PROCESS_IDLE
 	zero_timer.timeout.connect(_on_zero_timer_timeout)
 	add_child(zero_timer)
-	
+
 	full_timer.autostart = false
 	full_timer.one_shot = true
 	full_timer.process_callback = Timer.TIMER_PROCESS_IDLE
@@ -188,7 +190,7 @@ func _on_zero_happiness() -> void:
 
 func _on_zero_timer_timeout() -> void:
 	happ_max -= malus_max
-	
+
 	if happ_max > min_max + E:
 		zero_happiness.emit()
 

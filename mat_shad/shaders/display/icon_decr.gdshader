@@ -6,5 +6,5 @@ global uniform vec4 good;
 uniform float coef: hint_range(0.0, 1.0);
 
 void fragment() {
-	COLOR.rgb = mix(good, bad, coef).rgb; 
+	COLOR.rgb = mix(good, bad, coef).rgb;
 }

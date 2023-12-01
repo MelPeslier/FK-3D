@@ -262,7 +262,6 @@ shape = SubResource("SphereShape3D_55hf5")
 material_override = SubResource("ShaderMaterial_o5pho")
 cast_shadow = 0
 instance_shader_parameters/alpha = 0.0
-instance_shader_parameters/color = Color(0, 0, 0, 1)
 mesh = SubResource("SphereMesh_nnr33")
 skeleton = NodePath("../../..")
 

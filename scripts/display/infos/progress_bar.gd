@@ -11,7 +11,7 @@ var edge: float:
 var color: Color:
 	set(new_value):
 		color = new_value
-		mat.set_shader_parameter("front_color", color) 
+		mat.set_shader_parameter("front_color", color)
 
 
 var thresh_1: float:

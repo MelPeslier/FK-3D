@@ -17,9 +17,9 @@ func exit() -> void:
 func process_physics(delta: float) -> FiniteState:
 	if not parent.is_on_floor():
 		return fall_state
-	
+
 	parent.velocity = parent._update_direction(delta, parent.velocity, Vector3.ZERO, 4.5)
-	
+
 	return null
 
 

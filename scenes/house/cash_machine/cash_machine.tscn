@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://pmwijawptdyv"]
+
+[ext_resource type="Script" path="res://scripts/house/cash_machine/cash_machine.gd" id="1_xnn0s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7vuxg"]
+size = Vector3(0.285, 0.09, 0.145)
+
+[sub_resource type="BoxMesh" id="BoxMesh_olfwx"]
+size = Vector3(0.065, 0.07, 0.015)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ctdj"]
+size = Vector3(0.197, 0.08, 0.029)
+
+[node name="CashMachine" type="Node3D"]
+script = ExtResource("1_xnn0s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050789, 0)
+mesh = SubResource("BoxMesh_7vuxg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126633, -0.039566)
+mesh = SubResource("BoxMesh_olfwx")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.205501, -0.039566)
+mesh = SubResource("BoxMesh_2ctdj")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776193, 0.206814, -0.0243041)
+pixel_size = 0.0011
+text = "000000  $"
+horizontal_alignment = 2

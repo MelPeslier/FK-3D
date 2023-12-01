@@ -16,14 +16,14 @@ var _too_much_nearby := false
 
 func _ready() -> void:
 	super()
-	
+
 	flower_detector.body_entered.connect(_on_flower_detector_body_entered)
 	flower_detector.body_exited.connect(_on_flower_detector_body_exited)
-	
+
 	water_interactable_component.focused.connect(_on_water_interactable_component_focused)
 	water_interactable_component.interacted.connect(_on_water_interactable_component_interacted)
 	water_interactable_component.unfocused.connect(_on_water_interactable_component_unfocused)
-	
+
 	water_interactable_component.alter_collision(true)
 
 
@@ -31,12 +31,12 @@ func _ready() -> void:
 func _on_flower_detector_body_entered(body: Node3D) -> void:
 	if not body is WaterFlower: return
 	if body == self: return
-	
+
 	nearby_water_flowers.append(body)
-	
+
 	var flower: WaterFlower = body as WaterFlower
 	flower.start_being_affected_by(self)
-	
+
 	if not _too_much_nearby and nearby_water_flowers.size() > MAX_NEARBY_FLOWERS:
 		_too_much_nearby = true
 		water_component.alter_nearby(true)
@@ -46,13 +46,13 @@ func _on_flower_detector_body_entered(body: Node3D) -> void:
 
 func _on_flower_detector_body_exited(body: Node3D) -> void:
 	if not body is WaterFlower: return
-	
+
 	if body in nearby_water_flowers:
 		nearby_water_flowers.erase(body)
 		var flower: WaterFlower = body as WaterFlower
 		# Reset affected coefs and put the self out of this array
 		flower.stop_being_affected_by(self)
-	
+
 	if _too_much_nearby and nearby_water_flowers.size() <= MAX_NEARBY_FLOWERS:
 		_too_much_nearby = false
 		water_component.alter_nearby(false)

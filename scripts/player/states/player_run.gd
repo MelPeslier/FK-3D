@@ -22,15 +22,15 @@ func exit() -> void:
 func process_physics(delta: float) -> FiniteState:
 	if not parent.next_direction:
 		return idle_state
-	
+
 	parent.direction = parent._update_direction(delta, parent.next_direction, parent.accel)
-	
+
 	if not Input.is_action_pressed("run"):
 		return walk_state
-	
+
 	if not parent.is_on_floor():
 		return air_state
-	
+
 	return null
 
 

@@ -24,12 +24,12 @@ func get_closest_interactable() -> InteractableComponent:
 	var distance: float
 	var closest_distance: float = INF
 	var closest: InteractableComponent = null
-	
+
 	for interactable in list:
 		distance = interactable.global_position.distance_to(global_position)
-		
+
 		if distance < closest_distance:
 			closest = interactable as InteractableComponent
 			closest_distance = distance
-	
+
 	return closest

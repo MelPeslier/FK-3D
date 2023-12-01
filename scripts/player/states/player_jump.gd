@@ -8,7 +8,7 @@ extends PlayerState
 
 
 func enter() -> void:
-	parent.velocity.y = jump_strength 
+	parent.velocity.y = jump_strength
 
 
 func exit() -> void:
@@ -18,7 +18,7 @@ func exit() -> void:
 func process_physics(_delta: float) -> FiniteState:
 	if not parent.is_on_floor():
 		return air_state
-	
+
 	return null
 
 

@@ -25,10 +25,10 @@ func _ready() -> void:
 	hold_interactable_component.focused.connect(_on_hold_interactable_component_focused)
 	hold_interactable_component.interacted.connect(_on_hold_interactable_component_interacted)
 	hold_interactable_component.unfocused.connect(_on_hold_interactable_component_unfocused)
-	
+
 	flower_interactor_component.item_unfocus.connect(_on_flower_interactor_component_item_unfocus)
 	flower_interactor_component.item_received.connect(_on_flower_interactor_component_item_received)
-	
+
 	flower_phase_state_machine.init(self)
 
 
@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity
 	else:
 		velocity = _update_direction(delta, velocity, Vector3.ZERO, 4.5)
-	
+
 	move_and_slide()
 
 
@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 
 #region Physics functions
 func _update_direction(delta: float, direction: Vector3, target_direction: Vector3, coef: float) -> Vector3:
-	var new_direction = direction.lerp(target_direction, delta * coef)
+	var new_direction := direction.lerp(target_direction, delta * coef)
 	return new_direction
 #endregion
 
@@ -71,21 +71,21 @@ func modulate_back() -> void:
 
 
 #region Hold interactable
-func _on_hold_interactable_component_focused(_interactor: InteractorComponent):
+func _on_hold_interactable_component_focused(_interactor: InteractorComponent) -> void:
 	modulate_item(Color.DIM_GRAY)
 
 
-func _on_hold_interactable_component_interacted(_interactor: InteractorComponent):
+func _on_hold_interactable_component_interacted(_interactor: InteractorComponent) -> void:
 	if holder:
 		if holder is PotPlacement:
 			holder.reactivate()
-	
+
 	holder = _interactor.controller
 	_interactor.item_received.emit(self)
 	modulate_back()
 
 
-func _on_hold_interactable_component_unfocused(_interactor: InteractorComponent):
+func _on_hold_interactable_component_unfocused(_interactor: InteractorComponent) -> void:
 	modulate_back()
 #endregion
 
@@ -103,7 +103,7 @@ func _on_flower_interactor_component_item_unfocus() -> void:
 	holder.drop_item.emit()
 
 
-func _on_flower_interactor_component_item_received(obj):
+func _on_flower_interactor_component_item_received(obj: Node3D) -> void:
 	holder = obj
 
 

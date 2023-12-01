@@ -17,20 +17,20 @@ func exit() -> void:
 
 func process_physics(delta: float) -> FiniteState:
 	parent.direction = parent._update_direction(delta, Vector3.ZERO, parent.ground_decel)
-	
+
 	if not parent.is_on_floor():
 		return air_state
-	
+
 	if parent.next_direction:
 		return walk_state
-	
+
 	return null
 
 
 func process_unhandled_input(event: InputEvent) -> FiniteState:
 	if event.is_action_pressed("jump") and parent.is_on_floor():
 		return jump_state
-	
+
 	return null
 
 

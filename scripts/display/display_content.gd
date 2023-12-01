@@ -13,7 +13,7 @@ extends PanelContainer
 func _ready() -> void:
 	# Name
 	flower_data.flower_name_changed.connect(_on_flower_name_changed)
-	
+
 	# Happiness
 	happiness_component.happ_max_changed.connect(_on_happ_max_changed)
 	happiness_component.happ_changed.connect(_on_happ_changed)
@@ -21,7 +21,7 @@ func _ready() -> void:
 	happiness_component.happ_decr_value_changed.connect(_on_happ_decr_value_changed)
 	happiness_component.happ_incr_coef_changed.connect(_on_happ_incr_coef_changed)
 	happiness_component.happ_incr_value_changed.connect(_on_happ_incr_value_changed)
-	
+
 	# Water
 	water_component.water_max_changed.connect(_on_water_max_changed)
 	water_component.water_changed.connect(_on_water_changed)
@@ -30,8 +30,8 @@ func _ready() -> void:
 	water_component.water_decrease_coef_changed.connect(_on_water_decrease_coef_changed)
 	water_component.water_decrease_value_changed.connect(_on_water_decrease_value_changed)
 	water_component.water_increase_coef_changed.connect(_on_water_increase_coef_changed)
-	
-	
+
+
 	# Animation state
 
 

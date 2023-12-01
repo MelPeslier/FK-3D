@@ -41,7 +41,7 @@ func process_unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
-	
+
 	move_and_slide()
 
 
@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 
 
 func _update_direction(delta: float, direction: Vector3, target_direction: Vector3, coef: float) -> Vector3:
-	var new_direction = direction.lerp(target_direction, delta * coef)
+	var new_direction := direction.lerp(target_direction, delta * coef)
 	return new_direction
 
 
@@ -58,17 +58,17 @@ func _update_direction(delta: float, direction: Vector3, target_direction: Vecto
 func watering(delta: float) -> void:
 	if not flower and not is_instance_valid(flower):
 		return
-	
-	if water < 0.0001: 
+
+	if water < 0.0001:
 		print("no water")
 		return
-	
-	var output_value = min(water, output)
+
+	var output_value := minf(water, output)
 	water -= output_value * delta
 	flower.water_component.add_water(delta, output_value)
 
 
-func _on_watering_can_interactor_component_item_received(obj) -> void:
+func _on_watering_can_interactor_component_item_received(obj: Node3D) -> void:
 	flower = obj
 
 
@@ -78,10 +78,10 @@ func _on_watering_can_interactor_component_item_unfocus() -> void:
 
 func modulate_item(_color: Color) -> void:
 	# Only change the mesh albedo color
-	var obj = watering_can.get_child(0) as MeshInstance3D
-	var mat = obj.material_override as StandardMaterial3D
+	var obj: MeshInstance3D = watering_can.get_child(0) as MeshInstance3D
+	var mat: StandardMaterial3D = obj.material_override as StandardMaterial3D
 	mat.albedo_color = _color
-	
+
 	# Duplicate the mesh instance, grow it and change it's color
 #	var new = obj.duplicate() as MeshInstance3D
 #	watering_can.add_child(new)

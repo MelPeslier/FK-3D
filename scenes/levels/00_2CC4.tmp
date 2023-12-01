@@ -1,0 +1,67 @@
+[gd_scene load_steps=23 format=3 uid="uid://cynosqrfrdhuy"]
+
+[ext_resource type="PackedScene" uid="uid://d1wfb8olgtw6y" path="res://assets/blend/furnitures/bathroomSink.glb" id="2_j7i4e"]
+[ext_resource type="PackedScene" uid="uid://br125u35xsej6" path="res://assets/blend/furnitures/floorFull.glb" id="3_hdccv"]
+[ext_resource type="PackedScene" uid="uid://cp4xd38m7qtpg" path="res://assets/blend/furnitures/wall.glb" id="4_apvgg"]
+[ext_resource type="PackedScene" uid="uid://b3mieq6llybia" path="res://assets/blend/furnitures/wallDoorway.glb" id="5_drihd"]
+[ext_resource type="PackedScene" uid="uid://nk0rfpfsepiw" path="res://assets/blend/furnitures/toiletSquare.glb" id="6_trsng"]
+[ext_resource type="PackedScene" uid="uid://w016gml5qwm6" path="res://assets/blend/furnitures/sideTable.glb" id="7_cvngh"]
+[ext_resource type="PackedScene" uid="uid://b73vf1qf774rh" path="res://assets/blend/furnitures/wallDoorwayWide.glb" id="7_fkhcj"]
+[ext_resource type="PackedScene" uid="uid://c1k62mwd0swcm" path="res://assets/blend/furnitures/wallWindow.glb" id="8_mtk2c"]
+[ext_resource type="PackedScene" uid="uid://dkkeh4eppb2bh" path="res://scenes/house/table/side_table.tscn" id="9_0ddti"]
+[ext_resource type="PackedScene" uid="uid://dttskmt63fgtg" path="res://assets/blend/furnitures/doorway.glb" id="9_e3lsi"]
+[ext_resource type="PackedScene" uid="uid://buis32vf4org1" path="res://scenes/player/player.tscn" id="10_2cyw1"]
+[ext_resource type="PackedScene" uid="uid://da8v7ukvwamv6" path="res://scenes/house/table/panel.tscn" id="11_snw53"]
+[ext_resource type="PackedScene" uid="uid://7xui3ofhcefa" path="res://scenes/house/radio/radio.tscn" id="13_fi4fv"]
+[ext_resource type="PackedScene" uid="uid://pmwijawptdyv" path="res://scenes/house/cash_machine/cash_machine.tscn" id="14_ipf2u"]
+[ext_resource type="PackedScene" uid="uid://c2apj4504hbw6" path="res://scenes/watering_can/watering_can.tscn" id="15_cpmn8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hv784"]
+sky_top_color = Color(0.298039, 0.419608, 0.792157, 1)
+sky_horizon_color = Color(0.101961, 0.572549, 0.564706, 1)
+ground_bottom_color = Color(0.156863, 0.133333, 0.0980392, 1)
+ground_horizon_color = Color(0.0392157, 0.376471, 0.384314, 1)
+
+[sub_resource type="Sky" id="Sky_dk8vx"]
+sky_material = SubResource("ProceduralSkyMaterial_hv784")
+
+[sub_resource type="Environment" id="Environment_ukjoo"]
+background_mode = 2
+sky = SubResource("Sky_dk8vx")
+ambient_light_energy = 3.65
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_02i00"]
+size = Vector3(3, 1.25, 0.125)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmiaa"]
+size = Vector3(3, 1.25, 0.125)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cvixe"]
+size = Vector3(0.155, 0.155, 0.155)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a4x38"]
+top_radius = 0.066
+bottom_radius = 0.066
+height = 0.053
+
+[node name="00_alpha" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ukjoo")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, -16, 0, 0)
+light_color = Color(1, 1, 0.588235, 1)
+light_energy = 1.185
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.606363, -0.405082, -0.684275, 0.795188, 0.308892, 0.521788, 0, -0.86052, 0.509417, -22, 0, 0)
+visible = false
+light_color = Color(0.6, 0.74902, 1, 1)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("10_2cyw1")]
+transform = Transform3D(1, 0, 1.78814e-07, 0, 1, 0, -1.78814e-07, 0, 1, -17.48, 0.680573, -17.6576)
+camera = Object(Camera3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 0.987688, 0.156434, 0, -0.156434, 0.987688, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"keep_aspect":1,"cull_mask":1048575,"environment":null,"attri

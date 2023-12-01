@@ -13,7 +13,7 @@ func exit() -> void:
 func process_physics(_delta: float) -> FiniteState:
 	if Input.is_action_pressed("interact"):
 		print("oui")
-	
+
 	return null
 
 
