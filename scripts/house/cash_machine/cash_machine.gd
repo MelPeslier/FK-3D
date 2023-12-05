@@ -3,6 +3,10 @@ extends Node3D
 
 signal update_money(money: float)
 
+
+@export var start_money: float
+
+
 var money: float:
 	set(new_value):
 		money = new_value
@@ -13,7 +17,7 @@ var money: float:
 
 func _ready() -> void:
 	update_money.connect(_on_update_money)
-	money = 0
+	money = start_money
 
 
 func can_buy(price: float) -> bool:

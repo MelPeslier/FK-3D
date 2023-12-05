@@ -13,6 +13,7 @@ size = Vector3(0.197, 0.08, 0.029)
 
 [node name="CashMachine" type="Node3D"]
 script = ExtResource("1_xnn0s")
+start_money = 17.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050789, 0)
