@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct7lsxlubhfus"]
+
+[ext_resource type="Script" path="res://autoloads/colors/my_color.gd" id="1_rr8jv"]
+
+[node name="MyColor" type="Node"]
+script = ExtResource("1_rr8jv")

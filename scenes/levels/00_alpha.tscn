@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cynosqrfrdhuy"]
+[gd_scene load_steps=24 format=3 uid="uid://cynosqrfrdhuy"]
 
 [ext_resource type="PackedScene" uid="uid://d1wfb8olgtw6y" path="res://assets/blend/furnitures/bathroomSink.glb" id="2_j7i4e"]
 [ext_resource type="PackedScene" uid="uid://br125u35xsej6" path="res://assets/blend/furnitures/floorFull.glb" id="3_hdccv"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dttskmt63fgtg" path="res://assets/blend/furnitures/doorway.glb" id="9_e3lsi"]
 [ext_resource type="PackedScene" uid="uid://buis32vf4org1" path="res://scenes/player/player.tscn" id="10_2cyw1"]
 [ext_resource type="PackedScene" uid="uid://da8v7ukvwamv6" path="res://scenes/house/table/panel.tscn" id="11_snw53"]
+[ext_resource type="Script" path="res://scripts/house/panel/panel_manager.gd" id="12_5gvod"]
 [ext_resource type="PackedScene" uid="uid://7xui3ofhcefa" path="res://scenes/house/radio/radio.tscn" id="13_fi4fv"]
 [ext_resource type="PackedScene" uid="uid://pmwijawptdyv" path="res://scenes/house/cash_machine/cash_machine.tscn" id="14_ipf2u"]
 [ext_resource type="PackedScene" uid="uid://c2apj4504hbw6" path="res://scenes/watering_can/watering_can.tscn" id="15_cpmn8"]
@@ -609,7 +610,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6077, -0.207966, -5.12777)
 [node name="sideTable9" parent="House/Tables" instance=ExtResource("7_cvngh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14344, -0.207966, -5.12777)
 
-[node name="Panels" type="Node3D" parent="House"]
+[node name="Panels" type="Node3D" parent="House" node_paths=PackedStringArray("cash_machine")]
+script = ExtResource("12_5gvod")
+cash_machine = NodePath("../CashMachine")
 
 [node name="Panel" parent="House/Panels" instance=ExtResource("11_snw53")]
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, -3.31941, 0.603883, -2.007)

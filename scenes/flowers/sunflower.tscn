@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b0xlbpnteputm" path="res://scenes/display/display_bar_hw.tscn" id="5_yc546"]
 [ext_resource type="Script" path="res://scripts/components/data/flower_data.gd" id="6_khebb"]
 [ext_resource type="Script" path="res://scripts/flowers/flower_detector.gd" id="9_b5gle"]
-[ext_resource type="Shader" path="res://mat_shad/shaders/flower_detector.gdshader" id="10_r44qu"]
 [ext_resource type="Script" path="res://scripts/components/interact/flower_interactor_component.gd" id="11_qjvjb"]
+[ext_resource type="Material" uid="uid://t217vgcosktn" path="res://mat_shad/materials/albedo_alpha.tres" id="12_uwllc"]
 [ext_resource type="PackedScene" uid="uid://cqymljen7t05l" path="res://vfx/grow_particles.tscn" id="15_pfdx5"]
 [ext_resource type="Script" path="res://scripts/flowers/states/shared/flower_phase_state_machine.gd" id="16_e4vc2"]
 [ext_resource type="Script" path="res://scripts/flowers/states/shared/day.gd" id="17_owpbt"]
@@ -35,10 +35,6 @@ radius = 1.54654
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_55hf5"]
 radius = 3.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o5pho"]
-render_priority = 0
-shader = ExtResource("10_r44qu")
 
 [sub_resource type="SphereMesh" id="SphereMesh_nnr33"]
 resource_local_to_scene = true
@@ -66,7 +62,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SeedStuff/blend_seed_sunflower:visible")
+tracks/0/path = NodePath("Meshs/SeedStuff/blend_seed_sunflower:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,7 +74,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SeedStuff")
+tracks/1/path = NodePath("Meshs/SeedStuff")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -104,7 +100,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SeedStuff/GrowParticles:emitting")
+tracks/3/path = NodePath("Meshs/SeedStuff/GrowParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -119,7 +115,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SeedStuff/blend_seed_sunflower:visible")
+tracks/0/path = NodePath("Meshs/SeedStuff/blend_seed_sunflower:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -143,7 +139,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SeedStuff/GrowParticles:emitting")
+tracks/2/path = NodePath("Meshs/SeedStuff/GrowParticles:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -152,9 +148,61 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Meshs:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AppearParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_36fse"]
+resource_name = "APPEAR"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AppearParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Meshs:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fwt3b"]
 _data = {
+"APPEAR": SubResource("Animation_36fse"),
 "GROW": SubResource("Animation_micun"),
 "RESET": SubResource("Animation_78rri")
 }
@@ -204,21 +252,44 @@ sell_price = 15.0
 max_nearby_happ_decr_coef = -0.15
 nearby_happ_val = 0.5
 
-[node name="SeedStuff" type="Node3D" parent="."]
+[node name="States" type="Node" parent="."]
 
-[node name="blend_seed_sunflower" parent="SeedStuff" instance=ExtResource("4_sy0lt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.635, 0)
+[node name="FlowerPhaseStateMachine" type="Node" parent="States" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("16_e4vc2")
+starting_state = NodePath("seed")
 
-[node name="GrowParticles" parent="SeedStuff" instance=ExtResource("15_pfdx5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.692585, 0)
+[node name="seed" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
+script = ExtResource("19_t8dca")
+night = NodePath("../night")
+
+[node name="day" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
+script = ExtResource("17_owpbt")
+night = NodePath("../night")
+
+[node name="night" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("water_interactor_component", "happiness_component", "water_component", "flower_data", "day")]
+script = ExtResource("20_yysr1")
+water_interactor_component = NodePath("../../../Areas/WaterInteractableComponent")
+happiness_component = NodePath("../../../Components/HappinessComponent")
+water_component = NodePath("../../../Components/WaterComponent")
+flower_data = NodePath("../../../Components/FlowerData")
+day = NodePath("../day")
 
 [node name="Meshs" type="Node3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="blend_sunflower" parent="Meshs" instance=ExtResource("2_1b55w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59506, 0)
 visible = false
 
 [node name="blend_pot_1" parent="Meshs" instance=ExtResource("2_js4op")]
+
+[node name="SeedStuff" type="Node3D" parent="Meshs"]
+
+[node name="blend_seed_sunflower" parent="Meshs/SeedStuff" instance=ExtResource("4_sy0lt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.635, 0)
+
+[node name="GrowParticles" parent="Meshs/SeedStuff" instance=ExtResource("15_pfdx5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.692585, 0)
 
 [node name="Areas" type="Node3D" parent="."]
 
@@ -261,7 +332,7 @@ disappear_time = 0.75
 shape = SubResource("SphereShape3D_55hf5")
 
 [node name="FlowerDetectorMesh" type="MeshInstance3D" parent="Areas/FlowerDetector"]
-material_override = SubResource("ShaderMaterial_o5pho")
+material_override = ExtResource("12_uwllc")
 cast_shadow = 0
 instance_shader_parameters/alpha = 0.0
 instance_shader_parameters/color = Color(0.0352941, 0.0352941, 0.0352941, 1)
@@ -288,29 +359,9 @@ libraries = {
 "": SubResource("AnimationLibrary_fwt3b")
 }
 
-[node name="States" type="Node" parent="."]
+[node name="AppearParticles" parent="." instance=ExtResource("15_pfdx5")]
 
-[node name="FlowerPhaseStateMachine" type="Node" parent="States" node_paths=PackedStringArray("starting_state")]
-script = ExtResource("16_e4vc2")
-starting_state = NodePath("seed")
-
-[node name="seed" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
-script = ExtResource("19_t8dca")
-night = NodePath("../night")
-
-[node name="day" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("night")]
-script = ExtResource("17_owpbt")
-night = NodePath("../night")
-
-[node name="night" type="Node" parent="States/FlowerPhaseStateMachine" node_paths=PackedStringArray("water_interactor_component", "happiness_component", "water_component", "flower_data", "day")]
-script = ExtResource("20_yysr1")
-water_interactor_component = NodePath("../../../Areas/WaterInteractableComponent")
-happiness_component = NodePath("../../../Components/HappinessComponent")
-water_component = NodePath("../../../Components/WaterComponent")
-flower_data = NodePath("../../../Components/FlowerData")
-day = NodePath("../day")
-
-[editable path="SeedStuff/blend_seed_sunflower"]
 [editable path="Meshs/blend_sunflower"]
 [editable path="Meshs/blend_pot_1"]
+[editable path="Meshs/SeedStuff/blend_seed_sunflower"]
 [editable path="InGameUI"]

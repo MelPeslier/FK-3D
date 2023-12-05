@@ -31,6 +31,8 @@ func _ready() -> void:
 
 	flower_phase_state_machine.init(self)
 
+	animator.play("APPEAR")
+
 
 #region Phase State Machine
 func _physics_process(delta: float) -> void:
@@ -100,6 +102,7 @@ func process_physics_player(delta: float) -> void:
 
 
 func _on_flower_interactor_component_item_unfocus() -> void:
+	print("used")
 	holder.drop_item.emit()
 
 
@@ -109,6 +112,16 @@ func _on_flower_interactor_component_item_received(obj: Node3D) -> void:
 
 func _on_dropped() -> void:
 	holder = null
+
+
+func sold()  -> void:
+	if not holder:
+		print("Flower is sold but wasnt in player hand ?")
+		return
+
+	holder.drop_item.emit()
+
+	queue_free()
 #endregion
 
 

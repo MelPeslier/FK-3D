@@ -183,6 +183,8 @@ func _on_player_interactor_component_item_received(obj: Node3D) -> void:
 
 
 func _on_drop_item() -> void:
+	if not item: return
+
 	item.dropped.emit()
 	player_interactor_component.reset_cached_closest()
 	item = null

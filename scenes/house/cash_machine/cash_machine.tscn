@@ -19,15 +19,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050789, 0)
 mesh = SubResource("BoxMesh_7vuxg")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126633, -0.039566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133415, -0.039566)
 mesh = SubResource("BoxMesh_olfwx")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.205501, -0.039566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191723, -0.039566)
 mesh = SubResource("BoxMesh_2ctdj")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776193, 0.206814, -0.0243041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776193, 0.193036, -0.0243041)
 pixel_size = 0.0011
 text = "000000  $"
 horizontal_alignment = 2

@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://da8v7ukvwamv6"]
+[gd_scene load_steps=9 format=3 uid="uid://da8v7ukvwamv6"]
 
 [ext_resource type="PackedScene" uid="uid://c2gtsm88uxl51" path="res://assets/blend/furnitures/paneling.glb" id="1_qd2u2"]
 [ext_resource type="Script" path="res://scripts/house/panel/flower_panel.gd" id="1_tt2kw"]
 [ext_resource type="Texture2D" uid="uid://cj0qxb07jvuvm" path="res://icon.svg" id="2_4aodw"]
+[ext_resource type="Material" uid="uid://t217vgcosktn" path="res://mat_shad/materials/albedo_alpha.tres" id="4_02k0s"]
+[ext_resource type="Script" path="res://scripts/house/panel/panel_price.gd" id="4_8qtem"]
 [ext_resource type="Script" path="res://scripts/components/interact/interactable_component.gd" id="4_jmjvg"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_0oe05"]
@@ -14,6 +16,7 @@ radius = 0.179021
 [node name="FlowerPanel" type="Node3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_tt2kw")
+flower_scene_path = null
 
 [node name="paneling" parent="." instance=ExtResource("1_qd2u2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.283, 0)
@@ -23,10 +26,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.016)
 pixel_size = 0.0008
 texture = ExtResource("2_4aodw")
 
-[node name="PanelPrice" type="MeshInstance3D" parent="."]
+[node name="PanelPrice" type="MeshInstance3D" parent="." node_paths=PackedStringArray("label_price")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.018)
-visible = false
+material_override = ExtResource("4_02k0s")
+instance_shader_parameters/alpha = 0.301
+instance_shader_parameters/color = Color(0.145098, 0.698039, 1, 1)
 mesh = SubResource("QuadMesh_0oe05")
+script = ExtResource("4_8qtem")
+label_price = NodePath("LabelPrice")
 
 [node name="LabelPrice" type="Label3D" parent="PanelPrice"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00238393)
@@ -41,7 +48,7 @@ pixel_size = 0.0015
 text = "Flower Name"
 
 [node name="InteractableComponent" type="Area3D" parent="."]
-collision_layer = 32
+collision_layer = 288
 collision_mask = 0
 script = ExtResource("4_jmjvg")
 

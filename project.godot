@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Event="*res://autoloads/event.gd"
+MyColor="*res://autoloads/colors/my_color.tscn"
 
 [debug]
 
